@@ -1,0 +1,4 @@
+rootProject.name = 'bell-core'
+
+include 'bc-cdm'
+include 'bc-sys'

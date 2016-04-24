@@ -1,0 +1,4 @@
+.gradle
+.idea
+bc-cdm/build
+bc-sys/build
