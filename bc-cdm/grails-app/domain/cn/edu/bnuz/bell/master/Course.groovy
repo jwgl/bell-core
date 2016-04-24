@@ -4,8 +4,7 @@ import cn.edu.bnuz.bell.organization.Department
 
 /**
  * 课程
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Course {
     /**

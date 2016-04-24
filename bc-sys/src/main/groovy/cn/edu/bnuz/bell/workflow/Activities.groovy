@@ -3,7 +3,8 @@ package cn.edu.bnuz.bell.workflow
 import groovy.transform.CompileStatic
 
 /**
- * Created by yanglin on 2016/3/31.
+ * 活动常量
+ * @author Yang Lin
  */
 @CompileStatic
 interface Activities {

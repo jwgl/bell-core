@@ -8,8 +8,7 @@ import cn.edu.bnuz.bell.master.Major
 
 /**
  * 学生
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Student {
     /**

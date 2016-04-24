@@ -2,6 +2,7 @@ package cn.edu.bnuz.bell.security
 
 /**
  * 用户操作日志
+ * @author Yang Lin
  */
 class UserLog {
     /**

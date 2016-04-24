@@ -2,6 +2,7 @@ package cn.edu.bnuz.bell.workflow
 
 /**
  * 审核状态
+ * @author Yang Lin
  */
 enum AuditStatus {
     NULL     (-1, "空"),

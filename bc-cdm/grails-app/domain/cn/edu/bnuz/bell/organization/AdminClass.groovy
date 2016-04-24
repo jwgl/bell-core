@@ -5,8 +5,7 @@ import cn.edu.bnuz.bell.master.Major
 
 /**
  * 行政班
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class AdminClass {
     /**

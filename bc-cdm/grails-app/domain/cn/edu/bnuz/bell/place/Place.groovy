@@ -2,9 +2,8 @@ package cn.edu.bnuz.bell.place
 
 
 /**
- * 教室
- * @author yanglin
- *
+ * 教学场地
+ * @author Yang Lin
  */
 class Place {
     String id
@@ -26,13 +25,13 @@ class Place {
     ]
 
     static mapping = {
-        comment     '教室'
+        comment     '教学场地'
         table       schema: 'ea'
-        id          generator: 'assigned', length: 6, comment: '教室ID'
-        name        length: 50,    comment: '教室名称'
+        id          generator: 'assigned', length: 6, comment: '场地ID'
+        name        length: 50,    comment: '场地名称'
         englishName length: 50,    comment: '英文名称'
         building    length: 50,    comment: '教学楼'
-        type        length: 50,    comment: '教室类型'
+        type        length: 50,    comment: '场地类型'
         seat        comment: '座位数'
         testSeat    comment: '考试座位数'
         enabled     comment: '是否可用'

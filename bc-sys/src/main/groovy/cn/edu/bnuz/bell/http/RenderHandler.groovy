@@ -6,7 +6,8 @@ import org.grails.core.artefact.ControllerArtefactHandler
 import org.springframework.http.HttpStatus
 
 /**
- * Created by yanglin on 2015/4/8.
+ * 控制器中可用的Render方法
+ * @author Yang Lin
  */
 @Enhances(ControllerArtefactHandler.TYPE)
 trait RenderHandler {
@@ -28,26 +29,6 @@ trait RenderHandler {
 
     def renderNotFound() {
         render(status: HttpStatus.NOT_FOUND)
-    }
-
-    def renderStatus(ServiceStatus status) {
-        switch (status) {
-            case ServiceStatus.OK:
-                renderOk()
-                break
-            case ServiceStatus.CREATED:
-                renderCreated()
-                break
-            case ServiceStatus.BAD_REQUEST:
-                renderBadRequest()
-                break
-            case ServiceStatus.FORBIDDEN:
-                renderForbidden()
-                break;
-            case ServiceStatus.NOT_FOUND:
-                renderNotFound()
-                break;
-        }
     }
 
     def renderJson(Object data) {

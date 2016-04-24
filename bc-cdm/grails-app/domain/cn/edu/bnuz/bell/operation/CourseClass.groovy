@@ -7,6 +7,10 @@ import cn.edu.bnuz.bell.master.Property
 import cn.edu.bnuz.bell.organization.Department
 import cn.edu.bnuz.bell.organization.Teacher
 
+/**
+ * 教学班
+ * @Author Yang Lin
+ */
 class CourseClass {
     /**
      * 教学班代码

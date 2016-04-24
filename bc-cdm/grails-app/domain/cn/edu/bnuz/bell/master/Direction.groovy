@@ -2,8 +2,7 @@ package cn.edu.bnuz.bell.master
 
 /**
  * 专业方向
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Direction {
     /**

@@ -7,8 +7,7 @@ import cn.edu.bnuz.bell.master.Property
 
 /**
  * 课程性质限制
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class PropertyLimit {
     /**

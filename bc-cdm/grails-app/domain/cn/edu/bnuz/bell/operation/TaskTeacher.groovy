@@ -5,9 +5,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 import cn.edu.bnuz.bell.organization.Teacher
 
 /**
- * 安排-教师
- * @author yanglin
- *
+ * 教学任务-教师
+ * @author Yang Lin
  */
 class TaskTeacher implements Serializable {
     private static final long serialVersionUID = 1

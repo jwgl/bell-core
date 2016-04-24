@@ -4,7 +4,7 @@ import cn.edu.bnuz.bell.workflow.AuditAction
 
 /**
  * 用户操作日志服务
- * Created by yanglin on 2015/4/7.
+ * @author Yang Lin
  */
 class UserLogService {
     SecurityService securityService
@@ -50,7 +50,7 @@ order by a.dateCreated desc
         userLog.save(failOnError: true, flush: true)
     }
 
-    private String normalizeItem(item) {
+    private static String normalizeItem(Object item) {
         switch (item) {
             case Integer:
             case Long:

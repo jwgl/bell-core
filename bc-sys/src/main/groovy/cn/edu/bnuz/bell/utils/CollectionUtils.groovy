@@ -1,7 +1,8 @@
 package cn.edu.bnuz.bell.utils
 
 /**
- * Created by yanglin on 2015/4/17.
+ * 集合工具类
+ * @author Yang Lin
  */
 class CollectionUtils {
     static groupBy(List data, List<GroupCondition> conditions, Closure c = null) {

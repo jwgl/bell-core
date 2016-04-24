@@ -6,8 +6,8 @@ import org.springframework.security.oauth2.provider.ClientDetailsService
 import org.springframework.security.oauth2.provider.ClientRegistrationException
 
 /**
- * OAuthClient Service
- * Created by yanglin on 2016/1/9.
+ * OAuthClient服务
+ * @author Yang Lin
  */
 class OAuthClientService implements ClientDetailsService {
     @Override

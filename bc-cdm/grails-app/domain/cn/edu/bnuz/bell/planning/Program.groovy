@@ -5,8 +5,7 @@ import cn.edu.bnuz.bell.master.Major
 
 /**
  * 教学计划
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Program {
     /**

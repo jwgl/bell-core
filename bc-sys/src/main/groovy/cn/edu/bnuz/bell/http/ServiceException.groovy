@@ -3,7 +3,8 @@ package cn.edu.bnuz.bell.http
 import org.springframework.http.HttpStatus
 
 /**
- * Created by yanglin on 2015/4/16.
+ * 服务异常
+ * @author Yang Lin
  */
 abstract class ServiceException extends RuntimeException {
     HttpStatus status

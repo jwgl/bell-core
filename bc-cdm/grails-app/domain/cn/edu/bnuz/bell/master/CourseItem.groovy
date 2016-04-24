@@ -2,8 +2,7 @@ package cn.edu.bnuz.bell.master
 
 /**
  * 课程项目
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class CourseItem {
     /**

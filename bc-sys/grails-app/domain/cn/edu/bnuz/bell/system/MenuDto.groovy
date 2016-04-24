@@ -1,5 +1,9 @@
 package cn.edu.bnuz.bell.system
 
+/**
+ * 菜单视图
+ * @author Yang Lin
+ */
 class MenuDto {
     String id
     String name

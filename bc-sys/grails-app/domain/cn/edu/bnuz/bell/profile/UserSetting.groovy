@@ -4,7 +4,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 import cn.edu.bnuz.bell.security.User
 
-
+/**
+ * 用户设置
+ * @author Yang Lin
+ */
 class UserSetting implements Serializable {
     /**
      * 所属教师

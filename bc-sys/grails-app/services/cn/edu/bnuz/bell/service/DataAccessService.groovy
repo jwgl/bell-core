@@ -4,6 +4,10 @@ import cn.edu.bnuz.bell.http.NotFoundException
 import grails.compiler.GrailsCompileStatic
 import grails.transaction.Transactional
 
+/**
+ * 数据访问服务
+ * @author Yang Lin
+ */
 @Transactional
 @GrailsCompileStatic
 class DataAccessService {
@@ -11,7 +15,7 @@ class DataAccessService {
     public <D> D find(Class<D> dtoType, String query, Map params) {
         def hql = query.replace('Dto', dtoType.name)
 
-        def results = Dump.executeQuery hql, params
+        List results = Dump.executeQuery hql, params
         if (!results) {
             throw new NotFoundException()
         }
@@ -36,7 +40,8 @@ class DataAccessService {
     }
 
     private <T> T getValue(Class<T> type, String query, Map params) {
-        def results = Dump.executeQuery query, params
+        List results = Dump.executeQuery query, params
+
         if (!results) {
             return null
         } else {

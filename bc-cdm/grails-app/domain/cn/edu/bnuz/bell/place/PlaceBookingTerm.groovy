@@ -5,9 +5,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 import cn.edu.bnuz.bell.master.Term
 
 /**
- * 教室允许借用学期
- * @author yanglin
- *
+ * 场地借用-允许学期
+ * @author Yang Lin
  */
 class PlaceBookingTerm implements Serializable {
     Place place
@@ -16,7 +15,7 @@ class PlaceBookingTerm implements Serializable {
     static belongsTo = [place: Place]
 
     static mapping = {
-        comment '场地允许借用学期'
+        comment '场地借用-允许学期'
         table   schema: 'ea'
         id      composite: ['place', 'term']
         place   comment: '场地'

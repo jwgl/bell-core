@@ -9,8 +9,7 @@ import cn.edu.bnuz.bell.organization.Department
 
 /**
  * 教学计划-课程历史
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class ProgramCourseHistory {
     /**

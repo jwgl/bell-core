@@ -2,7 +2,7 @@ package cn.edu.bnuz.bell.security
 
 /**
  * OAuth client.
- * Created by yanglin on 2016/1/9.
+ * @author Yang Lin
  */
 class OAuthClient {
     String id

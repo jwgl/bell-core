@@ -2,8 +2,7 @@ package cn.edu.bnuz.bell.system
 
 /**
  * 菜单
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Menu {
     String id

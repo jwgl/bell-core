@@ -4,7 +4,8 @@ import grails.artefact.Enhances
 import org.grails.core.artefact.ControllerArtefactHandler
 
 /**
- * Created by yanglin on 2015/8/30.
+ * 控制器中可用的生成链接的方法
+ * @author Yang Lin
  */
 @Enhances(ControllerArtefactHandler.TYPE)
 trait ResourceLinker {

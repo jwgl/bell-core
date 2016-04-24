@@ -4,6 +4,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 /**
  * 选项
+ * @author Yang Lin
  */
 class SystemOption implements Serializable {
     /**

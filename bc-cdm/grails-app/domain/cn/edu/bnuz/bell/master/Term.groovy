@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit
 
 /**
  * 学期
- * @author yanglin
+ * @author Yang Lin
  */
 class Term {
     /**

@@ -5,9 +5,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 import cn.edu.bnuz.bell.organization.Department
 
 /**
- * 教室允许使用单位
- * @author yanglin
- *
+ * 场地专用单位
+ * @author Yang Lin
  */
 class PlaceDepartment implements Serializable {
     Place place
@@ -16,7 +15,7 @@ class PlaceDepartment implements Serializable {
     static belongsTo = [place: Place]
 
     static mapping = {
-        comment    '场地允许使用单位'
+        comment    '场地专用单位'
         table      schema: 'ea'
         id         composite: ['place', 'department']
         place      comment: '场地'

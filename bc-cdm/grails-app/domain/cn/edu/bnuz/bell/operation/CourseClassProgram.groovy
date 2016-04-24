@@ -4,6 +4,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 import cn.edu.bnuz.bell.planning.Program
 
+/**
+ * 教学班-教学计划
+ * @Author Yang Lin
+ */
 class CourseClassProgram implements Serializable {
     CourseClass courseClass
     Program program

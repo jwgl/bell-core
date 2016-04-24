@@ -5,8 +5,7 @@ import cn.edu.bnuz.bell.organization.Department
 
 /**
  * 年级专业
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Major {
     /**

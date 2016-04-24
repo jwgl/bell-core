@@ -1,5 +1,9 @@
 package cn.edu.bnuz.bell.security
 
+/**
+ * 权限
+ * @author Yang Lin
+ */
 class Permission {
     String id
     String name

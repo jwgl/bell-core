@@ -2,11 +2,9 @@ package cn.edu.bnuz.bell.master
 
 import cn.edu.bnuz.bell.organization.Department
 
-
 /**
  * 内部专业（年级专业模板）
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Subject {
     /**

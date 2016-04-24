@@ -1,5 +1,9 @@
 package cn.edu.bnuz.bell.security
 
+/**
+ * 用户
+ * @author Yang Lin
+ */
 class User {
     /**
      * 用户ID

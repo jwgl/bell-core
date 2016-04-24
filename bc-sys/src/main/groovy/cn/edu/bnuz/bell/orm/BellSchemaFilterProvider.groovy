@@ -9,7 +9,8 @@ import org.hibernate.tool.schema.spi.SchemaFilter
 import org.hibernate.tool.schema.spi.SchemaFilterProvider
 
 /**
- * Created by yanglin on 2016/2/12.
+ * 数据库Schema过滤器Provider
+ * @author Yang Lin
  */
 @Log4j
 class BellSchemaFilterProvider implements SchemaFilterProvider {

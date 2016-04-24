@@ -6,8 +6,7 @@ import cn.edu.bnuz.bell.master.Subject
 
 /**
  * 学生录取信息
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Admission {
     /**

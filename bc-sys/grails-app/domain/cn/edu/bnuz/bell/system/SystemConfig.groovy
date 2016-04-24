@@ -2,8 +2,7 @@ package cn.edu.bnuz.bell.system
 
 /**
  * 系统配置数据
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class SystemConfig {
     /**

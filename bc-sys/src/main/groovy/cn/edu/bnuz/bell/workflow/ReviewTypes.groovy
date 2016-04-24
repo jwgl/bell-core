@@ -3,7 +3,8 @@ package cn.edu.bnuz.bell.workflow
 import groovy.transform.CompileStatic
 
 /**
- * Created by yanglin on 2016/3/31.
+ * 审核类型常量
+ * @author Yang Lin
  */
 @CompileStatic
 interface ReviewTypes {

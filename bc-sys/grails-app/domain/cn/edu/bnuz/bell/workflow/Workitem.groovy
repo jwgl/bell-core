@@ -3,8 +3,8 @@ package cn.edu.bnuz.bell.workflow
 import cn.edu.bnuz.bell.security.User
 
 /**
- * 消息
- * Created by yanglin on 2015/4/23.
+ * 工作项
+ * @author Yang Lin
  */
 class Workitem {
     String id

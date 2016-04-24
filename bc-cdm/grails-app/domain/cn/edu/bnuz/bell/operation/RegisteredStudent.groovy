@@ -6,8 +6,7 @@ import cn.edu.bnuz.bell.organization.Student
 
 /**
  * 选课学生
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class RegisteredStudent implements Serializable {
     private static final long serialVersionUID = 1

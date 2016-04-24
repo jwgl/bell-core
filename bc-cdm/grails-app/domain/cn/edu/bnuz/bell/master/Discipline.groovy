@@ -1,9 +1,8 @@
 package cn.edu.bnuz.bell.master
 
 /**
- *  学科门类
- * @author yanglin
- *
+ * 学科门类
+ * @author Yang Lin
  */
 class Discipline {
     /**

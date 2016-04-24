@@ -2,8 +2,7 @@ package cn.edu.bnuz.bell.master
 
 /**
  * 普通高等学校本科专业目录（2012年）
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Field {
     /**

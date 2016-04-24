@@ -5,7 +5,7 @@ import cn.edu.bnuz.bell.security.Permission
 
 /**
  * 菜单项
- * @author yanglin
+ * @author Yang Lin
  *
  */
 class MenuItem {

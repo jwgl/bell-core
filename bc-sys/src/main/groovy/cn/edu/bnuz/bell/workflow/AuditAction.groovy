@@ -1,7 +1,8 @@
 package cn.edu.bnuz.bell.workflow
 
 /**
- * Created by yanglin on 2015/3/27.
+ * 审核动作
+ * @author Yang Lin
  */
 enum AuditAction {
     // before workflow

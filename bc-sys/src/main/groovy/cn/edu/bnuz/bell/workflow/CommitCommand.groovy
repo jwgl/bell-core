@@ -4,6 +4,7 @@ import groovy.transform.ToString
 
 /**
  * 工作流提交命令
+ * @author Yang Lin
  */
 @ToString
 class CommitCommand {

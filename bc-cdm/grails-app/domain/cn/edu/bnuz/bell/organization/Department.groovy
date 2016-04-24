@@ -4,8 +4,7 @@ import cn.edu.bnuz.bell.master.Major
 
 /**
  * 部门（行政/学院）
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Department {
     String id

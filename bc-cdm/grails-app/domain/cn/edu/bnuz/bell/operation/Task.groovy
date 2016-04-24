@@ -2,11 +2,9 @@ package cn.edu.bnuz.bell.operation
 
 import cn.edu.bnuz.bell.master.CourseItem
 
-
 /**
  * 教学任务
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Task {
     /**

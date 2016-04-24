@@ -1,5 +1,8 @@
 package cn.edu.bnuz.bell.security
 
+/**
+ * 用户类型
+ */
 enum UserType {
     TEACHER(1, "Teacher"),
     STUDENT(2, "Student"),

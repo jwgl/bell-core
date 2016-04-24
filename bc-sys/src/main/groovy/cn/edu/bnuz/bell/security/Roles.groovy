@@ -1,5 +1,9 @@
 package cn.edu.bnuz.bell.security
 
+/**
+ * 角色常量
+ * @author Yang Lin
+ */
 interface Roles {
     String USER =              'ROLE_USER'
 

@@ -4,8 +4,7 @@ import java.time.LocalDate
 
 /**
  * 教师
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Teacher {
     /**

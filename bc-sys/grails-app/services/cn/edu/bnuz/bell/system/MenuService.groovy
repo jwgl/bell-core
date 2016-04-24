@@ -2,6 +2,7 @@ package cn.edu.bnuz.bell.system
 
 /**
  * 菜单服务
+ * @author Yang Lin
  */
 class MenuService {
     def messageSource

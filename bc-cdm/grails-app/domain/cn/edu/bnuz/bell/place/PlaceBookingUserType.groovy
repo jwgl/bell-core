@@ -3,9 +3,8 @@ package cn.edu.bnuz.bell.place
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 /**
- * 教室借用允许用户类型
- * @author yanglin
- *
+ * 场地借用-允许用户类型
+ * @author Yang Lin
  */
 class PlaceBookingUserType implements Serializable {
     Place place
@@ -14,7 +13,7 @@ class PlaceBookingUserType implements Serializable {
     static belongsTo = [place: Place]
 
     static mapping = {
-        comment  '场地借用允许用户类型'
+        comment  '场地借用-允许用户类型'
         table    schema: 'ea'
         id       composite: ['place', 'userType']
         place    comment: '场地'

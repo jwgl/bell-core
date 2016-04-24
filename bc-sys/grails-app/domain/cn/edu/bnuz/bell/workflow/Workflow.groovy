@@ -2,7 +2,7 @@ package cn.edu.bnuz.bell.workflow
 
 /**
  * 工作流
- * Created by yanglin on 2016/3/29.
+ * @author Yang Lin
  */
 class Workflow {
     String id

@@ -6,7 +6,8 @@ import org.springframework.security.oauth2.provider.ClientDetails
 import org.springframework.util.StringUtils
 
 /**
- * Created by yanglin on 2016/1/9.
+ * OAuth Client Details
+ * @author Yang Lin
  */
 @CompileStatic
 class OAuthClientDetails implements ClientDetails {

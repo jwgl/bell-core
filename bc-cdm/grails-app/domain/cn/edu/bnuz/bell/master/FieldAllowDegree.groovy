@@ -4,8 +4,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 /**
  * 目录专业允许授予的学位
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class FieldAllowDegree implements Serializable{
     Discipline discipline

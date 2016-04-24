@@ -5,7 +5,8 @@ import org.hibernate.dialect.function.StandardSQLFunction
 import org.hibernate.type.IntegerType
 
 /**
- * Created by yanglin on 2016/2/20.
+ * Hibernate映射配置
+ * @author Yang Lin
  */
 class BellHibernateMappingContextConfiguration extends HibernateMappingContextConfiguration  {
     BellHibernateMappingContextConfiguration() {

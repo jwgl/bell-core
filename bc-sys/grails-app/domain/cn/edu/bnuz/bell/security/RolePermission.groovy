@@ -4,7 +4,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 /**
  * 角色-权限
- * @author yanglin
+ * @author Yang Lin
  *
  */
 class RolePermission implements Serializable {

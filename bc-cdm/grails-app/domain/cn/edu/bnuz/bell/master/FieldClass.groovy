@@ -2,8 +2,7 @@ package cn.edu.bnuz.bell.master
 
 /**
  * 专业类
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class FieldClass {
     /**

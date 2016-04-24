@@ -1,5 +1,9 @@
 package cn.edu.bnuz.bell.master
 
+/**
+ * 课时
+ * @author Yang Lin
+ */
 class Period {
     /**
      * 周理论课时(HPW - Hours Per Week)

@@ -1,7 +1,8 @@
 package cn.edu.bnuz.bell.workflow
 
 /**
- * Created by yanglin on 2016/3/29.
+ * 工作流实例
+ * @author Yang Lin
  */
 class WorkflowInstance {
     /**

@@ -1,9 +1,8 @@
 package cn.edu.bnuz.bell.http
 
-import cn.edu.bnuz.bell.http.ServiceException
-
 /**
- * Created by yanglin on 2016/3/31.
+ * 服务异常处理器
+ * @author Yang Lin
  */
 trait ServiceExceptionHandler {
     def handlerServiceException(ServiceException e) {

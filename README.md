@@ -7,4 +7,4 @@
 3. 插件在tm-server和ea-server中引用。
 
 ## 版权
-本项为开源软件，按照[Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html)发布。
+本项目为开源软件，按照[Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html)发布。

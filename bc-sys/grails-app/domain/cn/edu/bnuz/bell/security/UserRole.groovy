@@ -1,15 +1,12 @@
 package cn.edu.bnuz.bell.security
 
-import cn.edu.bnuz.bell.system.Menu
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 /**
  * 用户-角色
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class UserRole implements Serializable {
-
     private static final long serialVersionUID = 1
 
     User user

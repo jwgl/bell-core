@@ -6,7 +6,8 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication
 import org.springframework.web.context.request.RequestContextHolder
 
 /**
- * Created by yanglin on 2015/3/16.
+ * 安全服务
+ * @author Yang Lin
  */
 class SecurityService {
 

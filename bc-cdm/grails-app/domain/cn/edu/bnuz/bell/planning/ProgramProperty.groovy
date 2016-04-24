@@ -6,8 +6,7 @@ import cn.edu.bnuz.bell.master.Property
 
 /**
  * 教学计划-课程性质设置
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class ProgramProperty implements Serializable  {
     private static final long serialVersionUID = 1

@@ -6,7 +6,8 @@ import cn.edu.bnuz.bell.security.User
 import grails.transaction.Transactional
 
 /**
- * Created by yanglin on 2015/4/23.
+ * 工作流服务
+ * @author Yang Lin
  */
 @Transactional
 class WorkflowService {

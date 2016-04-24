@@ -5,8 +5,7 @@ import cn.edu.bnuz.bell.place.Place
 
 /**
  * 教学安排
- * @author yanglin
- *
+ * @author Yang Lin
  */
 class Arrangement {
     UUID id

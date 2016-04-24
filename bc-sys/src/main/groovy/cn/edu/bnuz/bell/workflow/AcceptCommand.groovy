@@ -4,6 +4,7 @@ import groovy.transform.ToString
 
 /**
  * 工作流同意命令
+ * @author Yang Lin
  */
 @ToString
 class AcceptCommand {
