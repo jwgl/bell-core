@@ -1,6 +1,7 @@
 package cn.edu.bnuz.bell.master
 
 import cn.edu.bnuz.bell.organization.Department
+import cn.edu.bnuz.bell.planning.Program
 
 
 /**
@@ -18,7 +19,7 @@ class Major {
      *  |  | `---- 派生专业
      *  |  `------ 学院代码
      *   `-------- 年级
-     * </pre> 
+     * </pre>
      */
     Integer id
 
@@ -58,7 +59,7 @@ class Major {
     ]
 
     static hasMany = [
-        directions: Direction // 专业下设方向
+        programs: Program
     ]
 
     static mapping = {

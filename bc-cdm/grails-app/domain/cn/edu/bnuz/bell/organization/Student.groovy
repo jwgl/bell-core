@@ -3,7 +3,7 @@ package cn.edu.bnuz.bell.organization
 import java.time.LocalDate
 
 import cn.edu.bnuz.bell.entrance.Admission
-import cn.edu.bnuz.bell.master.Direction
+import cn.edu.bnuz.bell.planning.Direction
 import cn.edu.bnuz.bell.master.Major
 
 /**

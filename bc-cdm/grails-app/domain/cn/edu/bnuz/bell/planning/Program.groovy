@@ -36,8 +36,12 @@ class Program {
      */
     Integer credit
 
+    static belongsTo = [major: Major]
+
     static hasMany = [
-        programProperties: ProgramProperty
+        directions:        Direction,
+        programCourses:    ProgramCourse,
+        programProperties: ProgramProperty,
     ]
 
     static mapping = {
