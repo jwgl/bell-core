@@ -127,6 +127,5 @@ class ProgramCourse {
 
     static constraints = {
         direction        nullable: true
-        course           unique: ['program', 'direction']
     }
 }
