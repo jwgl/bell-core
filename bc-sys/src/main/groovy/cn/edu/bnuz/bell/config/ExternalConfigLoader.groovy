@@ -1,6 +1,7 @@
 package cn.edu.bnuz.bell.config
 
 import grails.io.IOUtils
+import groovy.util.logging.Slf4j
 import org.grails.core.io.DefaultResourceLocator
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean
 import org.springframework.core.env.ConfigurableEnvironment
@@ -11,6 +12,7 @@ import org.springframework.core.env.PropertiesPropertySource
 /**
  * 外部配置加载器
  */
+@Slf4j
 class ExternalConfigLoader {
     static load(Environment environment) {
         def location = environment.getProperty('BELL_CONFIG_LOCATION') ?: environment.getProperty('bell.config.location', "/etc/bell/conf")
@@ -22,10 +24,11 @@ class ExternalConfigLoader {
             if (!file.exists()) {
                 return
             }
+            log.debug "Load external config from ${file.absolutePath}"
 
             DefaultResourceLocator resourceLocator = new DefaultResourceLocator()
             def configLocation = file.toURI().toString()
-            println configLocation
+
             def configurationResource = resourceLocator.findResourceForURI(configLocation)
             MapPropertySource source
             switch (ext.toLowerCase()) {
