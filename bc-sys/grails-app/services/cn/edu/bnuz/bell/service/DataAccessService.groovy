@@ -3,6 +3,7 @@ package cn.edu.bnuz.bell.service
 import cn.edu.bnuz.bell.http.NotFoundException
 import grails.compiler.GrailsCompileStatic
 import grails.transaction.Transactional
+import org.grails.web.json.JSONElement
 
 /**
  * 数据访问服务
@@ -33,6 +34,10 @@ class DataAccessService {
 
     public String getString(String query, Map params) {
         return getValue(String, query, params)
+    }
+
+    public JSONElement getJson(String query, Map params) {
+        return getValue(JSONElement, query, params)
     }
 
     public Boolean exists(String query, Map params) {
