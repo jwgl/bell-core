@@ -15,7 +15,7 @@ import org.springframework.core.env.PropertiesPropertySource
 @Slf4j
 class ExternalConfigLoader {
     static load(Environment environment) {
-        def location = environment.getProperty('BELL_CONFIG_LOCATION') ?: environment.getProperty('bell.config.location', "/etc/bell/conf")
+        def location = environment.getProperty('BELL_CONFIG_LOCATION') ?: environment.getProperty('bell.config.location', "/etc/bell")
         def appName = "${environment.getProperty('info.app.name')}"
 
         def extensions = ['yml', 'groovy']
