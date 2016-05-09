@@ -52,7 +52,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.security.oauth:spring-security-oauth2"
 
-    compile "org.postgresql:postgresql:$postgresVersion"
+    compile "org.postgresql:postgresql"
     provided "org.grails.plugins:hibernate5:$pluginHibernate5Version"
     provided "org.hibernate:hibernate-core:$hibernateVersion"
     compile "commons-lang:commons-lang:2.6"
