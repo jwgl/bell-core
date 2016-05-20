@@ -37,6 +37,10 @@ class BellSchemaFilterProvider implements SchemaFilterProvider {
         def ignoredViewPrefix = Holders.config.bell.orm.ignored.viewPrefix
 
         boolean includeNamespace(Namespace namespace) {
+            if (ignoredSchemas && ignoredSchemas.contains(namespace.name.schema.toString())) {
+                log.debug("Ignored scheme: ${namespace.name.schema.toString()}")
+                return false
+            }
             return true
         }
 
