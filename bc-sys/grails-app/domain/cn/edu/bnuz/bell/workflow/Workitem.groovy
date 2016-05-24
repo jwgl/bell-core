@@ -7,7 +7,10 @@ import cn.edu.bnuz.bell.security.User
  * @author Yang Lin
  */
 class Workitem {
-    String id
+    /**
+     * ID
+     */
+    UUID id
 
     /**
      * 发起人
@@ -68,7 +71,7 @@ class Workitem {
 
     static mapping = {
         comment       '消息'
-        id            length: 32, generator: 'guid', comment: '消息ID'
+        id            generator: 'uuid2', type:'pg-uuid', comment: '消息ID'
         from          column: 'from_user', length: 10, comment: '提交用户'
         action        column: 'from_action', comment: '提交操作'
         note          column: 'from_note', length: 2000, comment: '提交注备'

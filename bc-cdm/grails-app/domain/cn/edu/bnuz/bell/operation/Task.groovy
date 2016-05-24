@@ -8,20 +8,9 @@ import cn.edu.bnuz.bell.master.CourseItem
  */
 class Task {
     /**
-     * 教学任务代码
-     * <pre>
-     * 20131010010010101
-     * -----==---===--==
-     *   |  |  |  | | |
-     *   |  |  |  | | `--- 子任务顺序号(2)
-     *   |  |  |  | `----- 任务顺序号(2)
-     *   |  |  |  `------- 教学班顺序号(3)
-     *   |  |  `---------- 课程顺序号(3)
-     *   |  `------------- 部门号(2)
-     *   `---------------- 学期(5)
-     * </pre>
+     * ID
      */
-    Long id
+    UUID id
 
     /**
      * 是否为主任务，主任务关联的学生选课为全部选课学生。
@@ -61,14 +50,14 @@ class Task {
 
     static hasMany = [
         arrangements: Arrangement,
-        students: RegisteredStudent,
+        students: TaskStudent,
         teachers: TaskTeacher
     ]
 
     static mapping = {
         comment     '教学任务'
         table       schema: 'ea'
-        id          generator: 'assigned', comment: '教学任务ID'
+        id          generator: 'uuid2', type:'pg-uuid', comment: '教学任务ID'
         isPrimary   comment: '是否为主任务'
         startWeek   comment: '开始周'
         endWeek     comment: '结束周'

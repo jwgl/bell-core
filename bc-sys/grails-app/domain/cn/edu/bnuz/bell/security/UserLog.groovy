@@ -6,9 +6,9 @@ package cn.edu.bnuz.bell.security
  */
 class UserLog {
     /**
-     * GUID
+     * ID
      */
-    String id
+    UUID id
 
     User user
     /**
@@ -43,7 +43,7 @@ class UserLog {
 
     static mapping = {
         comment     '用户日志'
-        id          length: 32, generator: 'guid', comment: '用户日志ID'
+        id          generator: 'uuid2', type:'pg-uuid', comment: '用户日志ID'
         user        comment: '用户'
         ipAddress   length: 50, comment: 'IP地址'
         module      length: 50, comment: '模块'

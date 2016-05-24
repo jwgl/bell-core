@@ -13,18 +13,9 @@ import cn.edu.bnuz.bell.organization.Teacher
  */
 class CourseClass {
     /**
-     * 教学班代码
-     * <pre>
-     * 2013101001001
-     * -----==---===
-     *   |  |  |  |
-     *   |  |  |  `--- 教学班顺序号(3)
-     *   |  |  `------ 课程顺序号(3)
-     *   |  `--------- 部门号(2)
-     *   `------------ 学期(5)
-     * </pre>
+     * ID
      */
-    Long id
+    UUID id
 
     /**
      * 学时
@@ -99,7 +90,7 @@ class CourseClass {
     static mapping = {
         comment    '教学班'
         table      schema: 'ea'
-        id         generator: 'assigned', comment: '教学班ID'
+        id         generator: 'uuid2', type:'pg-uuid', comment: '教学班ID'
         property   comment: '课程性质'
         assessType comment: '考核方式'
         testType   comment: '考试方式'

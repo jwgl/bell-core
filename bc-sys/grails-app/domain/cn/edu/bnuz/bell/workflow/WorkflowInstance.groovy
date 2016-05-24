@@ -8,7 +8,7 @@ class WorkflowInstance {
     /**
      * ID
      */
-    String id
+    UUID id
 
     /**
      * 工作流
@@ -36,7 +36,7 @@ class WorkflowInstance {
 
     static mapping = {
         comment     '工作流实例'
-        id          length: 32, generator: 'guid', comment: '消息ID'
+        id          generator: 'uuid2', type:'pg-uuid', comment: '消息ID'
         workflow    comment: '工作流'
         title       length: 50, comment: '标题'
         entityId    length: 32, comment: '实体ID'
