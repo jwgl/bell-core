@@ -49,7 +49,7 @@ class Task {
     static belongsTo = [courseClass: CourseClass]
 
     static hasMany = [
-        arrangements: Arrangement,
+        schedules: TaskSchedule,
         students: TaskStudent,
         teachers: TaskTeacher
     ]

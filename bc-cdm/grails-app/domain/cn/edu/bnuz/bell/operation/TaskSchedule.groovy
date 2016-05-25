@@ -7,7 +7,7 @@ import cn.edu.bnuz.bell.place.Place
  * 教学安排
  * @author Yang Lin
  */
-class Arrangement {
+class TaskSchedule {
     UUID id
     /**
      * 开始周
