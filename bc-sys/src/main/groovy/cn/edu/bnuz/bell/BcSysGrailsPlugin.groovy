@@ -58,6 +58,9 @@ Brief summary/description of the plugin.
         JSON.registerObjectMarshaller(AuditAction) {
             it.name()
         }
+        JSON.registerObjectMarshaller(UUID) {
+            it.toString()
+        }
     }
 
     void onChange(Map<String, Object> event) {

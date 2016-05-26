@@ -18,7 +18,7 @@ class WorkflowService {
      * @param workflowInstanceId 运行实例ID
      * @return 工作项列表
      */
-    def getInstanceWorkitems(String workflowInstanceId) {
+    def getInstanceWorkitems(UUID workflowInstanceId) {
         Workitem.executeQuery '''
 select new Map (
     fromUser.name as fromUser,
@@ -153,7 +153,7 @@ and workitem.status = 0
 ''', [workflowInstance: workflowInstance, toUserId: toUserId]
     }
 
-    def setProcessed(String workItemId) {
+    def setProcessed(UUID workItemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
 set workitem.status = 1,
