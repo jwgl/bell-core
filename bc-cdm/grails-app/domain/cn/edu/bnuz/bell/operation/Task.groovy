@@ -13,6 +13,11 @@ class Task {
     UUID id
 
     /**
+     * 教学任务编号
+     */
+    String code
+
+    /**
      * 是否为主任务，主任务关联的学生选课为全部选课学生。
      * <pre>
      * 对于课程项目关系为and的课程的教学任务，有且仅有一个主任务
@@ -41,11 +46,6 @@ class Task {
      */
     CourseItem courseItem
 
-    /**
-     * 原系统选课课号
-     */
-    String originalId
-
     static belongsTo = [courseClass: CourseClass]
 
     static hasMany = [
@@ -58,16 +58,16 @@ class Task {
         comment     '教学任务'
         table       schema: 'ea'
         id          generator: 'uuid2', type:'pg-uuid', comment: '教学任务ID'
+        code        comment: '教学任务编号'
         isPrimary   comment: '是否为主任务'
         startWeek   comment: '开始周'
         endWeek     comment: '结束周'
         courseItem  comment: '课程项目'
-        originalId  length:31, comment: '原系统选课课号'
         courseClass comment: '所属教学班'
     }
 
     static constraints = {
+        code        maxSize: 31
         courseItem  nullable: true
-        originalId  nullable: true, maxSize: 31
     }
 }

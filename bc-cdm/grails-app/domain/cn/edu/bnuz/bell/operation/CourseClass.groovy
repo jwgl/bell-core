@@ -18,6 +18,11 @@ class CourseClass {
     UUID id
 
     /**
+     * 教学班编号
+     */
+    String code
+
+    /**
      * 学时
      */
     Period period
@@ -75,11 +80,6 @@ class CourseClass {
      */
     Teacher teacher
 
-    /**
-     * 原系统课号
-     */
-    String originalId
-
     static embedded = ['period']
 
     static hasMany = [
@@ -91,6 +91,7 @@ class CourseClass {
         comment    '教学班'
         table      schema: 'ea'
         id         generator: 'uuid2', type:'pg-uuid', comment: '教学班ID'
+        code       comment: '教学班编号'
         property   comment: '课程性质'
         assessType comment: '考核方式'
         testType   comment: '考试方式'
@@ -101,13 +102,12 @@ class CourseClass {
         course     comment: '课程'
         department comment: '开课单位'
         teacher    comment: '主讲教师'
-        originalId length: 31, comment: '原系统课号'
         programs   joinTable: [key: 'course_class_id']
     }
 
     static constraints = {
+        code       maxSize: 31
         teacher    nullable: true
         property   nullable: true
-        originalId nullable: true, maxSize: 31
     }
 }
