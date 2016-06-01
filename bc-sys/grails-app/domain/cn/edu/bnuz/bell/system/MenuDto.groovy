@@ -13,6 +13,6 @@ class MenuDto {
     String root
 
     static mapping = {
-        table name: 'v_menu'
+        table name: 'dv_menu'
     }
 }

@@ -6,6 +6,6 @@ package cn.edu.bnuz.bell.service
  */
 class Dump {
     static mapping = {
-        table name: 'v_dump'
+        table name: 'dv_dump'
     }
 }
