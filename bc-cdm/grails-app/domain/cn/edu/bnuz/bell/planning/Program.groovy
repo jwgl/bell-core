@@ -27,7 +27,7 @@ class Program {
     Major major
 
     /**
-     * 类别-0:主修;1:辅修;2:专升本（插班）;
+     * 类别-0:主修;1:辅修（非定向）;2：辅修（定向）3:专升本（插班）;
      */
     Integer type
 
@@ -49,7 +49,7 @@ class Program {
         table   schema: 'ea'
         id      generator: 'assigned', comment: '教学计划ID'
         major   comment: '所属专业'
-        type    defalutValue: "0", comment: '类别-0:主修;1:辅修;2:专升本（插班）'
+        type    defalutValue: "0", comment: '类别-0:主修;1:辅修（非定向）;2：辅修（定向）3:专升本（插班）'
         credit  comment: '总学分'
     }
 }
