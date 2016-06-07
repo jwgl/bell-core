@@ -55,6 +55,6 @@ class SecurityService {
 
     def getIpAddress() {
         def request = RequestContextHolder.currentRequestAttributes().request
-        request.getHeader("X-Forwarded-For") ?: request.getHeader("Client-IP") ?: request.remoteAddr
+        request.getHeader("X-Real-IP") ?: request.getHeader("X-Forwarded-For") ?: request.remoteAddr
     }
 }
