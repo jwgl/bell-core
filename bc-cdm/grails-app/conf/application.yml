@@ -15,3 +15,8 @@ spring:
     groovy:
         template:
             check-template-location: false
+# Spring Actuator Endpoints are Disabled by Default
+endpoints:
+    enabled: false
+    jmx:
+        enabled: true

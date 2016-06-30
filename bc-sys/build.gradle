@@ -41,7 +41,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
     console "org.grails:grails-console"
-    profile "org.grails.profiles:plugin:3.1.8"
+    profile "org.grails.profiles:plugin"
     provided "org.grails:grails-plugin-services"
     provided "org.grails:grails-plugin-domain-class"
     testCompile "org.grails:grails-plugin-testing"
@@ -56,10 +56,6 @@ dependencies {
     provided "org.grails.plugins:hibernate5:$pluginHibernate5Version"
     provided "org.hibernate:hibernate-core:$hibernateVersion"
     compile "commons-lang:commons-lang:2.6"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
 }
 
 grailsPublish {
