@@ -8,8 +8,14 @@ import org.springframework.http.HttpStatus
  */
 abstract class ServiceException extends RuntimeException {
     HttpStatus status
+
     ServiceException(HttpStatus status) {
         super(status.name())
+        this.status = status
+    }
+
+    ServiceException(HttpStatus status, String message) {
+        super(message)
         this.status = status
     }
 }
@@ -29,5 +35,9 @@ class ForbiddenException extends  ServiceException {
 class BadRequestException extends ServiceException {
     BadRequestException() {
         super(HttpStatus.BAD_REQUEST)
+    }
+
+    BadRequestException(String message) {
+        super(HttpStatus.BAD_REQUEST, message)
     }
 }

@@ -14,4 +14,6 @@ interface Roles {
 
     String STUDENT =           'ROLE_STUDENT'
     String IN_SCHOOL_STUDENT = 'ROLE_IN_SCHOOL_STUDENT'
+
+    String EXTERNAL=           'ROLE_EXTERNAL'
 }

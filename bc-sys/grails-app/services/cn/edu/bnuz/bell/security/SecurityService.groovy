@@ -39,6 +39,14 @@ class SecurityService {
         }
     }
 
+    UserType getUserType() {
+        if(authentication instanceof OAuth2Authentication) {
+            authentication.userAuthentication.details.userType
+        } else {
+            authentication.details.userType
+        }
+    }
+
     String getToken() {
         authentication?.details?.tokenValue
     }

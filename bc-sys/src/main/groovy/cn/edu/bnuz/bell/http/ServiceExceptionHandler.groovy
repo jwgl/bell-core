@@ -6,6 +6,6 @@ package cn.edu.bnuz.bell.http
  */
 trait ServiceExceptionHandler {
     def handlerServiceException(ServiceException e) {
-        render(status: e.status)
+        render(status: e.status, message: e.message)
     }
 }
