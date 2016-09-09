@@ -36,7 +36,7 @@ order by dateCreated desc
 ''', [workflowInstanceId: workflowInstanceId]
     }
 
-    def getOpenWorkitems(String userId) {
+    def getOpenWorkitems(String userId, Long offset, Long max) {
         Workitem.executeQuery '''
 select new Map (
   workflow.name as type,
@@ -53,10 +53,10 @@ join instance.workflow workflow
 where workitem.to.id = :userId
 and workitem.status = 0
 order by workitem.dateCreated desc
-''', [userId: userId]
+''', [userId: userId], [offset: offset, max: max]
     }
 
-    def getClosedWorkitems(String userId) {
+    def getClosedWorkitems(String userId, Long offset, Long max) {
         Workitem.executeQuery '''
 select new Map (
   workflow.name as type,
@@ -64,6 +64,7 @@ select new Map (
   instance.title as title,
   workitem.dateCreated as dateCreated,
   workitem.dateReceived as dateReceived,
+  workitem.dateProcessed as dateProcessed,
   fromUser.name as fromUser
 )
 from Workitem workitem
@@ -73,7 +74,7 @@ join instance.workflow workflow
 where workitem.to.id = :userId
 and workitem.status = 1
 order by workitem.dateCreated desc
-''', [userId: userId]
+''', [userId: userId], [offset: offset, max: max]
     }
 
     /**

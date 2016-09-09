@@ -5,6 +5,8 @@ import cn.edu.bnuz.bell.workflow.AuditStatus
 import grails.converters.JSON
 import grails.plugins.Plugin
 
+import java.time.LocalDate
+
 class BcSysGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
@@ -59,6 +61,9 @@ Brief summary/description of the plugin.
             it.name()
         }
         JSON.registerObjectMarshaller(UUID) {
+            it.toString()
+        }
+        JSON.registerObjectMarshaller(LocalDate) {
             it.toString()
         }
     }

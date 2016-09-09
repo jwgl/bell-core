@@ -40,6 +40,10 @@ class DataAccessService {
         return getValue(String, query, params)
     }
 
+    public UUID getUuid(String query, Map params = null) {
+        return getValue(UUID, query, params)
+    }
+
     public JSONElement getJson(String query, Map params = null) {
         return getValue(JSONElement, query, params)
     }
