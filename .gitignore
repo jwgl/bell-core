@@ -1,4 +1,11 @@
+Thumbs.db
+.DS_Store
 .gradle
+build/
 .idea
-bc-cdm/build
-bc-sys/build
+*.iml
+*.ipr
+*.iws
+.project
+.settings
+.classpath
