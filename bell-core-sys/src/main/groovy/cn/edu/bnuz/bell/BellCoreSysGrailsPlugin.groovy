@@ -1,6 +1,11 @@
 package cn.edu.bnuz.bell
 
+import cn.edu.bnuz.bell.workflow.AuditAction
+import cn.edu.bnuz.bell.workflow.AuditStatus
+import grails.converters.JSON
 import grails.plugins.*
+
+import java.time.LocalDate
 
 class BellCoreSysGrailsPlugin extends Plugin {
 
@@ -49,7 +54,18 @@ Brief summary/description of the plugin.
     }
 
     void doWithApplicationContext() {
-        // TODO Implement post initialization spring config (optional)
+        JSON.registerObjectMarshaller(AuditStatus) {
+            it.name()
+        }
+        JSON.registerObjectMarshaller(AuditAction) {
+            it.name()
+        }
+        JSON.registerObjectMarshaller(UUID) {
+            it.toString()
+        }
+        JSON.registerObjectMarshaller(LocalDate) {
+            it.toString()
+        }
     }
 
     void onChange(Map<String, Object> event) {

@@ -39,7 +39,7 @@ class RolePermission implements Serializable {
         builder.toHashCode()
     }
 
-    static findPermissionsByRoles(List<String> roles) {
-        RolePermission.executeQuery 'select rp.permission from RolePermission rp where rp.role.id in (:roles)', [roles: roles]
+    static List<String> findPermissionsByRoles(List<String> roles) {
+        RolePermission.executeQuery 'select rp.permission.id from RolePermission rp where rp.role.id in (:roles)', [roles: roles]
     }
 }

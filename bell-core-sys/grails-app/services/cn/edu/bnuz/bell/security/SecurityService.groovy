@@ -23,46 +23,54 @@ class SecurityService {
         principal
     }
 
-    String getUserName() {
+    def getUserDetails() {
         if(authentication instanceof OAuth2Authentication) {
-            authentication.userAuthentication.details.name
+            authentication.userAuthentication.details
         } else {
-            authentication.details.name
+            authentication.details
         }
+    }
+
+    String getUserName() {
+        userDetails.name
     }
 
     String getDepartmentId() {
-        if(authentication instanceof OAuth2Authentication) {
-            authentication.userAuthentication.details.departmentId
-        } else {
-            authentication.details.departmentId
-        }
+        userDetails.departmentId
     }
 
     UserType getUserType() {
-        if(authentication instanceof OAuth2Authentication) {
-            authentication.userAuthentication.details.userType
-        } else {
-            authentication.details.userType
-        }
+        userDetails.userType
     }
 
     String getToken() {
-        authentication?.details?.tokenValue
+        if(authentication instanceof OAuth2Authentication) {
+            authentication?.details?.tokenValue
+        } else {
+            null
+        }
     }
 
     def getUserRoles() {
         authentication.authorities
                 .collect { it.authority }
-                .findAll { !it.startsWith("ROLE_PERM") }
+                .findAll { it.startsWith('ROLE') }
+    }
+
+    Set<String> getUserPermissions() {
+        authentication.authorities
+                .collect { it.authority }
+                .findAll { it.startsWith('PERM') }
+                .toSet()
     }
 
     def hasPermission(String perm) {
-        authentication.authorities.find { it.authority == "ROLE_$perm" } != null
+        def authority = 'ROLE_' + perm
+        authentication.authorities.find { it.authority == authority } != null
     }
 
     def getIpAddress() {
         def request = RequestContextHolder.currentRequestAttributes().request
-        request.getHeader("X-Real-IP") ?: request.getHeader("X-Forwarded-For") ?: request.remoteAddr
+        request.getHeader('X-Real-IP') ?: request.getHeader('X-Forwarded-For') ?: request.remoteAddr
     }
 }

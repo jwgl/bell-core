@@ -51,7 +51,7 @@ join workitem.from fromUser
 join workitem.instance instance
 join instance.workflow workflow
 where workitem.to.id = :userId
-and workitem.statusCode = 0
+and workitem.status = 0
 order by workitem.dateCreated desc
 ''', [userId: userId], [offset: offset, max: max]
     }
@@ -72,7 +72,7 @@ join workitem.from fromUser
 join workitem.instance instance
 join instance.workflow workflow
 where workitem.to.id = :userId
-and workitem.statusCode = 1
+and workitem.status = 1
 order by workitem.dateCreated desc
 ''', [userId: userId], [offset: offset, max: max]
     }
@@ -85,12 +85,12 @@ order by workitem.dateCreated desc
     def getCounts(String userId) {
         def results = Workitem.executeQuery '''
 select new Map(
-  a.statusCode as statusCode,
+  a.status as status,
   count(*) as count
 )
 from Workitem a
 where a.to.id = :userId
-group by a.statusCode
+group by a.status
 ''', [userId: userId]
         def open = 0;
         def closed = 0;
@@ -146,21 +146,21 @@ group by a.statusCode
     def setProcessed(WorkflowInstance workflowInstance, String toUserId) {
         Workitem.executeUpdate '''
 update Workitem workitem
-set workitem.statusCode = 1,
+set workitem.status = 1,
     workitem.dateProcessed = CURRENT_TIMESTAMP
 where workitem.instance = :workflowInstance
 and workitem.to.id = :toUserId
-and workitem.statusCode = 0
+and workitem.status = 0
 ''', [workflowInstance: workflowInstance, toUserId: toUserId]
     }
 
     def setProcessed(UUID workItemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
-set workitem.statusCode = 1,
+set workitem.status = 1,
     workitem.dateProcessed = CURRENT_TIMESTAMP
 where workitem.id = :id
-and workitem.statusCode = 0
+and workitem.status = 0
 ''', [id: workItemId]
     }
 
