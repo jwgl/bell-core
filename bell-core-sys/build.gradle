@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
@@ -38,19 +39,19 @@ dependencies {
     provided "org.grails:grails-plugin-domain-class"
     testCompile "org.grails:grails-plugin-testing"
 
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    provided "org.springframework.boot:spring-boot-starter-tomcat"
     provided "org.grails:grails-plugin-rest"
 
-    compile "org.springframework.boot:spring-boot-starter-security"
-    compile "org.springframework.security.oauth:spring-security-oauth2"
+    provided "org.springframework.boot:spring-boot-starter-security"
+    provided "org.springframework.security.oauth:spring-security-oauth2"
 
-    compile "org.postgresql:postgresql"
+    provided "org.postgresql:postgresql"
     provided "org.grails.plugins:hibernate5"
     provided "org.hibernate:hibernate-core:5.1.1.Final"
 
-    compile "commons-lang:commons-lang:2.6"
-    compile "org.grails:grails-datastore-rest-client"
-    compile "com.netflix.eureka:eureka-client"
+    provided "commons-lang:commons-lang:2.6"
+    provided "org.grails:grails-datastore-rest-client"
+    provided "com.netflix.eureka:eureka-client"
 }
 grailsPublish {
     // TODO: Provide values here

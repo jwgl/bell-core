@@ -1,6 +1,5 @@
 package cn.edu.bnuz.bell.menu.module
 
-import cn.edu.bnuz.bell.menu.module.ModuleMenu
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
