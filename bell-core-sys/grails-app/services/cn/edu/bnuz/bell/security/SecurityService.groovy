@@ -24,7 +24,7 @@ class SecurityService {
     }
 
     def getUserDetails() {
-        if(authentication instanceof OAuth2Authentication) {
+        if (authentication instanceof OAuth2Authentication) {
             authentication.userAuthentication.details
         } else {
             authentication.details
@@ -40,11 +40,11 @@ class SecurityService {
     }
 
     UserType getUserType() {
-        userDetails.userType
+        UserType.valueOf(userDetails.userType)
     }
 
     String getToken() {
-        if(authentication instanceof OAuth2Authentication) {
+        if (authentication instanceof OAuth2Authentication) {
             authentication?.details?.tokenValue
         } else {
             null
@@ -54,19 +54,24 @@ class SecurityService {
     def getUserRoles() {
         authentication.authorities
                 .collect { it.authority }
-                .findAll { it.startsWith('ROLE') }
+                .findAll { it.startsWith('ROLE_') }
     }
 
     Set<String> getUserPermissions() {
         authentication.authorities
                 .collect { it.authority }
-                .findAll { it.startsWith('PERM') }
+                .findAll { it.startsWith('PERM_') }
                 .toSet()
     }
 
-    def hasPermission(String perm) {
-        def authority = 'ROLE_' + perm
-        authentication.authorities.find { it.authority == authority } != null
+    boolean hasRole(String role) {
+        assert role.startsWith('ROLE_')
+        authentication.authorities.find { it.authority == role } != null
+    }
+
+    boolean hasPermission(String perm) {
+        assert perm.startsWith('PERM_')
+        authentication.authorities.find { it.authority == perm } != null
     }
 
     def getIpAddress() {

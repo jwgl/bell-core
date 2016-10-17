@@ -77,12 +77,12 @@ class PostgreSQLJsonUserType implements UserType {
     }
 
     @Override
-    public Object assemble(Serializable serializable, Object o) throws HibernateException {
-        deepCopy(serializable)
+    public Object assemble(Serializable cached, Object owner) throws HibernateException {
+        deepCopy(cached)
     }
 
     @Override
-    public Object replace(Object o, Object o2, Object o3) throws HibernateException {
-        deepCopy(o)
+    public Object replace(Object original, Object target, Object owner) throws HibernateException {
+        deepCopy(original)
     }
 }

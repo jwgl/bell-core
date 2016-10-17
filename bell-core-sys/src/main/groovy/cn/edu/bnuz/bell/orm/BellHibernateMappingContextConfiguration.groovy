@@ -11,5 +11,6 @@ import org.hibernate.type.IntegerType
 class BellHibernateMappingContextConfiguration extends HibernateMappingContextConfiguration  {
     BellHibernateMappingContextConfiguration() {
         this.addSqlFunction('instr', new StandardSQLFunction('instr', new IntegerType()))
+        this.addSqlFunction('generate_series', new StandardSQLFunction('generate_series'))
     }
 }

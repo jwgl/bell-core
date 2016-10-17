@@ -11,6 +11,9 @@ class BellUser extends OssUser {
     String id
     String name
     String departmentId
+    String longPhone
+    String shortPhone
+    String email
     UserType userType
 
     BellUser(User user, Collection<GrantedAuthority> authorities) {
@@ -19,7 +22,10 @@ class BellUser extends OssUser {
         this.id = user.id
         this.name = user.name
         this.departmentId = user.departmentId
-        this.userType = userType
+        this.longPhone = user.longPhone
+        this.shortPhone = user.shortPhone
+        this.email = user.email
+        this.userType = user.userType
     }
 
     @Override

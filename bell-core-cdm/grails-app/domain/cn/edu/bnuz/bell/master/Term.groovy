@@ -1,5 +1,7 @@
 package cn.edu.bnuz.bell.master
 
+import cn.edu.bnuz.bell.calendar.TermSwapDate
+
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -54,6 +56,10 @@ class Term {
     Boolean schedule
 
 
+    static hasMany = [
+            swapDates: TermSwapDate
+    ]
+
     static mapping = {
         cache     true
         comment   '学期'
@@ -75,15 +81,30 @@ class Term {
     }
 
     /**
-     * 根据当前日期计算当前周。
+     * 根据当前日期计算当前教学周。
      * @return 当前周。如果小于开始周，则取开始周；如果大于结束周，则取结束周。
      */
     def getCurrentWeek() {
-        def current =  ChronoUnit.WEEKS.between(startDate, LocalDate.now()).intValue() + startWeek
+        def current =  (int)ChronoUnit.WEEKS.between(startDate, LocalDate.now()) + startWeek
         if(current < startWeek) {
             return startWeek
         } else if(current > endWeek){
             return endWeek
+        } else {
+            return current
+        }
+    }
+
+    /**
+     * 根据当前日期计算当前工作周。
+     * @return 当前周。如果小于开始周，则取开始周；如果大于最大周，则取最大周。
+     */
+    def getCurrentWorkWeek() {
+        def current = (int)ChronoUnit.WEEKS.between(startDate, LocalDate.now()) + startWeek
+        if(current < startWeek) {
+            return startWeek
+        } else if(current > maxWeek){
+            return maxWeek
         } else {
             return current
         }
@@ -96,5 +117,11 @@ class Term {
 
     int getEsTerm() {
         return this.id % 10
+    }
+
+    List<LocalDate> getSwapToDates() {
+        swapDates.collect {
+            it.toDate
+        }
     }
 }

@@ -1,5 +1,6 @@
 package cn.edu.bnuz.bell
 
+import cn.edu.bnuz.bell.security.UserType
 import cn.edu.bnuz.bell.workflow.AuditAction
 import cn.edu.bnuz.bell.workflow.AuditStatus
 import grails.converters.JSON
@@ -65,6 +66,9 @@ Brief summary/description of the plugin.
         }
         JSON.registerObjectMarshaller(LocalDate) {
             it.toString()
+        }
+        JSON.registerObjectMarshaller(UserType) {
+            it.name()
         }
     }
 

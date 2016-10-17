@@ -11,6 +11,8 @@ import java.sql.Types
 class PostgreSQL95Dialect extends PostgreSQL94Dialect{
     PostgreSQL95Dialect() {
         registerColumnType(Types.JAVA_OBJECT, 'json')
+        registerColumnType(PostgreSQLIntegerArrayUserType.SQL_TYPE, 'int[]')
+
     }
 
     @Override

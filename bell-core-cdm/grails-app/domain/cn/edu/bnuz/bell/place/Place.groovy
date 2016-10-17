@@ -21,7 +21,6 @@ class Place {
     static hasMany = [
         allowDepartments: PlaceDepartment,
         allowBookingTerms : PlaceBookingTerm,
-        allowBookingUserTypes: PlaceBookingUserType
     ]
 
     static mapping = {
