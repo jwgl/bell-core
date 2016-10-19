@@ -16,7 +16,7 @@ class DataAccessService {
     public <D> D find(Class<D> dtoType, String query, Map params) {
         def hql = query.replace('Dto', dtoType.name)
 
-        List results = Dump.executeQuery hql, params
+        List results = Dumb.executeQuery hql, params
         if (!results) {
             throw new NotFoundException()
         }
@@ -53,7 +53,7 @@ class DataAccessService {
     }
 
     private <T> T getValue(Class<T> type, String query, Map params) {
-        List results = params ? Dump.executeQuery(query, params) : Dump.executeQuery(query)
+        List results = params ? Dumb.executeQuery(query, params) : Dumb.executeQuery(query)
         return results ? (T)results[0] : null
     }
 }

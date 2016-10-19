@@ -5,6 +5,7 @@ import cn.edu.bnuz.bell.workflow.AuditAction
 import cn.edu.bnuz.bell.workflow.AuditStatus
 import grails.converters.JSON
 import grails.plugins.*
+import org.springframework.boot.web.filter.OrderedRequestContextFilter
 
 import java.time.LocalDate
 
@@ -45,8 +46,9 @@ Brief summary/description of the plugin.
     // Online location of the plugin's browseable source code.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
 
-    Closure doWithSpring() { {->
-            // TODO Implement runtime spring config (optional)
+    Closure doWithSpring() {
+        { ->
+            requestContextFilter(OrderedRequestContextFilter)
         }
     }
 
