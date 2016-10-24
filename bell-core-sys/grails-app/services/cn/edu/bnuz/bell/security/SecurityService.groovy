@@ -1,9 +1,9 @@
 package cn.edu.bnuz.bell.security
 
+import org.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.oauth2.provider.OAuth2Authentication
-import org.springframework.web.context.request.RequestContextHolder
 
 /**
  * 安全服务
@@ -74,8 +74,12 @@ class SecurityService {
         authentication.authorities.find { it.authority == perm } != null
     }
 
-    def getIpAddress() {
-        def request = RequestContextHolder.currentRequestAttributes().request
-        request.getHeader('X-Real-IP') ?: request.getHeader('X-Forwarded-For') ?: request.remoteAddr
+    String getIpAddress() {
+        def grailsWebRequest = GrailsWebRequest.lookup()
+        if (grailsWebRequest) {
+            grailsWebRequest.getHeader('X-Real-IP') ?: grailsWebRequest.getHeader('X-Forwarded-For') ?: grailsWebRequest.request.remoteAddr
+        } else {
+            null
+        }
     }
 }

@@ -3,6 +3,8 @@ package cn.edu.bnuz.bell
 import cn.edu.bnuz.bell.security.UserType
 import cn.edu.bnuz.bell.workflow.AuditAction
 import cn.edu.bnuz.bell.workflow.AuditStatus
+import cn.edu.bnuz.bell.workflow.Events
+import cn.edu.bnuz.bell.workflow.States
 import grails.converters.JSON
 import grails.plugins.*
 import org.springframework.boot.web.filter.OrderedRequestContextFilter
@@ -70,6 +72,12 @@ Brief summary/description of the plugin.
             it.toString()
         }
         JSON.registerObjectMarshaller(UserType) {
+            it.name()
+        }
+        JSON.registerObjectMarshaller(States) {
+            it.name()
+        }
+        JSON.registerObjectMarshaller(Events) {
             it.name()
         }
     }

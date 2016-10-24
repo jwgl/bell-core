@@ -13,24 +13,19 @@ class Workitem {
     UUID id
 
     /**
+     * 事件
+     */
+    Events event
+
+    /**
      * 发起人
      */
     User from
 
     /**
-     * 发起人操作
-     */
-    AuditAction action
-
-    /**
      * 发起人备注
      */
     String note
-
-    /**
-     * 发起人IP
-     */
-    String ip
 
     /**
      * 接收人
@@ -72,10 +67,9 @@ class Workitem {
     static mapping = {
         comment       '消息'
         id            generator: 'uuid2', type:'pg-uuid', comment: '消息ID'
+        event         column: 'event', comment: '事件'
         from          column: 'from_user', length: 10, comment: '提交用户'
-        action        column: 'from_action', comment: '提交操作'
         note          column: 'from_note', length: 2000, comment: '提交注备'
-        ip            column: 'from_ip', length:50, comment: '提交IP'
         to            index:'user_workitem_idx', column: 'to_user', length: 50, comment: '接收用户'
         instance      index: 'instance_workitem_idx', column: 'instance', comment: '实例'
         activity      column: 'activity', length: 50, comment: '活动'
@@ -92,6 +86,6 @@ class Workitem {
     }
 
     String getActivitySuffix() {
-        return this.activity.id.substring(this.activity.id.lastIndexOf('.') + 1)
+        this.activity.id.substring(this.activity.id.lastIndexOf('.') + 1)
     }
 }

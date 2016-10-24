@@ -1,5 +1,7 @@
 package cn.edu.bnuz.bell.workflow
 
+import cn.edu.bnuz.bell.security.User
+
 /**
  * 工作流实例
  * @author Yang Lin
@@ -41,5 +43,16 @@ class WorkflowInstance {
         title       length: 50, comment: '标题'
         entityId    length: 32, comment: '实体ID'
         dateCreated comment: '创建时间'
+    }
+
+    UUID getUnprocessedWorkitemId(String userId) {
+        def results = Workitem.executeQuery '''
+select wi.id
+from Workitem wi
+where wi.instance = :instance
+and wi.to.id = :userId
+and status = 0
+''', [instance: this, userId: userId], [max: 1]
+        results ? results[0] : null
     }
 }

@@ -1,8 +1,6 @@
 package cn.edu.bnuz.bell.workflow
 
-import cn.edu.bnuz.bell.security.SecurityService
 import cn.edu.bnuz.bell.security.User
-
 import grails.transaction.Transactional
 
 /**
@@ -11,8 +9,6 @@ import grails.transaction.Transactional
  */
 @Transactional
 class WorkflowService {
-    SecurityService securityService
-
     /**
      * 获取运行实例的工作项
      * @param workflowInstanceId 运行实例ID
@@ -22,10 +18,12 @@ class WorkflowService {
         Workitem.executeQuery '''
 select new Map (
     fromUser.name as fromUser,
-    workitem.action as action,
+    workitem.event as event,
     toUser.name as toUser,
     workitem.note as note,
     workitem.dateCreated as dateCreated,
+    workitem.dateReceived as dateReceived,
+    workitem.dateProcessed as dateProcessed,
     workitem.activity.id as activity
 )
 from Workitem workitem
@@ -124,8 +122,40 @@ group by a.status
         workflowInstance.save()
     }
 
-    Workitem createWorkItem(WorkflowInstance workflowInstance, String activity, String fromUserId,
-                            AuditAction action, String fromNote, String toUserId) {
+    /***
+     * 创建工作项，目标用户为最后提交者
+     * @param workflowInstance 工作流实例
+     * @param activity 活动
+     * @param event 事件
+     * @param fromUserId 源用户
+     * @param fromNote 备注
+     * @return 工作项
+     */
+    Workitem createWorkItem(WorkflowInstance workflowInstance,
+                            String activity,
+                            Events event,
+                            String fromUserId,
+                            String fromNote) {
+        String toUserId = getCommitUser(workflowInstance)
+        createWorkItem(workflowInstance, activity, event, fromUserId, fromNote, toUserId)
+    }
+
+    /***
+     * 创建工作项
+     * @param workflowInstance 工作流实例
+     * @param activity 活动
+     * @param event 事件
+     * @param fromUserId 源用户
+     * @param fromNote 备注
+     * @param toUserId 目标用户
+     * @return 工作项
+     */
+    Workitem createWorkItem(WorkflowInstance workflowInstance,
+                            String activity,
+                            Events event,
+                            String fromUserId,
+                            String fromNote,
+                            String toUserId) {
         if (!workflowInstance) {
             throw new Exception("Workflow instance ${workflowInstance} does not exist.")
         }
@@ -133,9 +163,8 @@ group by a.status
                 instance: workflowInstance,
                 activity: WorkflowActivity.load("${workflowInstance.workflow.id}.${activity}"),
                 from: User.load(fromUserId),
-                action: action,
+                event: event,
                 note: fromNote,
-                ip: securityService.ipAddress,
                 to: User.load(toUserId),
                 dateCreated: new Date(),
                 status: 0
@@ -176,9 +205,9 @@ select fromUser.id
 from Workitem workitem
 join workitem.from fromUser
 where workitem.instance = :workflowInstance
-and workitem.action = :action
+and workitem.event = :event
 order by workitem.dateCreated desc
-''', [workflowInstance: workflowInstance, action: AuditAction.COMMIT], [max: 1]
+''', [workflowInstance: workflowInstance, event: Events.COMMIT], [max: 1]
         results ? results[0] : null
     }
 }

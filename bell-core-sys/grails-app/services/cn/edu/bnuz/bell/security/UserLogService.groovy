@@ -1,53 +1,28 @@
 package cn.edu.bnuz.bell.security
 
-import cn.edu.bnuz.bell.workflow.AuditAction
+import cn.edu.bnuz.bell.workflow.Events
 
 /**
  * 用户操作日志服务
  * @author Yang Lin
  */
 class UserLogService {
-    SecurityService securityService
-
-    def list(Class clazz, Object item, boolean owner = false) {
-        list(clazz.name, normalizeItem(item), owner)
+    def log(String userId, String ipAddress, String event, Object item, Object content = null) {
+        log(userId, ipAddress, item.getClass(), event, item, content)
     }
 
-    def list(String module, String item, boolean owner = false) {
-        UserLog.executeQuery '''
-select new map(
-    u.name as user,
-    a.action as action,
-    a.prevStatus as prevStatus,
-    a.nextStatus as nextStatus,
-    a.content as content,
-    a.dateCreated as date
-)
-from UserLog a
-join a.user u
-where a.module = :module
-and a.item = :item
-and a.action >= :action
-order by a.dateCreated desc
-''', [module: module, item: item, action: owner ? AuditAction.CREATE : AuditAction.COMMIT]
-    }
-
-    def log(AuditAction action, Object item, Object content = null) {
-        log(item.getClass(), action, item, content)
-    }
-
-    def log(Class clazz, AuditAction action, Object item, Object content = null) {
+    def log(String userId, String ipAddress, Class clazz, String event, Object item, Object content = null) {
         UserLog userLog = new UserLog([
-            user: User.load(securityService.userId),
-            ipAddress: securityService.ipAddress,
+            user: User.load(userId),
+            ipAddress: ipAddress,
             module: clazz.name,
             item: normalizeItem(item),
-            action: action.name(),
+            event: event,
             content: content?.toString(),
             dateCreated: new Date()
         ])
 
-        userLog.save(failOnError: true, flush: true)
+        userLog.save()
     }
 
     private static String normalizeItem(Object item) {

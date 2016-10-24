@@ -1,7 +1,6 @@
 package cn.edu.bnuz.bell.menu.module
 
 import com.netflix.appinfo.ApplicationInfoManager
-import grails.web.context.ServletContextHolder
 import groovy.json.JsonBuilder
 import groovy.json.StringEscapeUtils
 import groovy.transform.CompileStatic
