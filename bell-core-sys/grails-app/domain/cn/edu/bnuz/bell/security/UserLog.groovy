@@ -48,7 +48,7 @@ class UserLog {
         ipAddress   length: 50, comment: 'IP地址'
         module      length: 50, comment: '模块'
         item        length: 50, comment: '记录'
-        event       length: 250, comment: '事件'
+        event       length: 10, comment: '事件'
         content     length: 4000, comment: '数据'
         dateCreated comment: '时间'
     }

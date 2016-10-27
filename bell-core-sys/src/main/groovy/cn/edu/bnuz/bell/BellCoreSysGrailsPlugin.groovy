@@ -1,12 +1,10 @@
 package cn.edu.bnuz.bell
 
 import cn.edu.bnuz.bell.security.UserType
-import cn.edu.bnuz.bell.workflow.AuditAction
-import cn.edu.bnuz.bell.workflow.AuditStatus
 import cn.edu.bnuz.bell.workflow.Events
 import cn.edu.bnuz.bell.workflow.States
 import grails.converters.JSON
-import grails.plugins.*
+import grails.plugins.Plugin
 import org.springframework.boot.web.filter.OrderedRequestContextFilter
 
 import java.time.LocalDate
@@ -14,7 +12,7 @@ import java.time.LocalDate
 class BellCoreSysGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "3.2.0.RC2 > *"
+    def grailsVersion = "3.2.0 > *"
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/views/error.gsp"
@@ -59,12 +57,6 @@ Brief summary/description of the plugin.
     }
 
     void doWithApplicationContext() {
-        JSON.registerObjectMarshaller(AuditStatus) {
-            it.name()
-        }
-        JSON.registerObjectMarshaller(AuditAction) {
-            it.name()
-        }
         JSON.registerObjectMarshaller(UUID) {
             it.toString()
         }

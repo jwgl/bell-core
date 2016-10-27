@@ -51,7 +51,7 @@ select wi.id
 from Workitem wi
 where wi.instance = :instance
 and wi.to.id = :userId
-and status = 0
+and wi.dateProcessed is null
 ''', [instance: this, userId: userId], [max: 1]
         results ? results[0] : null
     }

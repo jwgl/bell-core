@@ -10,6 +10,16 @@ import org.springframework.statemachine.StateContext
 
 @CompileStatic
 class CommittedEntryAction extends AbstractEntryAction {
+    private String activity
+
+    CommittedEntryAction() {
+        this(Activities.CHECK)
+    }
+
+    CommittedEntryAction(String activity) {
+        this.activity = activity
+    }
+
     @Override
     void execute(StateContext<States, Events> context) {
         def event = context.getMessageHeader(EventData.KEY) as CommitEventData
@@ -22,11 +32,12 @@ class CommittedEntryAction extends AbstractEntryAction {
 
         workflowService.createWorkItem(
                 workflowInstance,
-                Activities.CHECK,
-                context.event,
                 event.fromUser,
+                context.event,
+                context.target.id,
                 event.comment,
-                event.toUser
+                event.toUser,
+                this.activity,
         )
     }
 }

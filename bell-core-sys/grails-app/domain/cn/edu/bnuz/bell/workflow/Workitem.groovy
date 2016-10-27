@@ -13,14 +13,19 @@ class Workitem {
     UUID id
 
     /**
+     * 发起人
+     */
+    User from
+
+    /**
      * 事件
      */
     Events event
 
     /**
-     * 发起人
+     * 状态
      */
-    User from
+    States state
 
     /**
      * 发起人备注
@@ -33,14 +38,14 @@ class Workitem {
     User to
 
     /**
-     * 工作流实例
-     */
-    WorkflowInstance instance
-
-    /**
      * 活动
      */
     WorkflowActivity activity
+
+    /**
+     * 工作流实例
+     */
+    WorkflowInstance instance
 
     /**
      * 提交时间
@@ -57,30 +62,27 @@ class Workitem {
      */
     Date dateProcessed
 
-    /**
-     * 状态：0-未处理 1-已处理
-     */
-    Integer status
-
     static belongsTo = [instance: WorkflowInstance]
 
     static mapping = {
         comment       '消息'
         id            generator: 'uuid2', type:'pg-uuid', comment: '消息ID'
-        event         column: 'event', comment: '事件'
         from          column: 'from_user', length: 10, comment: '提交用户'
-        note          column: 'from_note', length: 2000, comment: '提交注备'
+        event         column: 'event', length: 10, comment: '事件'
+        state         comment: '状态'
+        note          column: 'note', length: 2000, comment: '提交注备'
         to            index:'user_workitem_idx', column: 'to_user', length: 50, comment: '接收用户'
         instance      index: 'instance_workitem_idx', column: 'instance', comment: '实例'
         activity      column: 'activity', length: 50, comment: '活动'
-        dateCreated   index:'user_workitem_idx,instance_workitem_idx', comment: '提交时间'
+        dateCreated   index: 'instance_workitem_idx', comment: '提交时间'
         dateReceived  comment: '接收时间'
-        dateProcessed comment: '办结时间'
-        status        index:'user_workitem_idx', comment: '状态：0-未处理 1-已处理'
+        dateProcessed index:'user_workitem_idx', comment: '办结时间'
     }
 
     static constraints = {
         note          nullable: true, maxSize: 2000
+        to            nullable: true
+        activity      nullable: true
         dateReceived  nullable: true
         dateProcessed nullable: true
     }

@@ -19,16 +19,16 @@ class WorkflowService {
 select new Map (
     fromUser.name as fromUser,
     workitem.event as event,
-    toUser.name as toUser,
     workitem.note as note,
+    workitem.state as state,
+    toUser.name as toUser,
     workitem.dateCreated as dateCreated,
     workitem.dateReceived as dateReceived,
-    workitem.dateProcessed as dateProcessed,
-    workitem.activity.id as activity
+    workitem.dateProcessed as dateProcessed
 )
 from Workitem workitem
 join workitem.from fromUser
-join workitem.to toUser
+left join workitem.to toUser
 where workitem.instance.id = :workflowInstanceId
 order by dateCreated desc
 ''', [workflowInstanceId: workflowInstanceId]
@@ -49,7 +49,7 @@ join workitem.from fromUser
 join workitem.instance instance
 join instance.workflow workflow
 where workitem.to.id = :userId
-and workitem.status = 0
+and workitem.dateProcessed is null
 order by workitem.dateCreated desc
 ''', [userId: userId], [offset: offset, max: max]
     }
@@ -70,8 +70,8 @@ join workitem.from fromUser
 join workitem.instance instance
 join instance.workflow workflow
 where workitem.to.id = :userId
-and workitem.status = 1
-order by workitem.dateCreated desc
+and workitem.dateProcessed is not null
+order by workitem.dateProcessed desc
 ''', [userId: userId], [offset: offset, max: max]
     }
 
@@ -81,27 +81,8 @@ order by workitem.dateCreated desc
      * @return [open: openCount, closed: closedCount]
      */
     def getCounts(String userId) {
-        def results = Workitem.executeQuery '''
-select new Map(
-  a.status as status,
-  count(*) as count
-)
-from Workitem a
-where a.to.id = :userId
-group by a.status
-''', [userId: userId]
-        def open = 0;
-        def closed = 0;
-        results.each {row ->
-            switch (row.status) {
-                case 0:
-                    open += row.count
-                    break
-                case 1:
-                    closed += row.count
-                    break
-            }
-        }
+        def open = Workitem.countByToAndDateProcessedIsNull(User.load(userId))
+        def closed = Workitem.countByToAndDateProcessedIsNotNull(User.load(userId))
         return [open: open, closed: closed]
     }
 
@@ -122,52 +103,79 @@ group by a.status
         workflowInstance.save()
     }
 
-    /***
-     * 创建工作项，目标用户为最后提交者
+    /**
+     * 创建自动工作项，不需要用户处理
      * @param workflowInstance 工作流实例
-     * @param activity 活动
+     * @param fromUser 源用户
      * @param event 事件
-     * @param fromUserId 源用户
+     * @param state 状态
      * @param fromNote 备注
      * @return 工作项
      */
     Workitem createWorkItem(WorkflowInstance workflowInstance,
-                            String activity,
+                            String fromUser,
                             Events event,
-                            String fromUserId,
+                            States state,
                             String fromNote) {
-        String toUserId = getCommitUser(workflowInstance)
-        createWorkItem(workflowInstance, activity, event, fromUserId, fromNote, toUserId)
-    }
-
-    /***
-     * 创建工作项
-     * @param workflowInstance 工作流实例
-     * @param activity 活动
-     * @param event 事件
-     * @param fromUserId 源用户
-     * @param fromNote 备注
-     * @param toUserId 目标用户
-     * @return 工作项
-     */
-    Workitem createWorkItem(WorkflowInstance workflowInstance,
-                            String activity,
-                            Events event,
-                            String fromUserId,
-                            String fromNote,
-                            String toUserId) {
-        if (!workflowInstance) {
-            throw new Exception("Workflow instance ${workflowInstance} does not exist.")
-        }
         Workitem workItem = new Workitem(
                 instance: workflowInstance,
-                activity: WorkflowActivity.load("${workflowInstance.workflow.id}.${activity}"),
-                from: User.load(fromUserId),
+                from: User.load(fromUser),
                 event: event,
+                state: state,
                 note: fromNote,
-                to: User.load(toUserId),
                 dateCreated: new Date(),
-                status: 0
+        )
+        workItem.save()
+    }
+
+
+    /**
+     * 创建手工工作项，需要目标用户处理，目标用户为最后提交者
+     * @param workflowInstance 工作流实例
+     * @param fromUser 源用户
+     * @param event 事件
+     * @param state 状态
+     * @param fromNote 备注
+     * @param activity 活动
+     * @return 工作项
+     */
+    Workitem createWorkItem(WorkflowInstance workflowInstance,
+                            String fromUser,
+                            Events event,
+                            States state,
+                            String fromNote,
+                            String activity) {
+        String toUser = getCommitUser(workflowInstance)
+        createWorkItem(workflowInstance, fromUser, event, state, fromNote, toUser, activity)
+    }
+
+    /**
+     * 创建手工工作项，需要目标用户处理
+     * @param workflowInstance 工作流实例
+     * @param fromUser 源用户
+     * @param event 事件
+     * @param state 状态
+     * @param fromNote 备注
+     * @param toUser 目标用户
+     * @param activity 活动
+     * @return 工作项
+     */
+    Workitem createWorkItem(WorkflowInstance workflowInstance,
+                            String fromUser,
+                            Events event,
+                            States state,
+                            String fromNote,
+                            String toUser,
+                            String activity) {
+        Workitem workItem = new Workitem(
+                instance: workflowInstance,
+                from: User.load(fromUser),
+                event: event,
+                state: state,
+                note: fromNote,
+                to: User.load(toUser),
+                activity: WorkflowActivity.load("${workflowInstance.workflow.id}.${activity}"),
+                dateCreated: new Date(),
         )
         workItem.save()
     }
@@ -175,21 +183,17 @@ group by a.status
     def setProcessed(WorkflowInstance workflowInstance, String toUserId) {
         Workitem.executeUpdate '''
 update Workitem workitem
-set workitem.status = 1,
-    workitem.dateProcessed = CURRENT_TIMESTAMP
+set workitem.dateProcessed = CURRENT_TIMESTAMP
 where workitem.instance = :workflowInstance
 and workitem.to.id = :toUserId
-and workitem.status = 0
 ''', [workflowInstance: workflowInstance, toUserId: toUserId]
     }
 
     def setProcessed(UUID workItemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
-set workitem.status = 1,
-    workitem.dateProcessed = CURRENT_TIMESTAMP
+set workitem.dateProcessed = CURRENT_TIMESTAMP
 where workitem.id = :id
-and workitem.status = 0
 ''', [id: workItemId]
     }
 

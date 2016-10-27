@@ -3,12 +3,10 @@ package cn.edu.bnuz.bell.workflow.events
 import cn.edu.bnuz.bell.workflow.IStateObject
 
 class CommitEventData implements EventData {
-    String fromUser
-    String toUser
-    String title
-    String comment
     IStateObject entity
-    String ipAddress
+    String fromUser
+    String comment
+
     /**
      * 新建时为空
      */
@@ -19,4 +17,8 @@ class CommitEventData implements EventData {
             this.entity.workflowInstance.getUnprocessedWorkitemId(fromUser)
         }
     }
+
+    String toUser
+    String title
+    String ipAddress
 }

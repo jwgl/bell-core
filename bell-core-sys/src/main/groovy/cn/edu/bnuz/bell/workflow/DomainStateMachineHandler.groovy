@@ -24,10 +24,28 @@ class DomainStateMachineHandler {
         this.persister = persister
     }
 
-    public void start(IStateObject contextObj) {
+    public States getInitialState() {
+        return stateMachine.initialState.id
+    }
+
+    public void create(IStateObject contextObj, String fromUser) {
         synchronized(stateMachine) {
-            this.reset()
-            this.persister.persist(stateMachine, contextObj)
+            stateMachine.stop();
+            stateMachine.getStateMachineAccessor().doWithAllRegions(new StateMachineFunction<StateMachineAccess<States, Events>>() {
+                public void apply(StateMachineAccess<States, Events> function) {
+                    function.setInitialEnabled(true)
+                    function.setForwardedInitialEvent(MessageBuilder
+                            .withPayload(Events.CREATE)
+                            .setHeader(EventData.KEY, new AutoEventData(
+                                fromUser: fromUser,
+                                entity: contextObj,
+                                ipAddress: securityService.ipAddress,
+                             ))
+                            .build()
+                    )
+                }
+            });
+            stateMachine.start();
         }
     }
 
@@ -38,16 +56,6 @@ class DomainStateMachineHandler {
                 it.source == stateMachine.state && it.trigger.event == event
             }
             transition != null
-        }
-    }
-
-    private handleEvent(Events event, IStateObject contextObj) {
-        synchronized (stateMachine) {
-            this.handleEvent(event, new DefaultEventData(
-                    fromUser: securityService.userId,
-                    entity: contextObj,
-                    ipAddress: securityService.ipAddress,
-            ))
         }
     }
 
@@ -66,23 +74,80 @@ class DomainStateMachineHandler {
         }
     }
 
-    public void update(IStateObject contextObj) {
-        this.handleEvent(Events.UPDATE, contextObj)
-    }
-
-    public void commit(String fromUser, String toUser, String title, String comment, IStateObject entity) {
-        this.handleEvent(Events.COMMIT, new CommitEventData(
-                fromUser: fromUser,
-                toUser: toUser,
-                title: title,
-                comment: comment,
+    public void update(IStateObject entity, String fromUser) {
+        this.handleEvent(Events.UPDATE, new AutoEventData(
                 entity: entity,
+                fromUser: fromUser,
                 ipAddress: securityService.ipAddress,
         ))
     }
 
-    public void accept(String fromUser, String toUser, String comment, IStateObject entity, UUID workitemId) {
-        this.handleEvent(Events.ACCEPT, new AcceptEventData(
+    public void commit(IStateObject entity, String fromUser, String toUser, String comment, String title) {
+        this.handleEvent(Events.COMMIT, new CommitEventData(
+                entity: entity,
+                fromUser: fromUser,
+                toUser: toUser,
+                comment: comment,
+                title: title,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+    /**
+     * 来自程序的同意，不产生新的待办事项（自动->自动）
+     * @param entity 实体
+     * @param fromUser 源用户
+     */
+    public void accept(IStateObject entity, String fromUser) {
+        this.handleEvent(Events.ACCEPT, new AutoEventData(
+                entity: entity,
+                fromUser: fromUser,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+    /**
+     * 来自人工的同意，不产生新的待办事项（人工->自动)
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param comment 备注
+     * @param workitemId 来源工作项ID
+     */
+    public void accept(IStateObject entity, String fromUser, String comment, UUID workitemId) {
+        this.handleEvent(Events.ACCEPT, new AutoEventData(
+                entity: entity,
+                fromUser: fromUser,
+                comment: comment,
+                workitemId: workitemId,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+    /**
+     * 来自程序的同意，不产生新的待办事项（自动->人工）
+     * @param entity 实体
+     * @param fromUser 源用户
+     */
+    public void accept(IStateObject entity, String fromUser, String toUser) {
+        this.handleEvent(Events.ACCEPT, new ManualEventData(
+                entity: entity,
+                fromUser: fromUser,
+                toUser: toUser,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+
+    /**
+     * 来自人工的同意，产生新的待办事项（人工->人工）
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param comment 备注
+     * @param toUser 目标用户
+     * @param workitemId 来源工作项ID
+     */
+    public void accept(IStateObject entity, String fromUser, String comment, UUID workitemId, String toUser) {
+        this.handleEvent(Events.ACCEPT, new ManualEventData(
                 fromUser: fromUser,
                 toUser: toUser,
                 comment: comment,
@@ -92,7 +157,28 @@ class DomainStateMachineHandler {
         ))
     }
 
-    public void reject(String fromUser, String comment, IStateObject entity, UUID workitemId) {
+    /**
+     * 自来程序的退回，不产生新的待办事项
+     * @param entity 实体
+     * @param fromUser 源用户
+     */
+    public void reject(IStateObject entity, String fromUser) {
+        this.handleEvent(Events.REJECT, new RejectEventData(
+                fromUser: fromUser,
+                entity: entity,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+
+    /**
+     * 自来人工的退回，回退发起人
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param comment 备注
+     * @param workitemId 来源工作项ID
+     */
+    public void reject(IStateObject entity, String fromUser, String comment, UUID workitemId) {
         this.handleEvent(Events.REJECT, new RejectEventData(
                 fromUser: fromUser,
                 comment: comment,
@@ -116,17 +202,5 @@ class DomainStateMachineHandler {
 
     public canReject(IStateObject entity) {
         return canHandleEvent(Events.REJECT, entity)
-    }
-
-    private reset() {
-        synchronized(stateMachine) {
-            stateMachine.stop();
-            stateMachine.getStateMachineAccessor().doWithAllRegions(new StateMachineFunction<StateMachineAccess<States, Events>>() {
-                public void apply(StateMachineAccess<States, Events> function) {
-                    function.resetStateMachine(null);
-                }
-            });
-            stateMachine.start();
-        }
     }
 }

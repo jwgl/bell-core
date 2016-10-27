@@ -4,8 +4,9 @@ import cn.edu.bnuz.bell.workflow.IStateObject
 
 interface EventData {
     String KEY = 'EVENT_DATA'
-    String getFromUser();
-    String getIpAddress();
     IStateObject getEntity();
+    String getFromUser();
+    String getComment();
     UUID getWorkitemId();
+    String getIpAddress();
 }

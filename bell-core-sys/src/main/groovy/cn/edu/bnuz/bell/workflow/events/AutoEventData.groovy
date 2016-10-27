@@ -2,12 +2,10 @@ package cn.edu.bnuz.bell.workflow.events
 
 import cn.edu.bnuz.bell.workflow.IStateObject
 
-class DefaultEventData implements EventData {
-    String fromUser
+class AutoEventData implements EventData {
     IStateObject entity
+    String fromUser
+    String comment
+    UUID workitemId
     String ipAddress
-
-    UUID getWorkitemId() {
-        return null
-    }
 }
