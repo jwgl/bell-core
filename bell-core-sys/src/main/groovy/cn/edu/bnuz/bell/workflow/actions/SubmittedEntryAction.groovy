@@ -36,6 +36,7 @@ class SubmittedEntryAction extends AbstractEntryAction {
                 context.event,
                 context.target.id,
                 event.comment,
+                event.ipAddress,
                 event.toUser,
                 this.activity,
         )

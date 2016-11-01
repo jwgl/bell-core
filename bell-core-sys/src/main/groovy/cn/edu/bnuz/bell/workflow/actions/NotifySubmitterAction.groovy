@@ -21,6 +21,7 @@ class NotifySubmitterAction extends AbstractEntryAction {
                 context.event,
                 context.target.id,
                 event.comment,
+                event.ipAddress,
                 Activities.VIEW,
         )
     }

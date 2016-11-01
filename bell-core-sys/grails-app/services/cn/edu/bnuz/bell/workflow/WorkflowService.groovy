@@ -109,20 +109,23 @@ order by workitem.dateProcessed desc
      * @param fromUser 源用户
      * @param event 事件
      * @param state 状态
-     * @param fromNote 备注
+     * @param note 备注
+     * @param ipAddress IP地址
      * @return 工作项
      */
     Workitem createWorkitem(WorkflowInstance workflowInstance,
                             String fromUser,
                             Event event,
                             State state,
-                            String fromNote) {
+                            String note,
+                            String ipAddress) {
         Workitem workItem = new Workitem(
                 instance: workflowInstance,
                 from: User.load(fromUser),
                 event: event,
                 state: state,
-                note: fromNote,
+                note: note,
+                ipAddress: ipAddress,
                 dateCreated: new Date(),
         )
         workItem.save()
@@ -135,7 +138,8 @@ order by workitem.dateProcessed desc
      * @param fromUser 源用户
      * @param event 事件
      * @param state 状态
-     * @param fromNote 备注
+     * @param note 备注
+     * @param ipAddress IP地址
      * @param activity 活动
      * @return 工作项
      */
@@ -143,10 +147,11 @@ order by workitem.dateProcessed desc
                             String fromUser,
                             Event event,
                             State state,
-                            String fromNote,
+                            String note,
+                            String ipAddress,
                             String activity) {
         String toUser = getSubmitUser(workflowInstance)
-        createWorkitem(workflowInstance, fromUser, event, state, fromNote, toUser, activity)
+        createWorkitem(workflowInstance, fromUser, event, state, note, ipAddress, toUser, activity)
     }
 
     /**
@@ -155,7 +160,8 @@ order by workitem.dateProcessed desc
      * @param fromUser 源用户
      * @param event 事件
      * @param state 状态
-     * @param fromNote 备注
+     * @param note 备注
+     * @param ipAddress IP地址
      * @param toUser 目标用户
      * @param activity 活动
      * @return 工作项
@@ -164,7 +170,8 @@ order by workitem.dateProcessed desc
                             String fromUser,
                             Event event,
                             State state,
-                            String fromNote,
+                            String note,
+                            String ipAddress,
                             String toUser,
                             String activity) {
         Workitem workItem = new Workitem(
@@ -172,7 +179,8 @@ order by workitem.dateProcessed desc
                 from: User.load(fromUser),
                 event: event,
                 state: state,
-                note: fromNote,
+                note: note,
+                ipAddress: ipAddress,
                 to: User.load(toUser),
                 activity: WorkflowActivity.load("${workflowInstance.workflow.id}.${activity}"),
                 dateCreated: new Date(),

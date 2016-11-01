@@ -33,6 +33,11 @@ class Workitem {
     String note
 
     /**
+     * IP地址
+     */
+    String ipAddress
+
+    /**
      * 接收人
      */
     User to
@@ -70,7 +75,8 @@ class Workitem {
         from          column: 'from_user', length: 10, comment: '提交用户'
         event         sqlType: 'event', type: EventUserType, comment: '事件'
         state         sqlType: 'state', type: StateUserType, comment: '状态'
-        note          column: 'note', length: 2000, comment: '提交注备'
+        note          length: 2000, comment: '提交注备'
+        ipAddress     length: 50, comment: 'IP地址'
         to            index:'user_workitem_idx', column: 'to_user', length: 50, comment: '接收用户'
         instance      index: 'instance_workitem_idx', column: 'instance', comment: '实例'
         activity      column: 'activity', length: 50, comment: '活动'
