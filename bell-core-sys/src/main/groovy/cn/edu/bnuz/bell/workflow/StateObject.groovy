@@ -3,9 +3,9 @@ package cn.edu.bnuz.bell.workflow
 import groovy.transform.CompileStatic
 
 @CompileStatic
-interface IStateObject {
-    States getStatus();
-    void setStatus(States state);
+interface StateObject {
+    State getStatus();
+    void setStatus(State state);
 
     WorkflowInstance getWorkflowInstance();
     void setWorkflowInstance(WorkflowInstance workflowInstance);

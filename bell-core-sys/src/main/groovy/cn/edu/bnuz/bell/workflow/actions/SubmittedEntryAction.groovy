@@ -1,28 +1,28 @@
 package cn.edu.bnuz.bell.workflow.actions
 
 import cn.edu.bnuz.bell.workflow.Activities
-import cn.edu.bnuz.bell.workflow.Events
-import cn.edu.bnuz.bell.workflow.States
-import cn.edu.bnuz.bell.workflow.events.CommitEventData
+import cn.edu.bnuz.bell.workflow.Event
+import cn.edu.bnuz.bell.workflow.State
+import cn.edu.bnuz.bell.workflow.events.SubmitEventData
 import cn.edu.bnuz.bell.workflow.events.EventData
 import groovy.transform.CompileStatic
 import org.springframework.statemachine.StateContext
 
 @CompileStatic
-class CommittedEntryAction extends AbstractEntryAction {
+class SubmittedEntryAction extends AbstractEntryAction {
     private String activity
 
-    CommittedEntryAction() {
+    SubmittedEntryAction() {
         this(Activities.CHECK)
     }
 
-    CommittedEntryAction(String activity) {
+    SubmittedEntryAction(String activity) {
         this.activity = activity
     }
 
     @Override
-    void execute(StateContext<States, Events> context) {
-        def event = context.getMessageHeader(EventData.KEY) as CommitEventData
+    void execute(StateContext<State, Event> context) {
+        def event = context.getMessageHeader(EventData.KEY) as SubmitEventData
         def workflowInstance = event.entity.workflowInstance
 
         if (!workflowInstance) {
@@ -30,7 +30,7 @@ class CommittedEntryAction extends AbstractEntryAction {
             event.entity.workflowInstance = workflowInstance
         }
 
-        workflowService.createWorkItem(
+        workflowService.createWorkitem(
                 workflowInstance,
                 event.fromUser,
                 context.event,

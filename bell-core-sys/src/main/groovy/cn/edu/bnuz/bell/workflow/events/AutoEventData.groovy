@@ -1,9 +1,9 @@
 package cn.edu.bnuz.bell.workflow.events
 
-import cn.edu.bnuz.bell.workflow.IStateObject
+import cn.edu.bnuz.bell.workflow.StateObject
 
 class AutoEventData implements EventData {
-    IStateObject entity
+    StateObject entity
     String fromUser
     String comment
     UUID workitemId

@@ -1,9 +1,9 @@
 package cn.edu.bnuz.bell.workflow.events
 
-import cn.edu.bnuz.bell.workflow.IStateObject
+import cn.edu.bnuz.bell.workflow.StateObject
 
-class CommitEventData implements EventData {
-    IStateObject entity
+class SubmitEventData implements EventData {
+    StateObject entity
     String fromUser
     String comment
 

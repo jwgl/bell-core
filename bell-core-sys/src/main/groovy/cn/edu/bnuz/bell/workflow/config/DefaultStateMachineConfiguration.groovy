@@ -1,7 +1,7 @@
 package cn.edu.bnuz.bell.workflow.config
 
-import cn.edu.bnuz.bell.workflow.Events
-import cn.edu.bnuz.bell.workflow.States
+import cn.edu.bnuz.bell.workflow.Event
+import cn.edu.bnuz.bell.workflow.State
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
@@ -13,63 +13,63 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 @Configuration
 @EnableStateMachine(name = "defaultStateMachine")
 @Import(StandardActionConfiguration)
-class DefaultStateMachineConfiguration extends EnumStateMachineConfigurerAdapter<States, Events> {
+class DefaultStateMachineConfiguration extends EnumStateMachineConfigurerAdapter<State, Event> {
     @Autowired
     StandardActionConfiguration actions
 
     @Override
-    void configure(StateMachineStateConfigurer<States, Events> states) throws Exception {
+    void configure(StateMachineStateConfigurer<State, Event> states) throws Exception {
         states
             .withStates()
-                .initial(States.CREATED)
-                .state(States.CREATED,   [actions.logEntryAction()], null)
-                .state(States.COMMITTED, [actions.logEntryAction(), actions.committedEntryAction()],  [actions.workitemProcessedAction()])
-                .state(States.CHECKED,   [actions.logEntryAction(), actions.checkedEntryAction()],    [actions.workitemProcessedAction()])
-                .state(States.REJECTED,  [actions.logEntryAction(), actions.rejectedEntryAction()],   [actions.workitemProcessedAction()])
-                .state(States.APPROVED,  [actions.logEntryAction(), actions.notifyCommitterAction()], null)
+                .initial(State.CREATED)
+                .state(State.CREATED,   [actions.logEntryAction()], null)
+                .state(State.SUBMITTED, [actions.logEntryAction(), actions.submittedEntryAction()],  [actions.workitemProcessedAction()])
+                .state(State.CHECKED,   [actions.logEntryAction(), actions.checkedEntryAction()],    [actions.workitemProcessedAction()])
+                .state(State.REJECTED,  [actions.logEntryAction(), actions.rejectedEntryAction()],   [actions.workitemProcessedAction()])
+                .state(State.APPROVED,  [actions.logEntryAction(), actions.notifySubmitterAction()], null)
     }
 
     @Override
-    void configure(StateMachineTransitionConfigurer<States, Events> transitions) throws Exception {
+    void configure(StateMachineTransitionConfigurer<State, Event> transitions) throws Exception {
         transitions
             .withInternal()
-                .source(States.CREATED)
-                .event(Events.UPDATE)
+                .source(State.CREATED)
+                .event(Event.UPDATE)
                 .action(actions.logTransitionAction())
                 .and()
             .withExternal()
-                .source(States.CREATED)
-                .event(Events.COMMIT)
-                .target(States.COMMITTED)
+                .source(State.CREATED)
+                .event(Event.SUBMIT)
+                .target(State.SUBMITTED)
                 .and()
             .withExternal()
-                .source(States.COMMITTED)
-                .event(Events.ACCEPT)
-                .target(States.CHECKED)
+                .source(State.SUBMITTED)
+                .event(Event.ACCEPT)
+                .target(State.CHECKED)
                 .and()
             .withExternal()
-                .source(States.COMMITTED)
-                .event(Events.REJECT)
-                .target(States.REJECTED)
+                .source(State.SUBMITTED)
+                .event(Event.REJECT)
+                .target(State.REJECTED)
                 .and()
             .withExternal()
-                .source(States.CHECKED)
-                .event(Events.ACCEPT)
-                .target(States.APPROVED)
+                .source(State.CHECKED)
+                .event(Event.ACCEPT)
+                .target(State.APPROVED)
                 .and()
             .withExternal()
-                .source(States.CHECKED)
-                .event(Events.REJECT)
-                .target(States.REJECTED)
+                .source(State.CHECKED)
+                .event(Event.REJECT)
+                .target(State.REJECTED)
                 .and()
             .withInternal()
-                .source(States.REJECTED)
-                .event(Events.UPDATE)
+                .source(State.REJECTED)
+                .event(Event.UPDATE)
                 .action(actions.logTransitionAction())
                 .and()
             .withExternal()
-                .source(States.REJECTED)
-                .event(Events.COMMIT)
-                .target(States.COMMITTED)
+                .source(State.REJECTED)
+                .event(Event.SUBMIT)
+                .target(State.SUBMITTED)
     }
 }

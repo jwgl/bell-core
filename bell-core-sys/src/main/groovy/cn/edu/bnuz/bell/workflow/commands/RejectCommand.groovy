@@ -1,4 +1,4 @@
-package cn.edu.bnuz.bell.workflow
+package cn.edu.bnuz.bell.workflow.commands
 
 /**
  * 工作流不同意命令

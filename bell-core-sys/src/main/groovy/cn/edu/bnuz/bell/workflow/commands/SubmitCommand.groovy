@@ -1,4 +1,4 @@
-package cn.edu.bnuz.bell.workflow
+package cn.edu.bnuz.bell.workflow.commands
 
 import groovy.transform.ToString
 
@@ -7,7 +7,7 @@ import groovy.transform.ToString
  * @author Yang Lin
  */
 @ToString
-class CommitCommand {
+class SubmitCommand {
     Long id
     String comment
     String title

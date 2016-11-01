@@ -20,12 +20,12 @@ class Workitem {
     /**
      * 事件
      */
-    Events event
+    Event event
 
     /**
      * 状态
      */
-    States state
+    State state
 
     /**
      * 发起人备注
@@ -68,8 +68,8 @@ class Workitem {
         comment       '消息'
         id            generator: 'uuid2', type:'pg-uuid', comment: '消息ID'
         from          column: 'from_user', length: 10, comment: '提交用户'
-        event         column: 'event', length: 10, comment: '事件'
-        state         comment: '状态'
+        event         sqlType: 'event', type: EventUserType, comment: '事件'
+        state         sqlType: 'state', type: StateUserType, comment: '状态'
         note          column: 'note', length: 2000, comment: '提交注备'
         to            index:'user_workitem_idx', column: 'to_user', length: 50, comment: '接收用户'
         instance      index: 'instance_workitem_idx', column: 'instance', comment: '实例'
@@ -80,7 +80,7 @@ class Workitem {
     }
 
     static constraints = {
-        note          nullable: true, maxSize: 2000
+        note          nullable: true
         to            nullable: true
         activity      nullable: true
         dateReceived  nullable: true

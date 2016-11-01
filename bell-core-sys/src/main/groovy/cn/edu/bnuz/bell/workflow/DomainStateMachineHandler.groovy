@@ -12,30 +12,30 @@ import org.springframework.statemachine.persist.StateMachinePersister
 
 @CompileStatic
 class DomainStateMachineHandler {
-    private final StateMachine<States, Events> stateMachine
-    private final StateMachinePersister<States, Events, IStateObject> persister
+    private final StateMachine<State, Event> stateMachine
+    private final StateMachinePersister<State, Event, StateObject> persister
 
     @Autowired
     private SecurityService securityService
 
-    public DomainStateMachineHandler(StateMachine<States, Events> stateMachine,
-                                     StateMachinePersister<States, Events, IStateObject> persister) {
+    public DomainStateMachineHandler(StateMachine<State, Event> stateMachine,
+                                     StateMachinePersister<State, Event, StateObject> persister) {
         this.stateMachine = stateMachine
         this.persister = persister
     }
 
-    public States getInitialState() {
+    public State getInitialState() {
         return stateMachine.initialState.id
     }
 
-    public void create(IStateObject contextObj, String fromUser) {
+    public void create(StateObject contextObj, String fromUser) {
         synchronized(stateMachine) {
             stateMachine.stop();
-            stateMachine.getStateMachineAccessor().doWithAllRegions(new StateMachineFunction<StateMachineAccess<States, Events>>() {
-                public void apply(StateMachineAccess<States, Events> function) {
+            stateMachine.getStateMachineAccessor().doWithAllRegions(new StateMachineFunction<StateMachineAccess<State, Event>>() {
+                public void apply(StateMachineAccess<State, Event> function) {
                     function.setInitialEnabled(true)
                     function.setForwardedInitialEvent(MessageBuilder
-                            .withPayload(Events.CREATE)
+                            .withPayload(Event.CREATE)
                             .setHeader(EventData.KEY, new AutoEventData(
                                 fromUser: fromUser,
                                 entity: contextObj,
@@ -49,7 +49,7 @@ class DomainStateMachineHandler {
         }
     }
 
-    private canHandleEvent(Events event, IStateObject contextObj) {
+    private canHandleEvent(Event event, StateObject contextObj) {
         synchronized (stateMachine) {
             def stateMachine = persister.restore(stateMachine, contextObj)
             def transition = stateMachine.transitions.find {
@@ -59,9 +59,9 @@ class DomainStateMachineHandler {
         }
     }
 
-    private handleEvent(Events event, EventData eventData) {
+    private handleEvent(Event event, EventData eventData) {
         synchronized(stateMachine) {
-            IStateObject contextObj = eventData.entity
+            StateObject contextObj = eventData.entity
             def stateMachine = persister.restore(stateMachine, contextObj)
 
             def message = MessageBuilder
@@ -74,16 +74,16 @@ class DomainStateMachineHandler {
         }
     }
 
-    public void update(IStateObject entity, String fromUser) {
-        this.handleEvent(Events.UPDATE, new AutoEventData(
+    public void update(StateObject entity, String fromUser) {
+        this.handleEvent(Event.UPDATE, new AutoEventData(
                 entity: entity,
                 fromUser: fromUser,
                 ipAddress: securityService.ipAddress,
         ))
     }
 
-    public void commit(IStateObject entity, String fromUser, String toUser, String comment, String title) {
-        this.handleEvent(Events.COMMIT, new CommitEventData(
+    public void submit(StateObject entity, String fromUser, String toUser, String comment, String title) {
+        this.handleEvent(Event.SUBMIT, new SubmitEventData(
                 entity: entity,
                 fromUser: fromUser,
                 toUser: toUser,
@@ -98,8 +98,8 @@ class DomainStateMachineHandler {
      * @param entity 实体
      * @param fromUser 源用户
      */
-    public void accept(IStateObject entity, String fromUser) {
-        this.handleEvent(Events.ACCEPT, new AutoEventData(
+    public void accept(StateObject entity, String fromUser) {
+        this.handleEvent(Event.ACCEPT, new AutoEventData(
                 entity: entity,
                 fromUser: fromUser,
                 ipAddress: securityService.ipAddress,
@@ -113,8 +113,8 @@ class DomainStateMachineHandler {
      * @param comment 备注
      * @param workitemId 来源工作项ID
      */
-    public void accept(IStateObject entity, String fromUser, String comment, UUID workitemId) {
-        this.handleEvent(Events.ACCEPT, new AutoEventData(
+    public void accept(StateObject entity, String fromUser, String comment, UUID workitemId) {
+        this.handleEvent(Event.ACCEPT, new AutoEventData(
                 entity: entity,
                 fromUser: fromUser,
                 comment: comment,
@@ -128,8 +128,8 @@ class DomainStateMachineHandler {
      * @param entity 实体
      * @param fromUser 源用户
      */
-    public void accept(IStateObject entity, String fromUser, String toUser) {
-        this.handleEvent(Events.ACCEPT, new ManualEventData(
+    public void accept(StateObject entity, String fromUser, String toUser) {
+        this.handleEvent(Event.ACCEPT, new ManualEventData(
                 entity: entity,
                 fromUser: fromUser,
                 toUser: toUser,
@@ -146,8 +146,8 @@ class DomainStateMachineHandler {
      * @param toUser 目标用户
      * @param workitemId 来源工作项ID
      */
-    public void accept(IStateObject entity, String fromUser, String comment, UUID workitemId, String toUser) {
-        this.handleEvent(Events.ACCEPT, new ManualEventData(
+    public void accept(StateObject entity, String fromUser, String comment, UUID workitemId, String toUser) {
+        this.handleEvent(Event.ACCEPT, new ManualEventData(
                 fromUser: fromUser,
                 toUser: toUser,
                 comment: comment,
@@ -162,8 +162,8 @@ class DomainStateMachineHandler {
      * @param entity 实体
      * @param fromUser 源用户
      */
-    public void reject(IStateObject entity, String fromUser) {
-        this.handleEvent(Events.REJECT, new RejectEventData(
+    public void reject(StateObject entity, String fromUser) {
+        this.handleEvent(Event.REJECT, new AutoEventData(
                 fromUser: fromUser,
                 entity: entity,
                 ipAddress: securityService.ipAddress,
@@ -178,8 +178,8 @@ class DomainStateMachineHandler {
      * @param comment 备注
      * @param workitemId 来源工作项ID
      */
-    public void reject(IStateObject entity, String fromUser, String comment, UUID workitemId) {
-        this.handleEvent(Events.REJECT, new RejectEventData(
+    public void reject(StateObject entity, String fromUser, String comment, UUID workitemId) {
+        this.handleEvent(Event.REJECT, new RejectEventData(
                 fromUser: fromUser,
                 comment: comment,
                 entity: entity,
@@ -189,18 +189,18 @@ class DomainStateMachineHandler {
     }
 
     public canUpdate(Object entity) {
-        return canHandleEvent(Events.UPDATE, entity instanceof IStateObject ? entity as IStateObject : entity as StateObjectWrapper)
+        return canHandleEvent(Event.UPDATE, entity instanceof StateObject ? entity as StateObject : entity as StateObjectWrapper)
     }
 
-    public canCommit(IStateObject entity) {
-        return canHandleEvent(Events.COMMIT, entity)
+    public canSubmit(StateObject entity) {
+        return canHandleEvent(Event.SUBMIT, entity)
     }
 
-    public canAccept(IStateObject entity) {
-        return canHandleEvent(Events.ACCEPT, entity)
+    public canAccept(StateObject entity) {
+        return canHandleEvent(Event.ACCEPT, entity)
     }
 
-    public canReject(IStateObject entity) {
-        return canHandleEvent(Events.REJECT, entity)
+    public canReject(StateObject entity) {
+        return canHandleEvent(Event.REJECT, entity)
     }
 }

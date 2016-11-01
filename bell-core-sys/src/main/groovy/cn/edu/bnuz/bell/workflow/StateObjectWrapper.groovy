@@ -1,18 +1,18 @@
 package cn.edu.bnuz.bell.workflow
 
-trait StateObjectWrapper implements IStateObject {
+trait StateObjectWrapper implements StateObject {
     @Override
     Object getId() {
         return this['id']
     }
 
     @Override
-    States getStatus() {
-        return this['status'] as States
+    State getStatus() {
+        return this['status'] as State
     }
 
     @Override
-    void setStatus(States state) {
+    void setStatus(State state) {
         this['status'] = state
     }
 

@@ -1,7 +1,7 @@
 package cn.edu.bnuz.bell.workflow.actions
 
-import cn.edu.bnuz.bell.workflow.Events
-import cn.edu.bnuz.bell.workflow.States
+import cn.edu.bnuz.bell.workflow.Event
+import cn.edu.bnuz.bell.workflow.State
 import cn.edu.bnuz.bell.workflow.events.ManualEventData
 import cn.edu.bnuz.bell.workflow.events.EventData
 import groovy.transform.CompileStatic
@@ -16,9 +16,9 @@ class ManualEntryAction extends AbstractEntryAction {
     }
 
     @Override
-    void execute(StateContext<States, Events> context) {
+    void execute(StateContext<State, Event> context) {
         ManualEventData event = context.getMessageHeader(EventData.KEY) as ManualEventData
-        workflowService.createWorkItem(event.entity.workflowInstance,
+        workflowService.createWorkitem(event.entity.workflowInstance,
                 event.fromUser,
                 context.event,
                 context.target.id,

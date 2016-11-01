@@ -1,8 +1,8 @@
 package cn.edu.bnuz.bell
 
 import cn.edu.bnuz.bell.security.UserType
-import cn.edu.bnuz.bell.workflow.Events
-import cn.edu.bnuz.bell.workflow.States
+import cn.edu.bnuz.bell.workflow.Event
+import cn.edu.bnuz.bell.workflow.State
 import grails.converters.JSON
 import grails.plugins.Plugin
 import org.springframework.boot.web.filter.OrderedRequestContextFilter
@@ -66,10 +66,10 @@ Brief summary/description of the plugin.
         JSON.registerObjectMarshaller(UserType) {
             it.name()
         }
-        JSON.registerObjectMarshaller(States) {
+        JSON.registerObjectMarshaller(State) {
             it.name()
         }
-        JSON.registerObjectMarshaller(Events) {
+        JSON.registerObjectMarshaller(Event) {
             it.name()
         }
     }

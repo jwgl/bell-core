@@ -1,7 +1,4 @@
 package cn.edu.bnuz.bell.security
-
-import cn.edu.bnuz.bell.workflow.Events
-
 /**
  * 用户操作日志服务
  * @author Yang Lin

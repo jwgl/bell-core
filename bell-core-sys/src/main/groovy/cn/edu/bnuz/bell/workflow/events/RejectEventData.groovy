@@ -1,11 +1,11 @@
 package cn.edu.bnuz.bell.workflow.events
 
-import cn.edu.bnuz.bell.workflow.IStateObject
+import cn.edu.bnuz.bell.workflow.StateObject
 
 class RejectEventData implements EventData {
+    StateObject entity
     String fromUser
     String comment
-    IStateObject entity
     UUID workitemId
     String ipAddress
 }

@@ -112,10 +112,10 @@ order by workitem.dateProcessed desc
      * @param fromNote 备注
      * @return 工作项
      */
-    Workitem createWorkItem(WorkflowInstance workflowInstance,
+    Workitem createWorkitem(WorkflowInstance workflowInstance,
                             String fromUser,
-                            Events event,
-                            States state,
+                            Event event,
+                            State state,
                             String fromNote) {
         Workitem workItem = new Workitem(
                 instance: workflowInstance,
@@ -139,14 +139,14 @@ order by workitem.dateProcessed desc
      * @param activity 活动
      * @return 工作项
      */
-    Workitem createWorkItem(WorkflowInstance workflowInstance,
+    Workitem createWorkitem(WorkflowInstance workflowInstance,
                             String fromUser,
-                            Events event,
-                            States state,
+                            Event event,
+                            State state,
                             String fromNote,
                             String activity) {
-        String toUser = getCommitUser(workflowInstance)
-        createWorkItem(workflowInstance, fromUser, event, state, fromNote, toUser, activity)
+        String toUser = getSubmitUser(workflowInstance)
+        createWorkitem(workflowInstance, fromUser, event, state, fromNote, toUser, activity)
     }
 
     /**
@@ -160,10 +160,10 @@ order by workitem.dateProcessed desc
      * @param activity 活动
      * @return 工作项
      */
-    Workitem createWorkItem(WorkflowInstance workflowInstance,
+    Workitem createWorkitem(WorkflowInstance workflowInstance,
                             String fromUser,
-                            Events event,
-                            States state,
+                            Event event,
+                            State state,
                             String fromNote,
                             String toUser,
                             String activity) {
@@ -180,21 +180,20 @@ order by workitem.dateProcessed desc
         workItem.save()
     }
 
-    def setProcessed(WorkflowInstance workflowInstance, String toUserId) {
+    def setReceived(UUID workitemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
-set workitem.dateProcessed = CURRENT_TIMESTAMP
-where workitem.instance = :workflowInstance
-and workitem.to.id = :toUserId
-''', [workflowInstance: workflowInstance, toUserId: toUserId]
+set workitem.dateReceived = CURRENT_TIMESTAMP
+where workitem.id = :id
+''', [id: workitemId]
     }
 
-    def setProcessed(UUID workItemId) {
+    def setProcessed(UUID workitemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
 set workitem.dateProcessed = CURRENT_TIMESTAMP
 where workitem.id = :id
-''', [id: workItemId]
+''', [id: workitemId]
     }
 
     /**
@@ -203,7 +202,7 @@ where workitem.id = :id
      * @param workflowInstance 工作流实例
      * @return 用户ID
      */
-    String getCommitUser(WorkflowInstance workflowInstance) {
+    String getSubmitUser(WorkflowInstance workflowInstance) {
         List<String> results = Workitem.executeQuery '''
 select fromUser.id
 from Workitem workitem
@@ -211,7 +210,7 @@ join workitem.from fromUser
 where workitem.instance = :workflowInstance
 and workitem.event = :event
 order by workitem.dateCreated desc
-''', [workflowInstance: workflowInstance, event: Events.COMMIT], [max: 1]
+''', [workflowInstance: workflowInstance, event: Event.SUBMIT], [max: 1]
         results ? results[0] : null
     }
 }

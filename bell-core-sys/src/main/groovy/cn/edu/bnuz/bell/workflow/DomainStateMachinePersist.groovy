@@ -8,15 +8,15 @@ import org.springframework.statemachine.support.DefaultStateMachineContext
 
 @Slf4j
 @CompileStatic
-class DomainStateMachinePersist implements StateMachinePersist<States, Events, IStateObject> {
+class DomainStateMachinePersist implements StateMachinePersist<State, Event, StateObject> {
     @Override
-    public void write(StateMachineContext<States, Events> context, IStateObject contextOjb) throws Exception {
+    public void write(StateMachineContext<State, Event> context, StateObject contextOjb) throws Exception {
         log.debug(contextOjb.class.name + '#' + contextOjb.id + ': ' + contextOjb.status + '->' + context.state)
         contextOjb.status = context.state
     }
 
     @Override
-    public StateMachineContext<States, Events> read(IStateObject contextOjb) throws Exception {
-        return new DefaultStateMachineContext<States, Events>(contextOjb.status, null, null, null, null)
+    public StateMachineContext<State, Event> read(StateObject contextOjb) throws Exception {
+        return new DefaultStateMachineContext<State, Event>(contextOjb.status, null, null, null, null)
     }
 }

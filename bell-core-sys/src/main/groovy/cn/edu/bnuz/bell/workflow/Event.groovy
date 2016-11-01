@@ -3,22 +3,18 @@ package cn.edu.bnuz.bell.workflow
 import groovy.transform.CompileStatic
 
 @CompileStatic
-enum Events {
+enum Event {
     CREATE,
     UPDATE,
     DELETE,
-    // commit
-    COMMIT,
+    SUBMIT,
     CANCEL,
-    // review
     ACCEPT,
     REJECT,
     REVIEW,
-    // admin
     REVOKE,
     CLOSE,
     OPEN,
-    // progress
     PROCESS,
     FINISH,
 }

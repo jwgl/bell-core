@@ -1,10 +1,10 @@
 package cn.edu.bnuz.bell.workflow.events
 
-import cn.edu.bnuz.bell.workflow.IStateObject
+import cn.edu.bnuz.bell.workflow.StateObject
 
 interface EventData {
     String KEY = 'EVENT_DATA'
-    IStateObject getEntity();
+    StateObject getEntity();
     String getFromUser();
     String getComment();
     UUID getWorkitemId();
