@@ -23,9 +23,9 @@ class ApplicationMenu {
         }
     }
 
-    def getUserMenus(String userId, String userName, Set<String> permissions, String groupName, Locale locale) {
+    def getUserMenus(String userId, String userName, String departmentId, Set<String> permissions, String groupName, Locale locale) {
         if (menuGroups.containsKey(groupName)) {
-            menuGroups[groupName].getUserMenus(userId, userName, permissions, locale)
+            menuGroups[groupName].getUserMenus(userId, userName, departmentId, permissions, locale)
         } else {
             null
         }

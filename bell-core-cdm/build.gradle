@@ -40,6 +40,9 @@ dependencies {
 
     compile "commons-lang:commons-lang:2.6"
 }
+
+bootRepackage.enabled = false
+
 grailsPublish {
     // TODO: Provide values here
     user = 'user'

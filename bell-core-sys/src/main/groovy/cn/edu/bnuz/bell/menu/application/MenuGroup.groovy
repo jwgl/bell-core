@@ -37,10 +37,10 @@ class MenuGroup {
         }
     }
 
-    synchronized List getUserMenus(String userId, String userName, Set<String> permissions, Locale locale) {
+    synchronized List getUserMenus(String userId, String userName, String departmentId, Set<String> permissions, Locale locale) {
         List userMenus = []
         this.menus.each { id, menu ->
-            def userMenu = menu.getUserMenu(userId, permissions, locale)
+            def userMenu = menu.getUserMenu(userId, departmentId, permissions, locale)
             if (userMenu) {
                 if (userMenu.label == '${userName}') {
                     userMenu.label = userName

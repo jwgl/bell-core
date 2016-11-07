@@ -55,6 +55,9 @@ dependencies {
 
     compile 'org.springframework.statemachine:spring-statemachine-core:1.2.0.M1'
 }
+
+bootRepackage.enabled = false
+
 grailsPublish {
     // TODO: Provide values here
     user = 'user'

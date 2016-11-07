@@ -49,7 +49,7 @@ class Menu extends AbstractMenuItem {
         }
     }
 
-    def getUserMenu(String userId, Set<String> permissions, Locale locale) {
+    def getUserMenu(String userId, String departmentId, Set<String> permissions, Locale locale) {
         def labelKey = locale.toString()
 
         // Remove locale's script part, like zh_CN_#Hans
@@ -78,11 +78,11 @@ class Menu extends AbstractMenuItem {
                     userMenu.items << [
                             label: item.labels[labelKey],
                             order: item.order,
-                            url  : item.url.replace('${userId}', userId)
+                            url  : item.url.replace('${userId}', userId).replace('${departmentId}', departmentId)
                     ]
                 }
             } else if (item instanceof Menu) {
-                def menu = item.getUserMenu(userId, permissions, locale)
+                def menu = item.getUserMenu(userId, departmentId, permissions, locale)
                 if (menu) {
                     userMenu.items << menu
                 }
