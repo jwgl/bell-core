@@ -51,6 +51,12 @@ class Menu extends AbstractMenuItem {
 
     def getUserMenu(String userId, Set<String> permissions, Locale locale) {
         def labelKey = locale.toString()
+
+        // Remove locale's script part, like zh_CN_#Hans
+        if (labelKey.contains('_#')) {
+            labelKey = labelKey.replaceAll('_#.*', '')
+        }
+
         if (!labels[labelKey]) {
             labelKey = Locale.ENGLISH.toString()
         }
