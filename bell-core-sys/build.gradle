@@ -53,7 +53,7 @@ dependencies {
     provided "org.grails:grails-datastore-rest-client"
     provided "com.netflix.eureka:eureka-client"
 
-    compile 'org.springframework.statemachine:spring-statemachine-core:1.2.0.M1'
+    compile 'org.springframework.statemachine:spring-statemachine-core:1.2.0.M2'
 }
 
 bootRepackage.enabled = false
