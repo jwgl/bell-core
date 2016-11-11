@@ -42,7 +42,6 @@ dependencies {
 }
 
 bootRepackage.enabled = false
-
 grailsPublish {
     // TODO: Provide values here
     user = 'user'
