@@ -33,8 +33,7 @@ class BellSchemaFilterProvider implements SchemaFilterProvider {
 
     static class BellSchemaFilter implements SchemaFilter {
         def ignoredSchemas = Holders.config.bell.orm.ignored.schemas
-        def ignoredTables = Holders.config.bell.orm.ignored.tables
-        def ignoredViewPrefix = Holders.config.bell.orm.ignored.viewPrefix
+        def ignoredPrefixes = Holders.config.bell.orm.ignored.prefixes
 
         boolean includeNamespace(Namespace namespace) {
             if (ignoredSchemas && ignoredSchemas.contains(namespace.name.schema.toString())) {
@@ -50,13 +49,8 @@ class BellSchemaFilterProvider implements SchemaFilterProvider {
                 return false
             }
 
-            if (ignoredTables && ignoredTables.contains(table.name)) {
+            if (ignoredPrefixes && ignoredPrefixes.any{table.name.startsWith("${it}_")}) {
                 log.debug "Ignored table: $table.name"
-                return false
-            }
-
-            if (ignoredViewPrefix && table.name.startsWith(ignoredViewPrefix)) {
-                log.debug "Ignored view: $table.name"
                 return false
             }
 
