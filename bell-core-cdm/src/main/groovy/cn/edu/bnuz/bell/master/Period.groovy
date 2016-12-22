@@ -8,12 +8,12 @@ class Period {
     /**
      * 周理论课时(HPW - Hours Per Week)
      */
-    Integer theory
+    BigDecimal theory
 
     /**
      * 周实验课时(HPW - Hours Per Week)
      */
-    Integer experiment
+    BigDecimal experiment
 
     /**
      * 周数(Weeks)
@@ -22,8 +22,8 @@ class Period {
     Integer weeks
 
     static mapping = {
-        theory     defaultValue: "0", comment: '理论周课时'
-        experiment defaultValue: "0", comment: '实验周课时'
+        theory     precision: 3, scale: 1, defaultValue: "0", comment: '理论周课时'
+        experiment precision: 3, scale: 1, defaultValue: "0", comment: '实验周课时'
         weeks      defaultValue: "0", comment: '周数'
     }
 }
