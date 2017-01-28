@@ -77,10 +77,10 @@ class Workitem {
         state         sqlType: 'state', type: StateUserType, comment: '状态'
         note          length: 2000, comment: '提交注备'
         ipAddress     length: 50, comment: 'IP地址'
-        to            index:'user_workitem_idx', column: 'to_user', length: 50, comment: '接收用户'
-        instance      index: 'instance_workitem_idx', column: 'instance', comment: '实例'
+        to            index:'workitem_user_idx', column: 'to_user', length: 50, comment: '接收用户'
+        instance      index: 'workitem_instance_idx', column: 'instance', comment: '实例'
         activity      column: 'activity', length: 50, comment: '活动'
-        dateCreated   index: 'instance_workitem_idx', comment: '提交时间'
+        dateCreated   index: 'workitem_instance_idx', comment: '提交时间'
         dateReceived  comment: '接收时间'
         dateProcessed index:'user_workitem_idx', comment: '办结时间'
     }

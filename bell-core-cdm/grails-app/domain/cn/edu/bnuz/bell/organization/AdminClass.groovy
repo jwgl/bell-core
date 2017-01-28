@@ -30,6 +30,16 @@ class AdminClass {
      */
     Major major
 
+    /**
+     * 班主任
+     */
+    Teacher supervisor
+
+    /**
+     * 辅导员
+     */
+    Teacher counsellor
+
     static belongsTo = [department : Department]
 
     static hasMany = [
@@ -43,5 +53,12 @@ class AdminClass {
         name       length:50,     comment: '名称'
         major      comment: '专业'
         department comment: '所属学院'
+        supervisor comment: '班主任'
+        counsellor comment: '辅导员'
+    }
+
+    static constraints = {
+        supervisor nullable: true
+        counsellor nullable: true
     }
 }

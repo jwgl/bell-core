@@ -62,7 +62,7 @@ class TaskSchedule {
         startSection comment: '开始节'
         totalSection comment: '上课长度'
         place        comment: '教室'
-        teacher      comment: '教师'
+        teacher      index: 'task_schedule_teacher_idx', comment: '教师'
         task         comment: '所属教学任务'
     }
 
