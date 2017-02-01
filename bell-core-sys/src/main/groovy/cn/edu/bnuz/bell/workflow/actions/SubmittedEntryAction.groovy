@@ -1,6 +1,5 @@
 package cn.edu.bnuz.bell.workflow.actions
 
-import cn.edu.bnuz.bell.workflow.Activities
 import cn.edu.bnuz.bell.workflow.Event
 import cn.edu.bnuz.bell.workflow.State
 import cn.edu.bnuz.bell.workflow.events.SubmitEventData
@@ -11,10 +10,6 @@ import org.springframework.statemachine.StateContext
 @CompileStatic
 class SubmittedEntryAction extends AbstractEntryAction {
     private String activity
-
-    SubmittedEntryAction() {
-        this(Activities.CHECK)
-    }
 
     SubmittedEntryAction(String activity) {
         this.activity = activity

@@ -28,7 +28,7 @@ class StandardActionConfiguration {
 
     @Bean
     Action<State, Event> submittedEntryAction() {
-        new SubmittedEntryAction()
+        new SubmittedEntryAction(Activities.CHECK)
     }
 
     @Bean
