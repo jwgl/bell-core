@@ -19,7 +19,6 @@ apply plugin:"org.grails.grails-plugin-publish"
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
-    maven { url "https://repo.spring.io/libs-milestone" }
 }
 
 dependencyManagement {
@@ -53,7 +52,7 @@ dependencies {
     provided "org.grails:grails-datastore-rest-client"
     provided "com.netflix.eureka:eureka-client"
 
-    compile 'org.springframework.statemachine:spring-statemachine-core:1.2.0.M2'
+    compile 'org.springframework.statemachine:spring-statemachine-core:1.2.1.RELEASE'
 }
 
 bootRepackage.enabled = false
