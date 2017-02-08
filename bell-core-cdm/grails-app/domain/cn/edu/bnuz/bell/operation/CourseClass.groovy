@@ -23,6 +23,11 @@ class CourseClass {
     String code
 
     /**
+     * 教学班名称
+     */
+    String name
+
+    /**
      * 学时
      */
     Period period
@@ -92,6 +97,7 @@ class CourseClass {
         table      schema: 'ea'
         id         generator: 'uuid2', type:'pg-uuid', comment: '教学班ID'
         code       comment: '教学班编号'
+        name       comment: '教学班名称'
         property   comment: '课程性质'
         assessType comment: '考核方式'
         testType   comment: '考试方式'
@@ -107,6 +113,7 @@ class CourseClass {
 
     static constraints = {
         code       maxSize: 31
+        name       nullable: true
         teacher    nullable: true
         property   nullable: true
     }
