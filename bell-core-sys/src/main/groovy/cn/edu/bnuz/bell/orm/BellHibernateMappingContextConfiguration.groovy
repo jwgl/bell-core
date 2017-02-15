@@ -3,6 +3,7 @@ package cn.edu.bnuz.bell.orm
 import org.grails.orm.hibernate.cfg.HibernateMappingContextConfiguration
 import org.hibernate.dialect.function.StandardSQLFunction
 import org.hibernate.type.IntegerType
+import org.hibernate.type.StandardBasicTypes
 
 /**
  * Hibernate映射配置
@@ -10,7 +11,9 @@ import org.hibernate.type.IntegerType
  */
 class BellHibernateMappingContextConfiguration extends HibernateMappingContextConfiguration  {
     BellHibernateMappingContextConfiguration() {
-        this.addSqlFunction('instr', new StandardSQLFunction('instr', new IntegerType()))
+        println 'register'
+        this.addSqlFunction('instr', new StandardSQLFunction('instr', StandardBasicTypes.INTEGER))
         this.addSqlFunction('generate_series', new StandardSQLFunction('generate_series'))
+
     }
 }

@@ -3,6 +3,7 @@ package cn.edu.bnuz.bell.workflow.config
 import cn.edu.bnuz.bell.workflow.Activities
 import cn.edu.bnuz.bell.workflow.Event
 import cn.edu.bnuz.bell.workflow.State
+import cn.edu.bnuz.bell.workflow.actions.AutoEntryAction
 import cn.edu.bnuz.bell.workflow.actions.ManualEntryAction
 import cn.edu.bnuz.bell.workflow.actions.SubmittedEntryAction
 import cn.edu.bnuz.bell.workflow.actions.LogEntryAction
@@ -32,6 +33,11 @@ class StandardActionConfiguration {
     }
 
     @Bean
+    Action<State, Event> closedEntryAction() {
+        new RejectedEntryAction()
+    }
+
+    @Bean
     Action<State, Event> checkedEntryAction() {
         new ManualEntryAction(Activities.APPROVE)
     }
@@ -49,5 +55,10 @@ class StandardActionConfiguration {
     @Bean
     Action<State, Event> workitemProcessedAction() {
         new WorkitemProcessedAction()
+    }
+
+    @Bean
+    Action<State, Event> revokedEntryAction() {
+        new RejectedEntryAction()
     }
 }

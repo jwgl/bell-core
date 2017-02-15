@@ -24,9 +24,11 @@ class DefaultStateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .initial(State.CREATED)
                 .state(State.CREATED,   [actions.logEntryAction()], null)
                 .state(State.SUBMITTED, [actions.logEntryAction(), actions.submittedEntryAction()],  [actions.workitemProcessedAction()])
+                .state(State.CLOSED,    [actions.logEntryAction(), actions.closedEntryAction()], null)
                 .state(State.CHECKED,   [actions.logEntryAction(), actions.checkedEntryAction()],    [actions.workitemProcessedAction()])
                 .state(State.REJECTED,  [actions.logEntryAction(), actions.rejectedEntryAction()],   [actions.workitemProcessedAction()])
                 .state(State.APPROVED,  [actions.logEntryAction(), actions.notifySubmitterAction()], null)
+                .state(State.REVOKED,   [actions.logEntryAction(), actions.revokedEntryAction()], null)
     }
 
     @Override
@@ -53,6 +55,11 @@ class DefaultStateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .target(State.REJECTED)
                 .and()
             .withExternal()
+                .source(State.SUBMITTED)
+                .event(Event.CLOSE)
+                .target(State.CLOSED)
+                .and()
+            .withExternal()
                 .source(State.CHECKED)
                 .event(Event.ACCEPT)
                 .target(State.APPROVED)
@@ -61,6 +68,11 @@ class DefaultStateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .source(State.CHECKED)
                 .event(Event.REJECT)
                 .target(State.REJECTED)
+                .and()
+            .withExternal()
+                .source(State.CHECKED)
+                .event(Event.CLOSE)
+                .target(State.CLOSED)
                 .and()
             .withInternal()
                 .source(State.REJECTED)
@@ -71,5 +83,11 @@ class DefaultStateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .source(State.REJECTED)
                 .event(Event.SUBMIT)
                 .target(State.SUBMITTED)
+                .and()
+            .withExternal()
+                .source(State.APPROVED)
+                .event(Event.REVOKE)
+                .target(State.REVOKED)
+
     }
 }

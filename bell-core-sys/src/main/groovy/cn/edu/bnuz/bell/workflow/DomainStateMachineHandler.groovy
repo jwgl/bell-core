@@ -200,6 +200,36 @@ class DomainStateMachineHandler {
         ))
     }
 
+    /**
+     * 回收
+     * @param entity 实体
+     * @param fromUser 源用户
+     */
+    void revoke(StateObject entity, String fromUser, String comment) {
+        this.handleEvent(Event.REVOKE, new RejectEventData(
+                fromUser: fromUser,
+                entity: entity,
+                comment: comment,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+    /**
+     * 关闭
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param workitemId 来源工作项ID
+     */
+    void close(StateObject entity, String fromUser, String comment, UUID workitemId) {
+        this.handleEvent(Event.CLOSE, new RejectEventData(
+                fromUser: fromUser,
+                comment: comment,
+                entity: entity,
+                workitemId: workitemId,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
     boolean canUpdate(Object entity) {
         return canHandleEvent(Event.UPDATE, entity instanceof StateObject ? entity as StateObject : entity as StateObjectWrapper)
     }
@@ -218,5 +248,13 @@ class DomainStateMachineHandler {
 
     boolean canFinish(StateObject entity) {
         return canHandleEvent(Event.FINISH, entity)
+    }
+
+    boolean canRevoke(StateObject entity) {
+        return canHandleEvent(Event.REVOKE, entity)
+    }
+
+    boolean canClose(StateObject entity) {
+        return canHandleEvent(Event.CLOSE, entity)
     }
 }

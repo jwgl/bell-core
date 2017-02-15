@@ -51,6 +51,11 @@ class User {
     String email
 
     /**
+     * 办公电话
+     */
+    String officePhone
+
+    /**
      * 手机
      */
     String longPhone
@@ -86,6 +91,7 @@ class User {
         accountLocked       defaultValue: "false", comment: '帐户锁定'
         passwordExpired     defaultValue: "false", comment: '密码过期'
         email               length: 50, comment: '邮箱'
+        officePhone         length: 12, comment: '办公电话'
         longPhone           length: 11, comment: '手机长号'
         shortPhone          length: 6, comment: '手机短号'
         userType            comment: '用户类型-1:教师;2:学生;9-外部用户'
@@ -93,11 +99,12 @@ class User {
     }
 
     static constraints = {
-        loginName           nullable: true, unique: true, maxSize: 50
-        email               nullable: true, maxSize: 50
-        longPhone           nullable: true, maxSize: 11
-        shortPhone          nullable: true, maxSize: 6
-        departmentId        nullable: true, maxSize: 2
+        loginName           nullable: true, unique: true
+        email               nullable: true
+        officePhone         nullable: true
+        longPhone           nullable: true
+        shortPhone          nullable: true
+        departmentId        nullable: true
     }
 
     /**
