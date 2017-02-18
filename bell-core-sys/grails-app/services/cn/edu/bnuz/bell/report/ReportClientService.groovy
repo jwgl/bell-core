@@ -1,31 +1,30 @@
 package cn.edu.bnuz.bell.report
 
-import grails.plugins.rest.client.RestBuilder
-import org.grails.web.util.WebUtils
 import org.springframework.http.HttpStatus
-import org.springframework.web.client.RestTemplate
+import org.springframework.http.ResponseEntity
+import org.springframework.security.oauth2.client.OAuth2RestOperations
+
+import javax.annotation.Resource
 
 class ReportClientService {
-    RestTemplate restTemplate
+    @Resource(name="reportRestTemplate")
+    OAuth2RestOperations restTemplate
 
     ReportResponse runAndRender(ReportRequest reportRequest) {
-        RestBuilder rest = new RestBuilder(restTemplate)
-        def restResponse = rest.get(reportRequest.requestUrl) {
-            auth WebUtils.retrieveGrailsWebRequest().currentRequest.getHeader('authorization')
-            accept byte[]
+        ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(reportRequest.requestUrl, byte[])
+
+        if (responseEntity.statusCode == HttpStatus.OK) {
+            new ReportResponse(
+                    statusCode: responseEntity.statusCode,
+                    format: reportRequest.format,
+                    title: responseEntity.headers.getFirst('X-Report-Title'),
+                    reportId: reportRequest.reportId,
+                    content: responseEntity.body,
+            )
+        } else {
+            new ReportResponse(
+                    statusCode: responseEntity.statusCode,
+            )
         }
-
-        def reportResponse = new ReportResponse(
-                statusCode: restResponse.statusCode,
-                format: reportRequest.format,
-        )
-
-        if (reportResponse.statusCode == HttpStatus.OK) {
-            reportResponse.title = restResponse.headers.getFirst('X-Report-Title')
-            reportResponse.reportId = reportRequest.reportId
-            reportResponse.content = (byte[])restResponse.body
-        }
-
-        reportResponse
     }
 }

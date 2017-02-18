@@ -1,4 +1,4 @@
-package cn.edu.bnuz.bell.menu.module;
+package cn.edu.bnuz.bell.report;
 
 import org.springframework.context.annotation.Import;
 
@@ -9,6 +9,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(ModuleMenuConfiguration.class)
-public @interface EnableModuleMenu {
-}
+@Import(ReportClientConfiguration.class)
+public @interface EnableReportClient {}

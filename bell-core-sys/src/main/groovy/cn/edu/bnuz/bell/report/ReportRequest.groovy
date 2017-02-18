@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest
 class ReportRequest {
     String reportService
     String reportName
-    String format = 'pdf'
+    String format
     Map<String, Object> parameters = [:]
-    HttpServletRequest request
 
     String getQueryString() {
         def result = "format=${format}"
