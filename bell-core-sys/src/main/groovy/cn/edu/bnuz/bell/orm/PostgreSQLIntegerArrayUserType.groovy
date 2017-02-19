@@ -7,7 +7,7 @@ import org.hibernate.usertype.UserType
 import java.sql.*
 
 class PostgreSQLIntegerArrayUserType implements UserType {
-    public static final PostgreSQLIntegerArrayUserType INSTANCE = new PostgreSQLIntegerArrayUserType();
+    public static final PostgreSQLIntegerArrayUserType INSTANCE = new PostgreSQLIntegerArrayUserType()
     static final int SQL_TYPE = 90001
 
     @Override
@@ -54,7 +54,7 @@ class PostgreSQLIntegerArrayUserType implements UserType {
         if (o == null) {
             preparedStatement.setNull(i, Types.ARRAY)
         } else if (o instanceof Integer[]) {
-            Array inArray = preparedStatement.getConnection().createArrayOf("integer", o);
+            Array inArray = preparedStatement.getConnection().createArrayOf("integer", o)
             preparedStatement.setArray(i, inArray)
         } else if (o instanceof int[]) {
             Array inArray = preparedStatement.getConnection().createArrayOf("integer", wrap(o))
