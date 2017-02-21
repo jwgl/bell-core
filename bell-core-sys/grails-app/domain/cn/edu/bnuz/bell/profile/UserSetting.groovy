@@ -32,8 +32,8 @@ class UserSetting implements Serializable {
     static mapping = {
         comment  '用户设置'
         id       composite: ['user', 'key'], comment: '用户设置ID'
-        key      length: 50, comment: '键'
-        value    length: 250, comment: '值'
+        key      type: 'text', comment: '键'
+        value    type: 'text', comment: '值'
         type     comment: '数据类型-I:整数;F:浮点数;B:布尔值;S:字符串;D:日期;T:时间;M:MAP(JSON)'
         user     comment: '所属用户'
     }
