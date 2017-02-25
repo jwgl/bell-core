@@ -271,38 +271,58 @@ class DomainStateMachineHandler {
         return canHandleEvent(Event.CLOSE, entity)
     }
 
-    boolean canAccept(StateObject object, String userId, String activity, UUID workitemId) {
-        if (!object) {
+    /**
+     * 是否可同意
+     * @param entity 实体
+     * @param userId 用户
+     * @param activity 活动，如果为空则不检查
+     * @param workitemId 工作项
+     * @return 是否可同意
+     */
+    boolean canAccept(StateObject entity, String userId, String activity, UUID workitemId) {
+        if (!entity) {
             throw new NotFoundException()
         }
 
-        if (!canAccept(object)) {
+        if (!canAccept(entity)) {
             throw new BadRequestException()
         }
 
         def workitem = Workitem.get(workitemId)
-        if (workitem.activitySuffix != activity || workitem.dateProcessed || workitem.to.id != userId ) {
+        if (activity && workitem.activitySuffix != activity
+                || workitem.dateProcessed
+                || workitem.to.id != userId ) {
             throw new BadRequestException()
         }
 
-        checkReviewer(object.id, userId, activity)
+        checkReviewer(entity.id, userId, activity)
     }
 
-    def canReject(StateObject object, String userId, String activity, UUID workitemId) {
-        if (!object) {
+    /**
+     * 是否可退回
+     * @param entity 实体
+     * @param userId 用户
+     * @param activity 活动，如果为空则不检查
+     * @param workitemId 工作项
+     * @return 是否可退回
+     */
+    def canReject(StateObject entity, String userId, String activity, UUID workitemId) {
+        if (!entity) {
             throw new NotFoundException()
         }
 
-        if (!canReject(object)) {
+        if (!canReject(entity)) {
             throw new BadRequestException()
         }
 
         def workitem = Workitem.get(workitemId)
-        if (workitem.activitySuffix != activity || workitem.dateProcessed || workitem.to.id != userId ) {
+        if (activity && workitem.activitySuffix != activity ||
+                workitem.dateProcessed ||
+                workitem.to.id != userId ) {
             throw new BadRequestException()
         }
 
-        checkReviewer(object.id, userId, activity)
+        checkReviewer(entity.id, userId, activity)
     }
 
     void checkReviewer(Object id, String reviewer, String activity) {
