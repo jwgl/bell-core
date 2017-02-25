@@ -1,5 +1,8 @@
 package cn.edu.bnuz.bell.workflow
 
+import cn.edu.bnuz.bell.http.BadRequestException
+import cn.edu.bnuz.bell.http.ForbiddenException
+import cn.edu.bnuz.bell.http.NotFoundException
 import cn.edu.bnuz.bell.security.SecurityService
 import cn.edu.bnuz.bell.workflow.events.*
 import groovy.transform.CompileStatic
@@ -14,14 +17,16 @@ import org.springframework.statemachine.persist.StateMachinePersister
 class DomainStateMachineHandler {
     private final StateMachine<State, Event> stateMachine
     private final StateMachinePersister<State, Event, StateObject> persister
-
+    private final ReviewerProvider reviewerProvider
     @Autowired
     private SecurityService securityService
 
     DomainStateMachineHandler(StateMachine<State, Event> stateMachine,
-                                     StateMachinePersister<State, Event, StateObject> persister) {
+                              StateMachinePersister<State, Event, StateObject> persister,
+                              ReviewerProvider reviewerProvider) {
         this.stateMachine = stateMachine
         this.persister = persister
+        this.reviewerProvider = reviewerProvider
     }
 
     State getInitialState() {
@@ -30,7 +35,7 @@ class DomainStateMachineHandler {
 
     void create(StateObject contextObj, String fromUser) {
         synchronized(stateMachine) {
-            stateMachine.stop();
+            stateMachine.stop()
             stateMachine.getStateMachineAccessor().doWithAllRegions(new StateMachineFunction<StateMachineAccess<State, Event>>() {
                 public void apply(StateMachineAccess<State, Event> function) {
                     function.setInitialEnabled(true)
@@ -44,8 +49,8 @@ class DomainStateMachineHandler {
                             .build()
                     )
                 }
-            });
-            stateMachine.start();
+            })
+            stateMachine.start()
         }
     }
 
@@ -113,7 +118,9 @@ class DomainStateMachineHandler {
      * @param comment 备注
      * @param workitemId 来源工作项ID
      */
-    void accept(StateObject entity, String fromUser, String comment, UUID workitemId) {
+    void accept(StateObject entity, String fromUser, String activity,
+                String comment, UUID workitemId) {
+        this.canAccept(entity, fromUser, activity, workitemId)
         this.handleEvent(Event.ACCEPT, new AutoEventData(
                 entity: entity,
                 fromUser: fromUser,
@@ -124,7 +131,7 @@ class DomainStateMachineHandler {
     }
 
     /**
-     * 来自程序的同意，不产生新的待办事项（自动->人工）
+     * 来自程序的同意，产生新的待办事项（自动->人工）
      * @param entity 实体
      * @param fromUser 源用户
      */
@@ -141,11 +148,14 @@ class DomainStateMachineHandler {
      * 来自人工的同意，产生新的待办事项（人工->人工）
      * @param entity 实体
      * @param fromUser 源用户
+     * @param activity 活动
      * @param comment 备注
      * @param toUser 目标用户
      * @param workitemId 来源工作项ID
      */
-    void accept(StateObject entity, String fromUser, String comment, UUID workitemId, String toUser) {
+    void accept(StateObject entity, String fromUser, String activity,
+                String comment, UUID workitemId, String toUser) {
+        this.canAccept(entity, fromUser, activity, workitemId)
         this.handleEvent(Event.ACCEPT, new ManualEventData(
                 fromUser: fromUser,
                 toUser: toUser,
@@ -173,10 +183,13 @@ class DomainStateMachineHandler {
      * 自来人工的退回，回退发起人
      * @param entity 实体
      * @param fromUser 源用户
+     * @param activity 活动
      * @param comment 备注
      * @param workitemId 来源工作项ID
      */
-    void reject(StateObject entity, String fromUser, String comment, UUID workitemId) {
+    void reject(StateObject entity, String fromUser, String activity,
+                String comment, UUID workitemId) {
+        this.canReject(entity, fromUser, activity, workitemId)
         this.handleEvent(Event.REJECT, new RejectEventData(
                 fromUser: fromUser,
                 comment: comment,
@@ -256,5 +269,56 @@ class DomainStateMachineHandler {
 
     boolean canClose(StateObject entity) {
         return canHandleEvent(Event.CLOSE, entity)
+    }
+
+    boolean canAccept(StateObject object, String userId, String activity, UUID workitemId) {
+        if (!object) {
+            throw new NotFoundException()
+        }
+
+        if (!canAccept(object)) {
+            throw new BadRequestException()
+        }
+
+        def workitem = Workitem.get(workitemId)
+        if (workitem.activitySuffix != activity || workitem.dateProcessed || workitem.to.id != userId ) {
+            throw new BadRequestException()
+        }
+
+        checkReviewer(object.id, userId, activity)
+    }
+
+    def canReject(StateObject object, String userId, String activity, UUID workitemId) {
+        if (!object) {
+            throw new NotFoundException()
+        }
+
+        if (!canReject(object)) {
+            throw new BadRequestException()
+        }
+
+        def workitem = Workitem.get(workitemId)
+        if (workitem.activitySuffix != activity || workitem.dateProcessed || workitem.to.id != userId ) {
+            throw new BadRequestException()
+        }
+
+        checkReviewer(object.id, userId, activity)
+    }
+
+    void checkReviewer(Object id, String reviewer, String activity) {
+        List<Map> reviewers = reviewerProvider.getReviewers(id, activity)
+        switch (activity) {
+            case Activities.CHECK:
+            case Activities.APPROVE:
+                if (!reviewers.find {it.id == reviewer}) {
+                    throw new ForbiddenException()
+                }
+                break
+            case Activities.REVIEW:
+                // 已在WorkflowController中进行了身份验证
+                break
+            default:
+                throw new BadRequestException()
+        }
     }
 }
