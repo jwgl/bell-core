@@ -9,6 +9,8 @@ interface Roles {
 
     String DEAN_OF_TEACHING =  'ROLE_DEAN_OF_TEACHING'
 
+    String VIRTUAL =           'ROLE_VIRTUAL'
+
     String TEACHER =           'ROLE_TEACHER'
     String IN_SCHOOL_TEACHER = 'ROLE_IN_SCHOOL_TEACHER'
 
