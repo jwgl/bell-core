@@ -36,7 +36,6 @@ dependencies {
 
 bootRepackage.enabled = false
 grailsPublish {
-    // TODO: Provide values here
     user = 'user'
     key = 'key'
     githubSlug = 'foo/bar'

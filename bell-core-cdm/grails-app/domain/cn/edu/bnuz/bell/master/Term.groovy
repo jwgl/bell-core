@@ -109,19 +109,4 @@ class Term {
             return current
         }
     }
-
-    String getEsYear() {
-        def year = (int)(this.id / 10)
-        return "${year}-${year + 1}"
-    }
-
-    int getEsTerm() {
-        return this.id % 10
-    }
-
-    List<LocalDate> getSwapToDates() {
-        swapDates.collect {
-            it.toDate
-        }
-    }
 }
