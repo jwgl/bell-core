@@ -23,11 +23,7 @@ class ListCommand implements Validateable {
     }
 
     ListType type
-
-    @Override
-    String toString() {
-        "ListCommand: [type: ${type}, offset: ${getOffset()}, max: ${getMax()}]"
-    }
+    String query
 
     Map getArgs() {
        [offset: getOffset(), max: getMax()]
