@@ -13,87 +13,59 @@ import java.time.LocalTime
 @Transactional
 class SystemConfigService {
 
-    Integer get(String key) {
-        getValue(key, ConfigDataType.INTEGER, 0)
-    }
-
     Integer get(String key, Integer defaultValue) {
         getValue(key, ConfigDataType.INTEGER, defaultValue)
     }
 
-    void setInteger(String key, Integer value) {
+    void set(String key, Integer value) {
         setValue(key, ConfigDataType.INTEGER, value)
     }
 
-    BigDecimal getDecimal(String key) {
-        getValue(key, ConfigDataType.FLOAT, 0.0)
-    }
-
-    BigDecimal getDecimal(String key, BigDecimal defaultValue) {
+    BigDecimal get(String key, BigDecimal defaultValue) {
         getValue(key, ConfigDataType.FLOAT, defaultValue)
     }
 
-    void setDecimal(String key, BigDecimal value) {
+    void set(String key, BigDecimal value) {
         setValue(key, ConfigDataType.FLOAT, value)
     }
 
-    Boolean getBoolean(String key) {
-        getValue(key, ConfigDataType.BOOLEAN, false)
-    }
-
-    Boolean getBoolean(String key, Boolean defaultValue) {
+    Boolean get(String key, Boolean defaultValue) {
         getValue(key, ConfigDataType.BOOLEAN, defaultValue)
     }
 
-    void setBoolean(String key, Boolean value) {
+    void set(String key, Boolean value) {
         setValue(key, ConfigDataType.BOOLEAN, value)
     }
 
-    String getString(String key) {
-        getValue(key, ConfigDataType.STRING, '')
-    }
-
-    String getString(String key, String defaultValue) {
+    String get(String key, String defaultValue) {
         getValue(key, ConfigDataType.STRING, defaultValue)
     }
 
-    void setString(String key, String value) {
+    void set(String key, String value) {
         setValue(key, ConfigDataType.STRING, value)
     }
 
-    LocalDate getDate(String key) {
-        getValue(key, ConfigDataType.DATE, LocalDate.now())
-    }
-
-    LocalDate getDate(String key, LocalDate defaultValue) {
+    LocalDate get(String key, LocalDate defaultValue) {
         getValue(key, ConfigDataType.DATE, defaultValue)
     }
 
-    void setDate(String key, LocalDate value) {
+    void set(String key, LocalDate value) {
         setValue(key, ConfigDataType.DATE, value)
     }
 
-    LocalTime getTime(String key) {
-        getValue(key, ConfigDataType.TIME, LocalTime.now())
-    }
-
-    LocalTime getTime(String key, LocalTime defaultValue) {
+    LocalTime get(String key, LocalTime defaultValue) {
         getValue(key, ConfigDataType.TIME, defaultValue)
     }
 
-    void setTime(String key, LocalTime value) {
+    void set(String key, LocalTime value) {
         setValue(key, ConfigDataType.TIME, value)
     }
 
-    Map getMap(String key) {
-        getValue(key, ConfigDataType.MAP, [:])
-    }
-
-    Map getMap(String key, Map defaultValue) {
+    Map get(String key, Map defaultValue) {
         getValue(key, ConfigDataType.MAP, defaultValue)
     }
 
-    void setMap(String key, Map value) {
+    void set(String key, Map value) {
         setValue(key, ConfigDataType.MAP, value)
     }
 

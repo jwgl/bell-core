@@ -12,16 +12,11 @@ import java.time.LocalTime
 
 @Transactional
 class UserSettingService {
-
-    Integer get(String userId, String key) {
-        getValue(userId, key, ConfigDataType.INTEGER, 0)
-    }
-
     Integer get(String userId, String key, Integer defaultValue) {
         getValue(userId, key, ConfigDataType.INTEGER, defaultValue)
     }
 
-    void setInteger(String userId, String key, Integer value) {
+    void set(String userId, String key, Integer value) {
         setValue(userId, key, ConfigDataType.INTEGER, value)
     }
 
@@ -29,71 +24,51 @@ class UserSettingService {
         getValue(userId, key, ConfigDataType.FLOAT, 0.0)
     }
 
-    BigDecimal getDecimal(String userId, String key, BigDecimal defaultValue) {
-        getValue(userId, key, ConfigDataType.FLOAT, defaultValue)
+    BigDecimal get(String userId, String key, BigDecimal defaultValue) {
+        get(userId, key, defaultValue)
     }
 
-    void setDecimal(String userId, String key, BigDecimal value) {
+    void set(String userId, String key, BigDecimal value) {
         setValue(userId, key, ConfigDataType.FLOAT, value)
     }
 
-    Boolean getBoolean(String userId, String key) {
-        getValue(userId, key, ConfigDataType.BOOLEAN, false)
-    }
-
-    Boolean getBoolean(String userId, String key, Boolean defaultValue) {
+    Boolean get(String userId, String key, Boolean defaultValue) {
         getValue(userId, key, ConfigDataType.BOOLEAN, defaultValue)
     }
 
-    void setBoolean(String userId, String key, Boolean value) {
+    void set(String userId, String key, Boolean value) {
         setValue(userId, key, ConfigDataType.BOOLEAN, value)
     }
 
-    String getString(String userId, String key) {
-        getValue(userId, key, ConfigDataType.STRING, '')
-    }
-
-    String getString(String userId, String key, String defaultValue) {
+    String get(String userId, String key, String defaultValue) {
         getValue(userId, key, ConfigDataType.STRING, defaultValue)
     }
 
-    void setString(String userId, String key, String value) {
+    void set(String userId, String key, String value) {
         setValue(userId, key, ConfigDataType.STRING, value)
     }
 
-    LocalDate getDate(String userId, String key) {
-        getValue(userId, key, ConfigDataType.DATE, LocalDate.now())
-    }
-
-    LocalDate getDate(String userId, String key, LocalDate defaultValue) {
+    LocalDate get(String userId, String key, LocalDate defaultValue) {
         getValue(userId, key, ConfigDataType.DATE, defaultValue)
     }
 
-    void setDate(String userId, String key, LocalDate value) {
+    void set(String userId, String key, LocalDate value) {
         setValue(userId, key, ConfigDataType.DATE, value)
     }
 
-    LocalTime getTime(String userId, String key) {
-        getValue(userId, key, ConfigDataType.TIME, LocalTime.now())
-    }
-
-    LocalTime getTime(String userId, String key, LocalTime defaultValue) {
+    LocalTime get(String userId, String key, LocalTime defaultValue) {
         getValue(userId, key, ConfigDataType.TIME, defaultValue)
     }
 
-    void setTime(String userId, String key, LocalTime value) {
+    void set(String userId, String key, LocalTime value) {
         setValue(userId, key, ConfigDataType.TIME, value)
     }
 
-    Map getMap(String userId, String key) {
-        getValue(userId, key, ConfigDataType.MAP, [:])
-    }
-
-    Map getMap(String userId, String key, Map defaultValue) {
+    Map get(String userId, String key, Map defaultValue) {
         getValue(userId, key, ConfigDataType.MAP, defaultValue)
     }
 
-    void setMap(String userId, String key, Map value) {
+    void set(String userId, String key, Map value) {
         setValue(userId, key, ConfigDataType.MAP, value)
     }
 
