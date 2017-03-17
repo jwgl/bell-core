@@ -47,7 +47,9 @@ dependencies {
     provided "org.grails.plugins:hibernate5"
     provided "org.hibernate:hibernate-core:$hibernateVersion"
 
-    provided "com.netflix.eureka:eureka-client"
+    provided "com.netflix.eureka:eureka-client", {
+        exclude group: 'com.netflix.ribbon', module:'ribbon-transport'
+    }
 
     compile 'org.springframework.statemachine:spring-statemachine-core:1.2.1.RELEASE'
     compile 'org.springframework.cloud:spring-cloud-commons'
