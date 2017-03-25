@@ -18,7 +18,7 @@ class BellUser extends OssUser {
 
     BellUser(User user, Collection<GrantedAuthority> authorities) {
         super(user.id, user.password, user.enabled, !user.accountExpired, !user.passwordExpired,
-                !user.accountLocked, authorities);
+                !user.accountLocked, authorities)
         this.id = user.id
         this.name = user.name
         this.departmentId = user.departmentId

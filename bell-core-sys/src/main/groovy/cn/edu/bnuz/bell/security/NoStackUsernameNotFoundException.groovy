@@ -7,14 +7,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
  * @author Yang Lin
  */
 class NoStackUsernameNotFoundException extends UsernameNotFoundException{
-    static final long serialVersionUID = 1;
+    static final long serialVersionUID = 1
 
     NoStackUsernameNotFoundException() {
-        super("User not found");
+        super("User not found")
     }
 
     @Override
-    public synchronized Throwable fillInStackTrace() {
-        return this;
+    synchronized Throwable fillInStackTrace() {
+        return this
     }
 }

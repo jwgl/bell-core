@@ -4,12 +4,12 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 interface StateObject {
-    State getStatus();
-    void setStatus(State state);
+    State getStatus()
+    void setStatus(State state)
 
-    WorkflowInstance getWorkflowInstance();
-    void setWorkflowInstance(WorkflowInstance workflowInstance);
+    WorkflowInstance getWorkflowInstance()
+    void setWorkflowInstance(WorkflowInstance workflowInstance)
 
-    String getWorkflowId();
-    Object getId();
+    String getWorkflowId()
+    Object getId()
 }

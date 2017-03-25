@@ -18,7 +18,7 @@ import java.sql.Types
  */
 class PostgreSQLJsonUserType implements UserType {
     @Override
-    public int[] sqlTypes() {
+    int[] sqlTypes() {
         [Types.JAVA_OBJECT] as int[]
     }
 
@@ -28,17 +28,17 @@ class PostgreSQLJsonUserType implements UserType {
     }
 
     @Override
-    public boolean equals(Object o, Object o2) throws HibernateException {
+    boolean equals(Object o, Object o2) throws HibernateException {
         Objects.equals(o, o2)
     }
 
     @Override
-    public int hashCode(Object o) throws HibernateException {
+    int hashCode(Object o) throws HibernateException {
         o.hashCode()
     }
 
     @Override
-    public Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
+    Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
         if (resultSet.getObject(names[0]) == null) {
             return null
         } else {
@@ -48,7 +48,7 @@ class PostgreSQLJsonUserType implements UserType {
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
+    void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
         if (value == null) {
             preparedStatement.setNull(index, Types.NULL)
         } else {
@@ -62,27 +62,27 @@ class PostgreSQLJsonUserType implements UserType {
     }
 
     @Override
-    public Object deepCopy(Object o) throws HibernateException {
+    Object deepCopy(Object o) throws HibernateException {
         return o
     }
 
     @Override
-    public boolean isMutable() {
-        return false;
+    boolean isMutable() {
+        return false
     }
 
     @Override
-    public Serializable disassemble(Object o) throws HibernateException {
+    Serializable disassemble(Object o) throws HibernateException {
         (Serializable) this.deepCopy(o)
     }
 
     @Override
-    public Object assemble(Serializable cached, Object owner) throws HibernateException {
+    Object assemble(Serializable cached, Object owner) throws HibernateException {
         deepCopy(cached)
     }
 
     @Override
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
+    Object replace(Object original, Object target, Object owner) throws HibernateException {
         deepCopy(original)
     }
 }

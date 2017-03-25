@@ -88,6 +88,10 @@ class DomainStateMachineHandler {
     }
 
     void submit(StateObject entity, String fromUser, String toUser, String comment, String title) {
+        if (!toUser) {
+            throw new BadRequestException('To user is null')
+        }
+
         this.handleEvent(Event.SUBMIT, new SubmitEventData(
                 entity: entity,
                 fromUser: fromUser,
@@ -136,6 +140,10 @@ class DomainStateMachineHandler {
      * @param fromUser 源用户
      */
     void accept(StateObject entity, String fromUser, String toUser) {
+        if (!toUser) {
+            throw new BadRequestException('To user is null')
+        }
+
         this.handleEvent(Event.ACCEPT, new ManualEventData(
                 entity: entity,
                 fromUser: fromUser,
@@ -155,6 +163,10 @@ class DomainStateMachineHandler {
      */
     void accept(StateObject entity, String fromUser, String activity,
                 String comment, UUID workitemId, String toUser) {
+        if (!toUser) {
+            throw new BadRequestException('To user is null')
+        }
+
         this.canAccept(entity, fromUser, activity, workitemId)
         this.handleEvent(Event.ACCEPT, new ManualEventData(
                 fromUser: fromUser,

@@ -24,31 +24,31 @@ class DataAccessService {
         return (D)results[0]
     }
 
-    public Integer getInteger(String query, Map params = null) {
+    Integer getInteger(String query, Map params = null) {
         return getValue(Integer, query, params)
     }
 
-    public Long getLong(String query, Map params = null) {
-        return getValue(Long, query, params);
+    Long getLong(String query, Map params = null) {
+        return getValue(Long, query, params)
     }
 
-    public Boolean getBoolean(String query, Map params = null) {
+    Boolean getBoolean(String query, Map params = null) {
         return getValue(Boolean, query, params)
     }
 
-    public String getString(String query, Map params = null) {
+    String getString(String query, Map params = null) {
         return getValue(String, query, params)
     }
 
-    public UUID getUuid(String query, Map params = null) {
+    UUID getUuid(String query, Map params = null) {
         return getValue(UUID, query, params)
     }
 
-    public JSONElement getJson(String query, Map params = null) {
+    JSONElement getJson(String query, Map params = null) {
         return getValue(JSONElement, query, params)
     }
 
-    public Boolean exists(String query, Map params = null) {
+    Boolean exists(String query, Map params = null) {
         return getValue(Object, query, params) != null
     }
 

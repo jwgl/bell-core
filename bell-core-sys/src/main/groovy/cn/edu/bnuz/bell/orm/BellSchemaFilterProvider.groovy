@@ -14,21 +14,21 @@ import org.hibernate.tool.schema.spi.SchemaFilterProvider
  */
 @Log4j
 class BellSchemaFilterProvider implements SchemaFilterProvider {
-    private BellSchemaFilter filter = new BellSchemaFilter();
+    private BellSchemaFilter filter = new BellSchemaFilter()
     SchemaFilter getCreateFilter() {
-        return filter;
+        return filter
     }
 
     SchemaFilter getDropFilter() {
-        return filter;
+        return filter
     }
 
     SchemaFilter getMigrateFilter() {
-        return filter;
+        return filter
     }
 
     SchemaFilter getValidateFilter() {
-        return filter;
+        return filter
     }
 
     static class BellSchemaFilter implements SchemaFilter {

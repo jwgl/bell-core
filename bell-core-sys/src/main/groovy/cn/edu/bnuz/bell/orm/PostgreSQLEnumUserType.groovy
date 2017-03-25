@@ -12,7 +12,7 @@ import java.sql.Types
 
 @CompileStatic
 abstract class PostgreSQLEnumUserType implements UserType {
-    abstract Class<? extends Enum> getEnumClass();
+    abstract Class<? extends Enum> getEnumClass()
 
     @Override
     public int[] sqlTypes() {
