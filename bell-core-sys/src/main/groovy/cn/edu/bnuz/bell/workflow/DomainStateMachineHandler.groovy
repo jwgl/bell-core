@@ -301,10 +301,15 @@ class DomainStateMachineHandler {
         }
 
         def workitem = Workitem.get(workitemId)
-        if (activity && workitem.activitySuffix != activity
-                || workitem.dateProcessed
-                || workitem.to.id != userId ) {
+        if (workitem.dateProcessed || workitem.to.id != userId ) {
             throw new BadRequestException()
+        }
+        if (activity) {
+            if (workitem.activitySuffix != activity) {
+                throw new BadRequestException()
+            }
+        } else {
+            activity = workitem.activitySuffix
         }
 
         checkReviewer(entity.id, userId, activity)
@@ -328,10 +333,15 @@ class DomainStateMachineHandler {
         }
 
         def workitem = Workitem.get(workitemId)
-        if (activity && workitem.activitySuffix != activity ||
-                workitem.dateProcessed ||
-                workitem.to.id != userId ) {
+        if (workitem.dateProcessed || workitem.to.id != userId ) {
             throw new BadRequestException()
+        }
+        if (activity) {
+            if (workitem.activitySuffix != activity) {
+                throw new BadRequestException()
+            }
+        } else {
+            activity = workitem.activitySuffix
         }
 
         checkReviewer(entity.id, userId, activity)
