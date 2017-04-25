@@ -1,6 +1,6 @@
 package cn.edu.bnuz.bell.security
 
-import org.apache.commons.lang.builder.HashCodeBuilder
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 用户-角色
@@ -19,8 +19,8 @@ class UserRole implements Serializable {
             if (ur.user == null)
                 return
             boolean existing = false
-            UserRole.withNewSession {
-                existing = UserRole.exists(ur.user.id, r.id)
+            withNewSession {
+                existing = exists(ur.user.id, r.id)
             }
             if (existing) {
                 return 'userRole.exists'
@@ -44,22 +44,20 @@ class UserRole implements Serializable {
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (user)
-            builder.append(user.id)
-        if (role)
-            builder.append(role.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, user.id)
+        hash = HashCodeHelper.updateHash(hash, role.id)
+        hash
     }
 
     static UserRole get(String userId, String roleId) {
-        UserRole.where {
+        where {
             user == User.load(userId) && role == Role.load(roleId)
         }.get()
     }
 
     static boolean exists(String userId, String roleId) {
-        UserRole.where {
+        where {
             user == User.load(userId) && role == Role.load(roleId)
         }.count() > 0
     }
@@ -73,12 +71,12 @@ class UserRole implements Serializable {
     static boolean remove(User u, Role r, boolean flush = false) {
         if (u == null || r == null) return false
 
-        int rowCount = UserRole.where {
+        int rowCount = where {
             user == User.load(u.id) && role == Role.load(r.id)
         }.deleteAll()
 
         if (flush) {
-            UserRole.withSession { it.flush() }
+            withSession { it.flush() }
         }
 
         rowCount > 0
@@ -88,12 +86,12 @@ class UserRole implements Serializable {
         if (u == null)
             return
 
-        UserRole.where {
+        where {
             user == User.load(u.id)
         }.deleteAll()
 
         if (flush) {
-            UserRole.withSession { it.flush() }
+            withSession { it.flush() }
         }
     }
 
@@ -101,12 +99,12 @@ class UserRole implements Serializable {
         if (r == null)
             return
 
-        UserRole.where {
+        where {
             role == Role.load(r.id)
         }.deleteAll()
 
         if (flush) {
-            UserRole.withSession { it.flush() }
+            withSession { it.flush() }
         }
     }
 }

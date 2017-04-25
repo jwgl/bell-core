@@ -31,7 +31,6 @@ dependencies {
     provided "org.grails:grails-plugin-domain-class"
     provided "org.grails.plugins:cache"
     testCompile "org.grails:grails-plugin-testing"
-    compile "commons-lang:commons-lang:2.6"
 }
 
 bootRepackage.enabled = false

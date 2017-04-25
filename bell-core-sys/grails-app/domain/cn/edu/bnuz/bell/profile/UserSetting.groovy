@@ -1,8 +1,7 @@
 package cn.edu.bnuz.bell.profile
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 import cn.edu.bnuz.bell.security.User
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 用户设置
@@ -47,11 +46,9 @@ class UserSetting implements Serializable {
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if(user)
-            builder.append(user.id)
-        if(key)
-            builder.append(key)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, user.id)
+        hash = HashCodeHelper.updateHash(hash, key)
+        hash
     }
 }

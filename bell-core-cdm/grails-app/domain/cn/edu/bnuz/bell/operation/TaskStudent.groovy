@@ -1,8 +1,7 @@
 package cn.edu.bnuz.bell.operation
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 import cn.edu.bnuz.bell.organization.Student
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 选课学生
@@ -53,11 +52,9 @@ class TaskStudent implements Serializable {
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (task)
-            builder.append(task.id)
-        if (student)
-            builder.append(student.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, task.id)
+        hash = HashCodeHelper.updateHash(hash, student.id)
+        hash
     }
 }

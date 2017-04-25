@@ -1,8 +1,7 @@
 package cn.edu.bnuz.bell.planning
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 import cn.edu.bnuz.bell.master.Property
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 教学计划-课程性质设置
@@ -69,15 +68,13 @@ class ProgramProperty implements Serializable  {
             return false
         }
 
-        other.program?.id == program?.id &&    other.property?.id == property?.id
+        other.program?.id == program?.id && other.property?.id == property?.id
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (program)
-            builder.append(program.id)
-        if (property)
-            builder.append(property.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, program.id)
+        hash = HashCodeHelper.updateHash(hash, property.id)
+        hash
     }
 }

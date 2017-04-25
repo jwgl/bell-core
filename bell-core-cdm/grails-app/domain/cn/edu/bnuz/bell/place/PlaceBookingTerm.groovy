@@ -1,8 +1,7 @@
 package cn.edu.bnuz.bell.place
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 import cn.edu.bnuz.bell.master.Term
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 场地借用-允许学期
@@ -31,11 +30,9 @@ class PlaceBookingTerm implements Serializable {
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (place)
-            builder.append(place.id)
-        if (term)
-            builder.append(term.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, place.id)
+        hash = HashCodeHelper.updateHash(hash, term.id)
+        hash
     }
 }

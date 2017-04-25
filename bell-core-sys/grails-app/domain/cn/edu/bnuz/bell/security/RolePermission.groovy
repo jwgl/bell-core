@@ -1,6 +1,6 @@
 package cn.edu.bnuz.bell.security
 
-import org.apache.commons.lang.builder.HashCodeBuilder
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 角色-权限
@@ -27,16 +27,14 @@ class RolePermission implements Serializable {
             return false
         }
 
-        other.role?.id == role?.id &&    other.permission?.id == permission?.id
+        other.role?.id == role?.id && other.permission?.id == permission?.id
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (role)
-            builder.append(role.id)
-        if (permission)
-            builder.append(permission.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, role.id)
+        hash = HashCodeHelper.updateHash(hash, permission.id)
+        hash
     }
 
     static List<String> findPermissionsByRoles(List<String> roles) {

@@ -1,8 +1,7 @@
 package cn.edu.bnuz.bell.place
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 import cn.edu.bnuz.bell.organization.Department
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 场地专用单位
@@ -27,15 +26,13 @@ class PlaceDepartment implements Serializable {
             return false
         }
 
-        other.place?.id == place?.id &&    other.department?.id == department?.id
+        other.place?.id == place?.id && other.department?.id == department?.id
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (place)
-            builder.append(place.id)
-        if (department)
-            builder.append(department.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, place.id)
+        hash = HashCodeHelper.updateHash(hash, department.id)
+        hash
     }
 }

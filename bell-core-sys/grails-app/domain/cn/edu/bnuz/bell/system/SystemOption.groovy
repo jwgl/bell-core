@@ -1,6 +1,6 @@
 package cn.edu.bnuz.bell.system
 
-import org.apache.commons.lang.builder.HashCodeBuilder
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 选项
@@ -52,11 +52,9 @@ class SystemOption implements Serializable {
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if(type)
-            builder.append(type)
-        if(value)
-            builder.append(value)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, type)
+        hash = HashCodeHelper.updateHash(hash, value)
+        hash
     }
 }

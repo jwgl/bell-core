@@ -1,8 +1,7 @@
 package cn.edu.bnuz.bell.operation
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 import cn.edu.bnuz.bell.planning.Program
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 教学班-教学计划
@@ -31,11 +30,9 @@ class CourseClassProgram implements Serializable {
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (courseClass)
-            builder.append(courseClass.id)
-        if (program)
-            builder.append(program.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, courseClass.id)
+        hash = HashCodeHelper.updateHash(hash, program.id)
+        hash
     }
 }

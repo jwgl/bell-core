@@ -1,6 +1,6 @@
 package cn.edu.bnuz.bell.master
 
-import org.apache.commons.lang.builder.HashCodeBuilder
+import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 目录专业允许授予的学位
@@ -24,15 +24,13 @@ class FieldAllowDegree implements Serializable{
             return false
         }
 
-        other.field?.id == field?.id &&    other.discipline?.id == discipline?.id
+        other.field?.id == field?.id && other.discipline?.id == discipline?.id
     }
 
     int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (field)
-            builder.append(field.id)
-        if (discipline)
-            builder.append(discipline.id)
-        builder.toHashCode()
+        int hash = HashCodeHelper.initHash()
+        hash = HashCodeHelper.updateHash(hash, field.id)
+        hash = HashCodeHelper.updateHash(hash, discipline.id)
+        hash
     }
 }
