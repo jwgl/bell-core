@@ -94,7 +94,7 @@ class User {
         officePhone         length: 12, comment: '办公电话'
         longPhone           length: 11, comment: '手机长号'
         shortPhone          length: 6, comment: '手机短号'
-        userType            comment: '用户类型-1:教师;2:学生;9-外部用户'
+        userType            enumType: 'identity', comment: '用户类型-1:教师;2:学生;9-外部用户'
         departmentId        length: 2, comment: '部门ID'
     }
 
