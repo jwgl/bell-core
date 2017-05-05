@@ -1,9 +1,12 @@
 package cn.edu.bnuz.bell.master
 
+import grails.gorm.dirty.checking.DirtyCheck
+
 /**
  * 课时
  * @author Yang Lin
  */
+@DirtyCheck
 class Period {
     /**
      * 周理论课时(HPW - Hours Per Week)
