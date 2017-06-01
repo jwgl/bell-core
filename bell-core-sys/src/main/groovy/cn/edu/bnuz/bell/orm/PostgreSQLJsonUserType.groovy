@@ -3,7 +3,7 @@ package cn.edu.bnuz.bell.orm
 import grails.converters.JSON
 import org.grails.web.json.JSONElement
 import org.hibernate.HibernateException
-import org.hibernate.engine.spi.SessionImplementor
+import org.hibernate.engine.spi.SharedSessionContractImplementor
 import org.hibernate.usertype.UserType
 import org.postgresql.util.PGobject
 
@@ -38,7 +38,7 @@ class PostgreSQLJsonUserType implements UserType {
     }
 
     @Override
-    Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
+    Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
         if (resultSet.getObject(names[0]) == null) {
             return null
         } else {
@@ -48,7 +48,7 @@ class PostgreSQLJsonUserType implements UserType {
     }
 
     @Override
-    void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
+    void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException {
         if (value == null) {
             preparedStatement.setNull(index, Types.NULL)
         } else {

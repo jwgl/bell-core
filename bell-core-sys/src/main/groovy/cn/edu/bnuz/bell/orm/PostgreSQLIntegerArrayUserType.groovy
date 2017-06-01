@@ -1,7 +1,7 @@
 package cn.edu.bnuz.bell.orm
 
 import org.hibernate.HibernateException
-import org.hibernate.engine.spi.SessionImplementor
+import org.hibernate.engine.spi.SharedSessionContractImplementor
 import org.hibernate.usertype.UserType
 
 import java.sql.*
@@ -36,7 +36,7 @@ class PostgreSQLIntegerArrayUserType implements UserType {
     }
 
     @Override
-    Object nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
+    Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
         if (strings.length != 1)
             throw new IllegalArgumentException("strings.length != 1, strings = " + strings)
 
@@ -50,7 +50,7 @@ class PostgreSQLIntegerArrayUserType implements UserType {
     }
 
     @Override
-    void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
+    void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException {
         if (o == null) {
             preparedStatement.setNull(i, Types.ARRAY)
         } else if (o instanceof Integer[]) {
