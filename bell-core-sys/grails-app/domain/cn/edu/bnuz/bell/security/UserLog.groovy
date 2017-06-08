@@ -45,11 +45,11 @@ class UserLog {
         comment     '用户日志'
         id          generator: 'uuid2', type:'pg-uuid', comment: '用户日志ID'
         user        comment: '用户'
-        ipAddress   length: 50, comment: 'IP地址'
-        module      length: 50, comment: '模块'
-        item        length: 50, comment: '记录'
-        event       length: 10, comment: '事件'
-        content     length: 4000, comment: '数据'
+        ipAddress   type: 'text', comment: 'IP地址'
+        module      type: 'text', comment: '模块'
+        item        type: 'text', comment: '记录'
+        event       type: 'text', comment: '事件'
+        content     type: 'text', comment: '数据'
         dateCreated comment: '时间'
     }
 
