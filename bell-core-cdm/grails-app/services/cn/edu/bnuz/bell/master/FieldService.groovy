@@ -1,8 +1,11 @@
 package cn.edu.bnuz.bell.master
+import grails.gorm.transactions.Transactional
+
 /**
  * 专业目录服务
  * @author Yang Lin
  */
+@Transactional(readOnly = true)
 class FieldService {
     def getFields(String version) {
         Field.executeQuery '''

@@ -1,9 +1,8 @@
 package cn.edu.bnuz.bell.organization
 
-import cn.edu.bnuz.bell.organization.Student
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 class StudentService {
     /**
      * 获取学生基本信息

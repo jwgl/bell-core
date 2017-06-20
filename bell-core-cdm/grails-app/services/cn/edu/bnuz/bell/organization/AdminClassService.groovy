@@ -1,9 +1,8 @@
 package cn.edu.bnuz.bell.organization
 
-import cn.edu.bnuz.bell.organization.AdminClass
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 class AdminClassService {
 
     List<Map> findByDepartment(String departmentId, Boolean inSchool = true) {

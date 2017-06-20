@@ -1,7 +1,8 @@
 package cn.edu.bnuz.bell.organization
 
-import cn.edu.bnuz.bell.organization.Department
+import grails.gorm.transactions.Transactional
 
+@Transactional(readOnly = true)
 class DepartmentService {
 
     /**

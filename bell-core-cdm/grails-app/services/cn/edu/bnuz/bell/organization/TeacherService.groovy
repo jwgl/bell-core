@@ -1,9 +1,8 @@
 package cn.edu.bnuz.bell.organization
 
-import cn.edu.bnuz.bell.organization.Teacher
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 class TeacherService {
 
     def find(String query) {
