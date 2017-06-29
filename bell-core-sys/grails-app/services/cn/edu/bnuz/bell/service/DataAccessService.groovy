@@ -2,7 +2,7 @@ package cn.edu.bnuz.bell.service
 
 import cn.edu.bnuz.bell.http.NotFoundException
 import grails.compiler.GrailsCompileStatic
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 import org.grails.web.json.JSONElement
 
 /**

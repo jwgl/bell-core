@@ -1,7 +1,7 @@
 package cn.edu.bnuz.bell.system
 
 import cn.edu.bnuz.bell.config.ConfigDataType
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import groovy.transform.CompileStatic

@@ -1,8 +1,12 @@
 package cn.edu.bnuz.bell.security
+
+import grails.gorm.transactions.Transactional
+
 /**
  * 用户操作日志服务
  * @author Yang Lin
  */
+@Transactional
 class UserLogService {
     def log(String userId, String ipAddress, String event, Object item, Object content = null) {
         log(userId, ipAddress, item.getClass(), event, item, content)

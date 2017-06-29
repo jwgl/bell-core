@@ -1,7 +1,7 @@
 package cn.edu.bnuz.bell.workflow
 
 import cn.edu.bnuz.bell.security.User
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 
 /**
  * 工作流服务

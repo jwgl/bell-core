@@ -2,14 +2,15 @@ package cn.edu.bnuz.bell.profile
 
 import cn.edu.bnuz.bell.config.ConfigDataType
 import cn.edu.bnuz.bell.security.User
-import grails.converters.JSON
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
+import groovy.transform.CompileStatic
 
 import java.time.LocalDate
 import java.time.LocalTime
 
+@CompileStatic
 @Transactional
 class UserSettingService {
     Integer get(String userId, String key, Integer defaultValue) {
