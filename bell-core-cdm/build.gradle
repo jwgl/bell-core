@@ -30,6 +30,7 @@ dependencies {
     provided "org.grails:grails-plugin-services"
     provided "org.grails:grails-plugin-domain-class"
     provided "org.grails.plugins:cache"
+    testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.grails:grails-plugin-testing"
 }
 
@@ -44,6 +45,4 @@ grailsPublish {
     title = "bell core cdm"
     desc = "Bell core common data model"
     developers = [yanglin:"Yang Lin"]
-    portalUser = ""
-    portalPassword = ""
 }

@@ -35,6 +35,7 @@ dependencies {
     profile "org.grails.profiles:plugin"
     provided "org.grails:grails-plugin-services"
     provided "org.grails:grails-plugin-domain-class"
+    testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.grails:grails-plugin-testing"
 
     provided "org.springframework.boot:spring-boot-starter-tomcat"
@@ -57,7 +58,6 @@ dependencies {
 
 bootRepackage.enabled = false
 grailsPublish {
-    // TODO: Provide values here
     user = 'user'
     key = 'key'
     githubSlug = 'foo/bar'
@@ -67,6 +67,4 @@ grailsPublish {
     title = "bell core sys"
     desc = "Bell core system domain and service"
     developers = [yanglin:"Yang Lin"]
-    portalUser = ""
-    portalPassword = ""
 }
