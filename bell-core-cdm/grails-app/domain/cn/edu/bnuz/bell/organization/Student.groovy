@@ -69,7 +69,7 @@ class Student {
     /**
      * 是否注册
      */
-    Boolean isRegisted
+    Boolean isRegistered
 
     /**
      * 乘车区间
@@ -99,12 +99,12 @@ class Student {
     /**
      * 主修外语语种:英en、法fr、德de、日ja、俄ru
      */
-    String forignLanguage
+    String foreignLanguage
 
     /**
      * 外语等级
      */
-    Integer forignLanguageLevel
+    Integer foreignLanguageLevel
 
     /**
      * 学院
@@ -132,43 +132,43 @@ class Student {
     Admission admission
 
     static mapping = {
-        comment             '学生'
-        table               schema: 'ea'
-        id                  generator: 'assigned', length: 10, comment: '学号'
-        name                length: 50, comment: '姓名'
-        pinyinName          length: 50,    comment: '姓名拼音'
-        sex                 length: 1, comment: '性别'
-        birthday            comment: '出生日期'
-        politicalStatus     comment: '政治面貌'
-        nationality         comment: '民族'
-        dateEnrolled        comment: '入学日期'
-        dateGraduated       comment: '毕业日期'
-        isEnrolled          defaultValue: "true", comment: '是否有学籍'
-        atSchool            defaultValue: "true", comment: '是否在校'
-        isRegisted          defaultValue: "true", comment: '是否注册'
-        trainRange          length: 20, comment: '乘车区间'
-        category            comment: '学生类别'
-        forignLanguage      length: 2, comment: '主修外语种类'
-        forignLanguageLevel defaultValue: "0", comment: '外语等级'
-        changeType          comment: '异动类别'
-        department          comment: '学院'
-        adminClass          comment: '行政班'
-        major               comment: '专业'
-        direction           comment: '专业方向'
-        admission           comment: '录取信息'
+        comment              '学生'
+        table                schema: 'ea'
+        id                   generator: 'assigned', length: 10, comment: '学号'
+        name                 length: 50, comment: '姓名'
+        pinyinName           length: 50,    comment: '姓名拼音'
+        sex                  length: 1, comment: '性别'
+        birthday             comment: '出生日期'
+        politicalStatus      comment: '政治面貌'
+        nationality          comment: '民族'
+        dateEnrolled         comment: '入学日期'
+        dateGraduated        comment: '毕业日期'
+        isEnrolled           defaultValue: "true", comment: '是否有学籍'
+        atSchool             defaultValue: "true", comment: '是否在校'
+        isRegistered         defaultValue: "true", comment: '是否注册'
+        trainRange           length: 20, comment: '乘车区间'
+        category             comment: '学生类别'
+        foreignLanguage      length: 2, comment: '主修外语种类'
+        foreignLanguageLevel defaultValue: "0", comment: '外语等级'
+        changeType           comment: '异动类别'
+        department           comment: '学院'
+        adminClass           comment: '行政班'
+        major                comment: '专业'
+        direction            comment: '专业方向'
+        admission            comment: '录取信息'
     }
 
     static constraints = {
-        pinyinName          nullable: true, maxSize: 50
-        birthday            nullable: true
-        politicalStatus     nullable: true
-        nationality         nullable: true
-        dateGraduated       nullable: true
-        trainRange          nullable: true, maxSize: 20
-        forignLanguageLevel nullable: true, maxSize: 2
-        changeType          nullable: true
-        adminClass          nullable: true
-        direction           nullable: true
-        admission           nullable: true
+        pinyinName           nullable: true
+        birthday             nullable: true
+        politicalStatus      nullable: true
+        nationality          nullable: true
+        dateGraduated        nullable: true
+        trainRange           nullable: true
+        foreignLanguageLevel nullable: true
+        changeType           nullable: true
+        adminClass           nullable: true
+        direction            nullable: true
+        admission            nullable: true
     }
 }

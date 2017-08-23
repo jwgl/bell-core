@@ -89,7 +89,6 @@ class Place {
     }
 
     static constraints = {
-        seat        nullable: true
         englishName nullable: true, maxSize: 50
         note        nullable: true, maxSize: 200
         openGroup   nullable: true
