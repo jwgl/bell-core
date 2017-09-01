@@ -1,6 +1,6 @@
 package cn.edu.bnuz.bell.security
 
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 import org.springframework.security.oauth2.provider.ClientDetailsService
 import org.springframework.security.oauth2.provider.ClientRegistrationException
 
