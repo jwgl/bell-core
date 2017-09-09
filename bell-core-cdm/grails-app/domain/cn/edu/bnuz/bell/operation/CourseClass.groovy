@@ -85,6 +85,11 @@ class CourseClass {
      */
     Teacher teacher
 
+    /**
+     * 排课板块
+     */
+    Timeplate timeplate
+
     static embedded = ['period']
 
     static hasMany = [
@@ -96,8 +101,8 @@ class CourseClass {
         comment    '教学班'
         table      schema: 'ea'
         id         generator: 'uuid2', type:'pg-uuid', comment: '教学班ID'
-        code       comment: '教学班编号'
-        name       comment: '教学班名称'
+        code       length: 31, comment: '教学班编号'
+        name       length: 50, comment: '教学班名称'
         property   comment: '课程性质'
         assessType comment: '考核方式'
         testType   comment: '考试方式'
@@ -108,13 +113,14 @@ class CourseClass {
         course     comment: '课程'
         department comment: '开课单位'
         teacher    comment: '主讲教师'
+        timeplate  comment: '排课板块'
         programs   joinTable: [key: 'course_class_id']
     }
 
     static constraints = {
-        code       maxSize: 31
         name       nullable: true
         teacher    nullable: true
         property   nullable: true
+        timeplate  nullable: true
     }
 }

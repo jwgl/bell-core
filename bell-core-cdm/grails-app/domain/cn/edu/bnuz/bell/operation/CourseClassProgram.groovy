@@ -26,7 +26,7 @@ class CourseClassProgram implements Serializable {
             return false
         }
 
-        other.courseClass?.id == courseClass?.id &&    other.program?.id == program?.id
+        other.courseClass?.id == courseClass?.id && other.program?.id == program?.id
     }
 
     int hashCode() {

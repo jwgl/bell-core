@@ -25,7 +25,7 @@ class TaskSchedule {
     Integer oddEven
 
     /**
-     * 星期几-星期一:1;...;星期日:7
+     * 星期几-1:星期一;...;7:星期日
      */
     Integer dayOfWeek
 
@@ -63,7 +63,7 @@ class TaskSchedule {
         endWeek      comment: '结束周'
         oddEven      comment: '单双周-0:全部;1:单周;2:双周'
         startWeek    comment: '开始周'
-        dayOfWeek    comment: '星期几-星期一:1;...;星期日:7'
+        dayOfWeek    comment: '星期几-1:星期一;...;7:星期日'
         startSection comment: '开始节'
         totalSection comment: '上课长度'
         place        comment: '教室'
