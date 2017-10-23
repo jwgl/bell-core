@@ -85,6 +85,12 @@ class UserSettingService {
                     return LocalTime.parse(setting.value) as T
                 case ConfigDataType.MAP:
                     return new JsonSlurper().parseText(setting.value) as T
+                case ConfigDataType.INTEGER:
+                    return Integer.valueOf(setting.value) as T
+                case ConfigDataType.FLOAT:
+                    return new BigDecimal(setting.value) as T
+                case ConfigDataType.BOOLEAN:
+                    return Boolean.valueOf(setting.value) as T
                 default:
                     return setting.value as T
             }

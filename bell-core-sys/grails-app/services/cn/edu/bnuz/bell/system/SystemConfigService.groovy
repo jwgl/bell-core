@@ -80,6 +80,12 @@ class SystemConfigService {
                     return LocalTime.parse(config.value) as T
                 case ConfigDataType.MAP:
                     return new JsonSlurper().parseText(config.value) as T
+                case ConfigDataType.INTEGER:
+                    return Integer.valueOf(config.value) as T
+                case ConfigDataType.FLOAT:
+                    return new BigDecimal(config.value) as T
+                case ConfigDataType.BOOLEAN:
+                    return Boolean.valueOf(config.value) as T
                 default:
                     return config.value as T
             }
