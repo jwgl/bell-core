@@ -38,6 +38,6 @@ class RolePermission implements Serializable {
     }
 
     static List<String> findPermissionsByRoles(List<String> roles) {
-        RolePermission.executeQuery 'select rp.permission.id from RolePermission rp where rp.role.id in (:roles)', [roles: roles]
+        executeQuery 'select distinct rp.permission.id from RolePermission rp where rp.role.id in (:roles)', [roles: roles]
     }
 }
