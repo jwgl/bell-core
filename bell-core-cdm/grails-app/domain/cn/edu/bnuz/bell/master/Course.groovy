@@ -75,11 +75,6 @@ class Course {
     String introduction
 
     /**
-     * 板块代码。如果不为空，表示该课程可按板块排课，代码用于生成板块
-     */
-    String timeplateCode
-
-    /**
      * 是否可用
      */
     Boolean enabled
@@ -110,7 +105,6 @@ class Course {
         scheduleType     defaultValue: "1", comment: '排课类别-0:不排课;1:按班级排课;2-按专业排课'
         hasMultiTeachers defaultValue: "true", comment: '是否多教师同时上课'
         introduction     length: 2000, comment: '课程简介'
-        timeplateCode    length: 3, comment: '板块代码'
         enabled          defaultValue: "true", comment: '是否可用'
         department       comment: '所属学院'
     }
@@ -118,6 +112,5 @@ class Course {
     static constraints = {
         englishName      nullable: true
         introduction     nullable: true
-        timeplateCode    nullable: true
     }
 }

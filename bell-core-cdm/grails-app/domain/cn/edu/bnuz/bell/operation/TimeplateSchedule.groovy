@@ -53,7 +53,7 @@ class TimeplateSchedule {
     static belongsTo = [timeplateTask: TimeplateTask]
 
     static mapping = {
-        comment      '排课板块安排'
+        comment      '排课板块-安排'
         table        schema: 'ea'
         id           generator: 'assigned', comment: '排课板块安排'
         startWeek    comment: '开始周'

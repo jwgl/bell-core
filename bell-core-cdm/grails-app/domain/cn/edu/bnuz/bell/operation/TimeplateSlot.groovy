@@ -29,9 +29,9 @@ class TimeplateSlot implements Serializable {
     static belongsTo = [timeplate: Timeplate]
 
     static mapping = {
-        comment      '排课板块时段'
+        comment      '排课板块-时段'
         table        schema: 'ea'
-        id           composite: ['timeplate', 'oddEven', 'dayOfWeek', 'startSection', 'totalSection'], comment: '排课板块时段ID'
+        id           composite: ['timeplate', 'oddEven', 'dayOfWeek', 'startSection'], comment: '排课板块时段ID'
         oddEven      comment: '单双周-0:全部;1:单周;2:双周'
         dayOfWeek    comment: '星期几-1:星期一;...;7:星期日'
         startSection comment: '开始节'

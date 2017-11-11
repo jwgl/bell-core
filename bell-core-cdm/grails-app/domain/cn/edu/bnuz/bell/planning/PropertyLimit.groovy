@@ -1,7 +1,5 @@
 package cn.edu.bnuz.bell.planning
 
-import java.time.Year
-
 import cn.edu.bnuz.bell.master.Discipline
 import cn.edu.bnuz.bell.master.Property
 
@@ -18,7 +16,7 @@ class PropertyLimit {
     /**
      * 学年
      */
-    Year year
+    Integer year
 
     /**
      * 学科。

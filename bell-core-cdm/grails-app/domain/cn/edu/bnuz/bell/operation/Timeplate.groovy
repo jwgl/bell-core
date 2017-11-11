@@ -40,7 +40,7 @@ class Timeplate {
     /**
      * 年级
      */
-    Year grade
+    Integer grade
 
     /**
      * 编号

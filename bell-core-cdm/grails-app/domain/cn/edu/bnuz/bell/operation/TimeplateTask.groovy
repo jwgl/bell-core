@@ -43,7 +43,7 @@ class TimeplateTask {
     ]
 
     static mapping = {
-        comment       '排课板块任务'
+        comment       '排课板块-任务'
         table         schema: 'ea'
         id            generator: 'assigned', comment: '排课板块任务ID'
         startWeek     comment: '开始周'
