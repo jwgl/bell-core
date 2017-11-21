@@ -1,10 +1,11 @@
 package cn.edu.bnuz.bell.organization
 
-import java.time.LocalDate
-
 import cn.edu.bnuz.bell.entrance.Admission
-import cn.edu.bnuz.bell.planning.Direction
 import cn.edu.bnuz.bell.master.Major
+import cn.edu.bnuz.bell.operation.StudentLevel
+import cn.edu.bnuz.bell.planning.Direction
+
+import java.time.LocalDate
 
 /**
  * 学生
@@ -130,6 +131,10 @@ class Student {
      * 录取信息
      */
     Admission admission
+
+    static hasMany = [
+            levels: StudentLevel,
+    ]
 
     static mapping = {
         comment              '学生'

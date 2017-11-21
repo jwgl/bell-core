@@ -35,7 +35,7 @@ class TaskStudent implements Serializable {
      */
     Integer examFlag
 
-    static belongsTo = [task: Task]
+    static belongsTo = [task: Task, student: Student]
 
     static mapping = {
         comment      '学生选课'
