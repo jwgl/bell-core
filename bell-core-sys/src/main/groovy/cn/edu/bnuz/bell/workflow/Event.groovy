@@ -17,4 +17,5 @@ enum Event {
     OPEN,
     PROCESS,
     FINISH,
+    NEXT,
 }
