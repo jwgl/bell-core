@@ -7,12 +7,12 @@ import cn.edu.bnuz.bell.master.CourseItem
  */
 class TimeplateTask {
     /**
-     * 排课板块ID
+     * 排课板块任务ID
      * <pre>
      * 20162001150101
      * -----===--==--
      *   |   |  | | |
-     *   |   |  | | `-- 任务序号
+     *   |   |  | | `-- 项目序号
      *   |   |  | `---- 板块序号
      *   |   |  `------ 年级
      *   |   `--------- 课程板块号
@@ -32,15 +32,16 @@ class TimeplateTask {
     Integer endWeek
 
     /**
+     * 周学时
+     */
+    Integer period
+
+    /**
      * 课程项目
      */
     CourseItem courseItem
 
     static belongsTo = [timeplate: Timeplate]
-
-    static hasMany = [
-            schedules: TimeplateSchedule,
-    ]
 
     static mapping = {
         comment       '排课板块-任务'
@@ -48,6 +49,7 @@ class TimeplateTask {
         id            generator: 'assigned', comment: '排课板块任务ID'
         startWeek     comment: '开始周'
         endWeek       comment: '结束周'
+        period        comment: '周学时'
         courseItem    comment: '课程项目'
     }
 

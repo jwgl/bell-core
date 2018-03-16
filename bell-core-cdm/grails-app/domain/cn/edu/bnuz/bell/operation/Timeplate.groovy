@@ -3,8 +3,6 @@ package cn.edu.bnuz.bell.operation
 import cn.edu.bnuz.bell.master.Course
 import cn.edu.bnuz.bell.master.Term
 
-import java.time.Year
-
 /**
  * 排课板块。排课板块(Timeplate)表示一组预定的时间段(TimeplateSlot/TimeplateSchedule)，
  * 用于在不确定选课学生的情况下进行时间冲突判断，判断条件为排课板块对应的行政班(TimeplateAdminClass)。

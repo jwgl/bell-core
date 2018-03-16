@@ -4,6 +4,18 @@ import grails.gorm.transactions.Transactional
 
 @Transactional(readOnly = true)
 class TeacherService {
+    def getTeachersByDepartment(String departmentId) {
+        Teacher.executeQuery '''
+select new Map(
+  id as id,
+  name as name
+)
+from Teacher
+where atSchool = true
+and department.id = :departmentId
+order by id
+''', [departmentId: departmentId]
+    }
 
     def find(String query) {
         Teacher.executeQuery '''
