@@ -255,6 +255,31 @@ class DomainStateMachineHandler {
         ))
     }
 
+    /**
+     * 来自人工的下一步，产生新的待办事项（人工->人工）
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param activity 活动
+     * @param comment 备注
+     * @param toUser 目标用户
+     * @param workitemId 来源工作项ID
+     */
+    void next(StateObject entity, String fromUser, String activity,
+                String comment, UUID workitemId, String toUser) {
+        if (!toUser) {
+            throw new BadRequestException('To user is null')
+        }
+
+        this.handleEvent(Event.NEXT, new ManualEventData(
+                fromUser: fromUser,
+                toUser: toUser,
+                comment: comment,
+                entity: entity,
+                workitemId: workitemId,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
     boolean canUpdate(Object entity) {
         return canHandleEvent(Event.UPDATE, entity instanceof StateObject ? entity as StateObject : entity as StateObjectWrapper)
     }
@@ -349,18 +374,8 @@ class DomainStateMachineHandler {
 
     void checkReviewer(Object id, String reviewer, String activity) {
         List<Map> reviewers = reviewerProvider.getReviewers(id, activity)
-        switch (activity) {
-            case Activities.CHECK:
-            case Activities.APPROVE:
-                if (!reviewers.find {it.id == reviewer}) {
-                    throw new ForbiddenException()
-                }
-                break
-            case Activities.REVIEW:
-                // 已在WorkflowController中进行了身份验证
-                break
-            default:
-                throw new BadRequestException()
+        if (!reviewers.find {it.id == reviewer}) {
+            throw new ForbiddenException()
         }
     }
 }
