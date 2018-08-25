@@ -12,12 +12,21 @@ class ReportResponse {
     String format
     String reportId
     byte[] content
+    String contentType
 
     String getContentDisposition() {
         if (reportId) {
             "attachment; filename=${title}-${reportId}.${format}"
         } else {
             "attachment; filename=${title}.${format}"
+        }
+    }
+
+    String getFileName() {
+        if (reportId) {
+            "${title}-${reportId}.${format}"
+        } else {
+            "${title}.${format}"
         }
     }
 }

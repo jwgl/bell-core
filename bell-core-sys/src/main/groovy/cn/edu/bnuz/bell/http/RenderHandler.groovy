@@ -34,4 +34,8 @@ trait RenderHandler {
     def renderJson(Object data) {
         render data as JSON
     }
+
+    def renderCount(Long count) {
+        response.addHeader('X-Total-Count', count.toString())
+    }
 }

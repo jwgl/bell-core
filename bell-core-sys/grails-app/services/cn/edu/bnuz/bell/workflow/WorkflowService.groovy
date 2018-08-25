@@ -14,7 +14,7 @@ class WorkflowService {
      * @param workflowInstanceId 运行实例ID
      * @return 工作项列表
      */
-    def getInstanceWorkitems(UUID workflowInstanceId) {
+    List getInstanceWorkitems(UUID workflowInstanceId) {
         Workitem.executeQuery '''
 select new Map (
     fromUser.name as fromUser,
@@ -32,58 +32,6 @@ left join workitem.to toUser
 where workitem.instance.id = :workflowInstanceId
 order by dateCreated desc
 ''', [workflowInstanceId: workflowInstanceId]
-    }
-
-    def getOpenWorkitems(String userId, Long offset, Long max) {
-        Workitem.executeQuery '''
-select new Map (
-  workflow.name as type,
-  workitem.id as id,
-  instance.title as title,
-  workitem.dateCreated as dateCreated,
-  workitem.dateReceived as dateReceived,
-  fromUser.name as fromUser
-)
-from Workitem workitem
-join workitem.from fromUser
-join workitem.instance instance
-join instance.workflow workflow
-where workitem.to.id = :userId
-and workitem.dateProcessed is null
-order by workitem.dateCreated desc
-''', [userId: userId], [offset: offset, max: max]
-    }
-
-    def getClosedWorkitems(String userId, Long offset, Long max) {
-        Workitem.executeQuery '''
-select new Map (
-  workflow.name as type,
-  workitem.id as id,
-  instance.title as title,
-  workitem.dateCreated as dateCreated,
-  workitem.dateReceived as dateReceived,
-  workitem.dateProcessed as dateProcessed,
-  fromUser.name as fromUser
-)
-from Workitem workitem
-join workitem.from fromUser
-join workitem.instance instance
-join instance.workflow workflow
-where workitem.to.id = :userId
-and workitem.dateProcessed is not null
-order by workitem.dateProcessed desc
-''', [userId: userId], [offset: offset, max: max]
-    }
-
-    /**
-     * 获取未处理和已处理事项数量
-     * @param userId 当前用户ID
-     * @return [open: openCount, closed: closedCount]
-     */
-    def getCounts(String userId) {
-        def open = Workitem.countByToAndDateProcessedIsNull(User.load(userId))
-        def closed = Workitem.countByToAndDateProcessedIsNotNull(User.load(userId))
-        return [open: open, closed: closed]
     }
 
     /**
@@ -188,7 +136,7 @@ order by workitem.dateProcessed desc
         workItem.save()
     }
 
-    def setReceived(UUID workitemId) {
+    void setReceived(UUID workitemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
 set workitem.dateReceived = CURRENT_TIMESTAMP
@@ -196,7 +144,7 @@ where workitem.id = :id
 ''', [id: workitemId]
     }
 
-    def setProcessed(UUID workitemId) {
+    void setProcessed(UUID workitemId) {
         Workitem.executeUpdate '''
 update Workitem workitem
 set workitem.dateProcessed = CURRENT_TIMESTAMP

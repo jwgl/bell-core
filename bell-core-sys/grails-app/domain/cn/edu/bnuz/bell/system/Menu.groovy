@@ -6,9 +6,7 @@ package cn.edu.bnuz.bell.system
  */
 class Menu {
     String id
-    String name
-    String labelCn
-    String labelEn
+    String label
     Integer displayOrder
 
     static hasMany = [
@@ -17,10 +15,8 @@ class Menu {
 
     static mapping = {
         comment      '菜单'
-        id           length: 100, generator: 'assigned', comment: '菜单ID'
-        name         length: 50, comment: '名称'
-        labelCn      length: 50, comment: '中文'
-        labelEn      length: 50, comment: '英文'
+        id           type: 'text', generator: 'assigned', comment: '菜单ID'
+        label        type: 'text', comment: '名称'
         displayOrder comment: '显示顺序'
     }
 }

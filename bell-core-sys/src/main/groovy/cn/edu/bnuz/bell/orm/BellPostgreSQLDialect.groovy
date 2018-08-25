@@ -7,6 +7,7 @@ import org.hibernate.type.StandardBasicTypes
 class BellPostgreSQLDialect extends PostgreSQL94Dialect {
     BellPostgreSQLDialect() {
         registerColumnType(PostgreSQLIntegerArrayUserType.SQL_TYPE, 'int[]')
+        registerColumnType(PostgreSQLStringArrayUserType.SQL_TYPE, 'text[]')
 
         this.registerFunction('instr', new StandardSQLFunction('instr', StandardBasicTypes.INTEGER))
         this.registerFunction('generate_series', new StandardSQLFunction('generate_series'))
