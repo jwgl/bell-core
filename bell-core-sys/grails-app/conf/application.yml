@@ -1,10 +1,7 @@
 grails:
     profile: plugin
     codegen:
-        defaultPackage: bell.core.sys
-    spring:
-        transactionManagement:
-            proxies: false
+        defaultPackage: cn.edu.bnuz.bell
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
