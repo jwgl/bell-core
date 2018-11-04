@@ -18,4 +18,5 @@ enum Event {
     PROCESS,
     FINISH,
     NEXT,
+    APPROVE,
 }

@@ -53,7 +53,7 @@ class DataAccessService {
     }
 
     private <T> T getValue(Class<T> type, String query, Map params) {
-        List results = params ? Dumb.executeQuery(query, params) : Dumb.executeQuery(query)
+        List results = params ? Dumb.executeQuery(query, params, [max: 1]) : Dumb.executeQuery(query, [max: 1])
         return results ? (T)results[0] : null
     }
 }

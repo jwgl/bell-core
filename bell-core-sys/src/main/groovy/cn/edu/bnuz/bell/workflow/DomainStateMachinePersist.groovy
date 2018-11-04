@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.springframework.statemachine.StateMachineContext
 import org.springframework.statemachine.StateMachinePersist
+import org.springframework.statemachine.support.DefaultExtendedState
 import org.springframework.statemachine.support.DefaultStateMachineContext
 
 @Slf4j
@@ -17,6 +18,8 @@ class DomainStateMachinePersist implements StateMachinePersist<State, Event, Sta
 
     @Override
     StateMachineContext<State, Event> read(StateObject contextOjb) throws Exception {
-        return new DefaultStateMachineContext<State, Event>(contextOjb.status, null, null, null, null)
+        def extendedState = new DefaultExtendedState()
+        extendedState.variables['StateObject'] = contextOjb
+        return new DefaultStateMachineContext<State, Event>(contextOjb.status, null, null, extendedState, null)
     }
 }

@@ -28,4 +28,12 @@ class DepartmentService {
     List<Map> getTeachingDepartments() {
         Department.executeQuery 'SELECT new map(id as id, name as name) FROM Department where isTeaching = true and enabled = true'
     }
+
+    /**
+     * 获取学生单位
+     * @return [id:id, name:name]*
+     */
+    List<Map> getStudentDepartments() {
+        Department.executeQuery 'SELECT new map(id as id, name as name) FROM Department where hasStudents = true and enabled = true'
+    }
 }
