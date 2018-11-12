@@ -19,4 +19,5 @@ enum Event {
     FINISH,
     NEXT,
     APPROVE,
+    ROLLBACK,
 }
