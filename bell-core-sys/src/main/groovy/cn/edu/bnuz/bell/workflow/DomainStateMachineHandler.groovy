@@ -212,6 +212,31 @@ class DomainStateMachineHandler {
     }
 
     /**
+     * 来自人工的退回，产生新的待办事项（人工->人工）
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param activity 活动
+     * @param comment 备注
+     * @param toUser 目标用户
+     * @param workitemId 来源工作项ID
+     */
+    void reject(StateObject entity, String fromUser, String comment,
+                UUID workitemId, String toUser) {
+        if (!toUser) {
+            throw new BadRequestException('To user is null')
+        }
+
+        this.handleEvent(Event.REJECT, new ManualEventData(
+                fromUser: fromUser,
+                toUser: toUser,
+                comment: comment,
+                entity: entity,
+                workitemId: workitemId,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
+    /**
      * 自来程序的完成，不产生新的待办事项
      * @param entity 实体
      * @param fromUser 源用户
