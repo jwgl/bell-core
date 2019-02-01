@@ -330,6 +330,26 @@ class DomainStateMachineHandler {
         ))
     }
 
+    /**
+     * 来自人工的加签，产生新的待办事项（人工->人工）
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param comment 备注
+     * @param toUser 目标用户
+     * @param workitemId 来源工作项ID
+     */
+    void createReview(StateObject entity, String fromUser,
+                String comment, UUID workitemId, String toUser) {
+        this.handleEvent(Event.REVIEW, new ManualEventData(
+                fromUser: fromUser,
+                toUser: toUser,
+                comment: comment,
+                entity: entity,
+                workitemId: workitemId,
+                ipAddress: securityService.ipAddress,
+        ))
+    }
+
     boolean canUpdate(Object entity) {
         return canHandleEvent(Event.UPDATE, entity instanceof StateObject ? entity as StateObject : entity as StateObjectWrapper)
     }
@@ -360,6 +380,10 @@ class DomainStateMachineHandler {
 
     boolean canApprove(StateObject entity) {
         return canHandleEvent(Event.APPROVE, entity)
+    }
+
+    boolean canReview(StateObject entity) {
+        return canHandleEvent(Event.REVIEW, entity)
     }
 
     /**
