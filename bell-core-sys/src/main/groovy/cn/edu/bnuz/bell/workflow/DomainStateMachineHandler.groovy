@@ -350,6 +350,21 @@ class DomainStateMachineHandler {
         ))
     }
 
+    /**
+     * 回滚
+     * @param entity 实体
+     * @param fromUser 源用户
+     * @param workitemId 来源工作项ID
+     */
+    void rollback(StateObject entity, String fromUser, String comment, UUID workitemId) {
+        this.handleEvent(Event.ROLLBACK,new AutoEventData(
+                fromUser: fromUser,
+                entity: entity,
+                ipAddress: securityService.ipAddress,
+                workitemId: workitemId,
+        ))
+    }
+
     boolean canUpdate(Object entity) {
         return canHandleEvent(Event.UPDATE, entity instanceof StateObject ? entity as StateObject : entity as StateObjectWrapper)
     }
@@ -384,6 +399,10 @@ class DomainStateMachineHandler {
 
     boolean canReview(StateObject entity) {
         return canHandleEvent(Event.REVIEW, entity)
+    }
+
+    boolean canRollback(StateObject entity) {
+        return canHandleEvent(Event.ROLLBACK, entity)
     }
 
     /**
