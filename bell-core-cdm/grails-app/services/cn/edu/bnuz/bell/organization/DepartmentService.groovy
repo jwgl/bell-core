@@ -36,4 +36,18 @@ class DepartmentService {
     List<Map> getStudentDepartments() {
         Department.executeQuery 'SELECT new map(id as id, name as name) FROM Department where hasStudents = true and enabled = true'
     }
+
+    /**
+     * 获取学院名称
+     * @param id 学院ID
+     * @return 学院名称
+     */
+    String getDepartmentName(String id) {
+        Department.createCriteria().get {
+            eq 'id', id
+            projections {
+                property 'name'
+            }
+        }
+    }
 }

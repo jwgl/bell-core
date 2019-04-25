@@ -1,14 +1,20 @@
 package cn.edu.bnuz.bell.place
 
 import cn.edu.bnuz.bell.organization.Department
-import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 场地专用单位
  * @author Yang Lin
  */
 class PlaceDepartment implements Serializable {
+    /**
+     * 教学场地
+     */
     Place place
+
+    /**
+     * 单位
+     */
     Department department
 
     static belongsTo = [place: Place]
@@ -30,9 +36,6 @@ class PlaceDepartment implements Serializable {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, place.id)
-        hash = HashCodeHelper.updateHash(hash, department.id)
-        hash
+        Objects.hash(place.id, department.id)
     }
 }

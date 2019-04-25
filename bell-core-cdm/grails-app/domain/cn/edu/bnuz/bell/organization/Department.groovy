@@ -40,9 +40,10 @@ class Department {
     Boolean enabled
 
     static hasMany = [
-        teachers:     Teacher,
-        majors:       Major,
-        adminClasses: AdminClass
+            teachers           : Teacher,
+            majors             : Major,
+            adminClasses       : AdminClass,
+            studentAssociations: StudentAssociation,
     ]
 
     static mapping = {

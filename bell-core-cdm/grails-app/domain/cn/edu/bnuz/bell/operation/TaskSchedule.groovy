@@ -54,6 +54,16 @@ class TaskSchedule {
      */
     TaskSchedule root
 
+    /**
+     * 周次位标记
+     */
+    Integer weekBits
+
+    /**
+     * 节次位标记
+     */
+    Integer sectionBits
+
     static belongsTo = [task: Task]
 
     static mapping = {
@@ -70,10 +80,14 @@ class TaskSchedule {
         teacher      index: 'task_schedule_teacher_idx', comment: '教师'
         task         comment: '所属教学任务'
         root         comment: '调课引用的原始排课安排'
+        weekBits     comment: '周次位标记'
+        sectionBits  comment: '节次位标记'
     }
 
     static constraints = {
         place        nullable: true
         root         nullable: true
+        weekBits     nullable: true
+        sectionBits  nullable: true
     }
 }

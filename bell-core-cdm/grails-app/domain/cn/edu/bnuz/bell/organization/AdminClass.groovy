@@ -43,14 +43,15 @@ class AdminClass {
     static belongsTo = [department : Department]
 
     static hasMany = [
-        students : Student
+            students: Student,
+            cadres  : AdminClassCadre,
     ]
 
     static mapping = {
         comment    '行政班'
         table      schema: 'ea'
         id         generator: 'assigned', comment: '班级ID'
-        name       length:50,     comment: '名称'
+        name       length:50, comment: '名称'
         major      comment: '专业'
         department comment: '所属学院'
         supervisor comment: '班主任'

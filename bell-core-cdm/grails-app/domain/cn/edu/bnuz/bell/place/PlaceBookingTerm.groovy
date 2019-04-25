@@ -1,14 +1,20 @@
 package cn.edu.bnuz.bell.place
 
 import cn.edu.bnuz.bell.master.Term
-import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 场地借用-允许学期
  * @author Yang Lin
  */
 class PlaceBookingTerm implements Serializable {
+    /**
+     * 教学场地
+     */
     Place place
+
+    /**
+     * 学期
+     */
     Term term
 
     static belongsTo = [place: Place]
@@ -26,13 +32,10 @@ class PlaceBookingTerm implements Serializable {
             return false
         }
 
-        other.place?.id == place?.id &&    other.term?.id == term?.id
+        other.place?.id == place?.id && other.term?.id == term?.id
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, place.id)
-        hash = HashCodeHelper.updateHash(hash, term.id)
-        hash
+        Objects.hash(place.id, term.id)
     }
 }
