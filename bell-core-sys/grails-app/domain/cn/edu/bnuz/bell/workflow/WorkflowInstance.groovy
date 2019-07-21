@@ -1,7 +1,5 @@
 package cn.edu.bnuz.bell.workflow
 
-import cn.edu.bnuz.bell.security.User
-
 /**
  * 工作流实例
  * @author Yang Lin

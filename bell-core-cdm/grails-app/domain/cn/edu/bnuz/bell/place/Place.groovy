@@ -1,6 +1,5 @@
 package cn.edu.bnuz.bell.place
 
-
 /**
  * 教学场地
  * @author Yang Lin

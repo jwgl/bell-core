@@ -1,4 +1,5 @@
 package cn.edu.bnuz.bell.planning
+
 /**
  * 专业方向
  * @author Yang Lin

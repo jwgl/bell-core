@@ -21,6 +21,13 @@ repositories {
     maven { url "https://repo.grails.org/grails/core" }
 }
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
@@ -28,21 +35,24 @@ dependencyManagement {
 }
 
 dependencies {
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
+    compileOnly "io.micronaut:micronaut-inject-groovy"
     console "org.grails:grails-console"
     profile "org.grails.profiles:plugin"
+    testCompile "org.grails:grails-gorm-testing-support"
+    testCompile "org.mockito:mockito-core"
+
     provided "org.grails:grails-plugin-services"
     provided "org.grails:grails-plugin-domain-class"
-    testCompile "org.grails:grails-gorm-testing-support"
-    testCompile "org.grails:grails-plugin-testing"
 
     provided "org.springframework.boot:spring-boot-starter-tomcat"
     provided "org.grails:grails-plugin-rest"
 
     provided "org.springframework.boot:spring-boot-starter-security"
-    provided "org.springframework.security.oauth:spring-security-oauth2"
+    provided "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure"
 
     provided "org.postgresql:postgresql"
     provided "org.grails.plugins:hibernate5"
@@ -56,7 +66,7 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-commons'
 }
 
-bootRepackage.enabled = false
+bootJar.enabled = false
 grailsPublish {
     user = 'user'
     key = 'key'

@@ -1,7 +1,7 @@
 package cn.edu.bnuz.bell.orm
 
 import grails.util.Holders
-import groovy.util.logging.Log4j
+import groovy.util.logging.Slf4j
 import org.hibernate.boot.model.relational.Namespace
 import org.hibernate.boot.model.relational.Sequence
 import org.hibernate.mapping.Table
@@ -12,7 +12,7 @@ import org.hibernate.tool.schema.spi.SchemaFilterProvider
  * 数据库Schema过滤器Provider
  * @author Yang Lin
  */
-@Log4j
+@Slf4j
 class BellSchemaFilterProvider implements SchemaFilterProvider {
     private BellSchemaFilter filter = new BellSchemaFilter()
     SchemaFilter getCreateFilter() {

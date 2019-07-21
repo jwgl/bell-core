@@ -9,12 +9,12 @@ import grails.plugin.cache.Cacheable
  */
 @Transactional(readOnly = true)
 class TermService {
-    @Cacheable("term.activeTerm")
+    // @Cacheable("term.activeTerm")
     Term getActiveTerm() {
         Term.findByActive(true, [fetch: [swapDates: 'eager']])
     }
 
-    @Cacheable("term.minInSchoolGrade")
+    // @Cacheable("term.minInSchoolGrade")
     Integer getMinInSchoolGrade() {
         getActiveTerm().id.intdiv(10) - 3
     }

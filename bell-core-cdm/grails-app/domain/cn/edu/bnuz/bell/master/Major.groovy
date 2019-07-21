@@ -3,7 +3,6 @@ package cn.edu.bnuz.bell.master
 import cn.edu.bnuz.bell.organization.Department
 import cn.edu.bnuz.bell.planning.Program
 
-
 /**
  * 年级专业
  * @author Yang Lin

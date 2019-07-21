@@ -5,7 +5,7 @@ import cn.edu.bnuz.bell.workflow.Event
 import cn.edu.bnuz.bell.workflow.State
 import grails.converters.JSON
 import grails.plugins.Plugin
-import org.springframework.boot.web.filter.OrderedRequestContextFilter
+import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter
 
 import java.time.LocalDate
 

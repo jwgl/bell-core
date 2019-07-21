@@ -2,7 +2,6 @@ package cn.edu.bnuz.bell.organization
 
 import cn.edu.bnuz.bell.master.Major
 
-
 /**
  * 行政班
  * @author Yang Lin

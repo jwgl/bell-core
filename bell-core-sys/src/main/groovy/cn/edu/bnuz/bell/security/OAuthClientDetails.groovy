@@ -17,7 +17,7 @@ class OAuthClientDetails implements ClientDetails {
         this.clientSecret = client.secret
         this.scope = StringUtils.commaDelimitedListToSet(client.scope)
         this.authorizedGrantTypes = StringUtils.commaDelimitedListToSet(client.grantTypes)
-        this.registeredRedirectUri = new HashSet()
+        this.registeredRedirectUri = StringUtils.commaDelimitedListToSet(client.redirectUri)
         this.authorities = new HashSet()
         this.accessTokenValiditySeconds = client.accessTokenValidity
         this.refreshTokenValiditySeconds = client.refreshTokenValidity
