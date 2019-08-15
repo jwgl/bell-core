@@ -17,8 +17,7 @@ class BellUser extends OssUser {
     UserType userType
 
     BellUser(User user, Collection<GrantedAuthority> authorities) {
-        super(user.id, user.password, user.enabled, !user.accountExpired, !user.passwordExpired,
-                !user.accountLocked, authorities)
+        super(user.id, user.password, user.enabled, !user.accountExpired, !user.passwordExpired, !user.accountLocked, authorities)
         this.id = user.id
         this.name = user.name
         this.departmentId = user.departmentId
@@ -28,8 +27,20 @@ class BellUser extends OssUser {
         this.userType = user.userType
     }
 
+    Map getDetails() {
+        [
+                id          : this.id,
+                name        : this.name,
+                departmentId: this.departmentId,
+                longPhone   : this.longPhone,
+                shortPhone  : this.shortPhone,
+                email       : this.email,
+                userType    : this.userType,
+        ]
+    }
+
     @Override
-    public String toString() {
+    String toString() {
         "id: $id, name: $name, ${super.toString()}"
     }
 }
