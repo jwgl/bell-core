@@ -33,8 +33,9 @@ class CourseItem {
         comment   '课程项目'
         table     schema: 'ea'
         id        generator: 'assigned', length: 10, comment: '课程项目ID'
-        name      length:50,    comment: '名称'
+        name      length: 50, comment: '名称'
         ordinal   comment: '序号'
         isPrimary comment: '是否主项目'
+        course    comment: '所属课程'
     }
 }

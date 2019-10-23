@@ -47,7 +47,7 @@ class Property {
         name          length: 50, comment: '名称'
         shortName     length: 20, comment: '简称'
         isCompulsory  defaultValue: "false", comment: '是否为必修课'
-        isPrimary     defaultValue: "false", comment: '是否为必修课'
+        isPrimary     defaultValue: "false", comment: '是否为主干课'
         enabled       defaultValue: "true", comment: '是否有效'
         hasDirections defaultValue: "false", comment: '是否含专业方向'
     }

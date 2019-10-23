@@ -1,15 +1,12 @@
 package cn.edu.bnuz.bell.operation
 
 import cn.edu.bnuz.bell.organization.Student
-import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 选课学生
  * @author Yang Lin
  */
 class TaskStudent implements Serializable {
-    private static final long serialVersionUID = 1
-
     /**
      * 学生
      */
@@ -58,9 +55,6 @@ class TaskStudent implements Serializable {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, task.id)
-        hash = HashCodeHelper.updateHash(hash, student.id)
-        hash
+        Objects.hash(task.id, student.id)
     }
 }

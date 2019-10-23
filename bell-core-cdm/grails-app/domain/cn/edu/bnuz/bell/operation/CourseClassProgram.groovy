@@ -1,7 +1,6 @@
 package cn.edu.bnuz.bell.operation
 
 import cn.edu.bnuz.bell.planning.Program
-import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 教学班-教学计划
@@ -30,9 +29,6 @@ class CourseClassProgram implements Serializable {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, courseClass.id)
-        hash = HashCodeHelper.updateHash(hash, program.id)
-        hash
+        Objects.hash(courseClass.id, program.id)
     }
 }

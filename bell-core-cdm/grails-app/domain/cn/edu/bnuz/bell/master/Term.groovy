@@ -85,10 +85,10 @@ class Term {
      * @return 当前周。如果小于开始周，则取开始周；如果大于结束周，则取结束周。
      */
     def getCurrentWeek() {
-        def current =  (int)ChronoUnit.WEEKS.between(startDate, LocalDate.now()) + startWeek
-        if(current < startWeek) {
+        def current = (int) ChronoUnit.WEEKS.between(startDate, LocalDate.now()) + startWeek
+        if (current < startWeek) {
             return startWeek
-        } else if(current > endWeek){
+        } else if (current > endWeek) {
             return endWeek
         } else {
             return current
@@ -100,10 +100,10 @@ class Term {
      * @return 当前周。如果小于开始周，则取开始周；如果大于最大周，则取最大周。
      */
     def getCurrentWorkWeek() {
-        def current = (int)ChronoUnit.WEEKS.between(startDate, LocalDate.now()) + startWeek
-        if(current < startWeek) {
+        def current = (int) ChronoUnit.WEEKS.between(startDate, LocalDate.now()) + startWeek
+        if (current < startWeek) {
             return startWeek
-        } else if(current > maxWeek){
+        } else if (current > maxWeek) {
             return maxWeek
         } else {
             return current

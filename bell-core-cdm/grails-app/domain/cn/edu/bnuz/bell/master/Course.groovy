@@ -103,7 +103,7 @@ class Course {
         educationLevel   defaultValue: "1", comment: '层次-1:本科;2:硕士;3:博士;9:其他'
         assessType       defaultValue: "1", comment: '考核方式-1:考试;2:考查;3:论文;9:其他'
         scheduleType     defaultValue: "1", comment: '排课类别-0:不排课;1:按班级排课;2-按专业排课'
-        hasMultiTeachers defaultValue: "true", comment: '是否多教师同时上课'
+        hasMultiTeachers defaultValue: "false", comment: '是否多教师同时上课'
         introduction     length: 2000, comment: '课程简介'
         enabled          defaultValue: "true", comment: '是否可用'
         department       comment: '所属学院'

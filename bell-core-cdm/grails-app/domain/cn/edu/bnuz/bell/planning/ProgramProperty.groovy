@@ -1,15 +1,12 @@
 package cn.edu.bnuz.bell.planning
 
 import cn.edu.bnuz.bell.master.Property
-import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 教学计划-课程性质设置
  * @author Yang Lin
  */
 class ProgramProperty implements Serializable  {
-    private static final long serialVersionUID = 1
-
     /**
      * 教学计划
      */
@@ -72,9 +69,6 @@ class ProgramProperty implements Serializable  {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, program.id)
-        hash = HashCodeHelper.updateHash(hash, property.id)
-        hash
+        Objects.hash(program.id, property.id)
     }
 }

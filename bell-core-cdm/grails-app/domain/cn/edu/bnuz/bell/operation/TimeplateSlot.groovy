@@ -1,7 +1,5 @@
 package cn.edu.bnuz.bell.operation
 
-import org.codehaus.groovy.util.HashCodeHelper
-
 /**
  * 排课板块时段。板块的初步时间安排，将在板块安排中细化。
  */
@@ -51,12 +49,6 @@ class TimeplateSlot implements Serializable {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, timeplate.id)
-        hash = HashCodeHelper.updateHash(hash, oddEven)
-        hash = HashCodeHelper.updateHash(hash, dayOfWeek)
-        hash = HashCodeHelper.updateHash(hash, startSection)
-        hash = HashCodeHelper.updateHash(hash, totalSection)
-        hash
+        Objects.hash(timeplate.id, oddEven, dayOfWeek, startSection, totalSection)
     }
 }

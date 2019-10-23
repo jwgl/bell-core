@@ -1,7 +1,6 @@
 package cn.edu.bnuz.bell.operation
 
 import cn.edu.bnuz.bell.organization.AdminClass
-import org.codehaus.groovy.util.HashCodeHelper
 
 /**
  * 排课板块-行政班
@@ -29,9 +28,6 @@ class TimeplateAdminClass implements Serializable {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, timeplate.id)
-        hash = HashCodeHelper.updateHash(hash, adminClass.id)
-        hash
+        Objects.hash(timeplate.id, adminClass.id)
     }
 }

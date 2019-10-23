@@ -8,7 +8,7 @@ import cn.edu.bnuz.bell.organization.Department
  */
 class Subject {
     /**
-     * 专业ID
+     * 内部专业ID
      * <pre>
      * 0101
      * --=-
@@ -51,12 +51,13 @@ class Subject {
     Boolean stopEnroll
 
     /**
-     * 是否中外合作办学项目4+0（Sino-Foreign Joint Program）
+     * 是否中外合作办学项目（4+0）
+     * Sino-Foreign Joint Program
      */
     Boolean isJointProgram
 
     /**
-     * 是否中外联合培养双学位2+2
+     * 是否中外联合培养双学位（2+2）
      */
     Boolean isDualDegree
 
@@ -76,7 +77,7 @@ class Subject {
     Discipline degree
 
     /**
-     * 所在学院
+     * 所属学院
      */
     Department department
 

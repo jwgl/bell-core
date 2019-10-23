@@ -6,7 +6,7 @@ package cn.edu.bnuz.bell.master
  */
 class Field {
     /**
-     * 专业ID
+     * 统招专业ID
      * 2012080902
      * ----======
      *   | |

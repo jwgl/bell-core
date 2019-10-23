@@ -1,7 +1,5 @@
 package cn.edu.bnuz.bell.operation
 
-import org.codehaus.groovy.util.HashCodeHelper
-
 /**
  * 教学班-选课条件
  * @Author Yang Lin
@@ -60,11 +58,6 @@ class CourseClassCondition implements Serializable {
     }
 
     int hashCode() {
-        int hash = HashCodeHelper.initHash()
-        hash = HashCodeHelper.updateHash(hash, courseClass.id)
-        hash = HashCodeHelper.updateHash(hash, include)
-        hash = HashCodeHelper.updateHash(hash, conditionGroup)
-        hash = HashCodeHelper.updateHash(hash, conditionName)
-        hash
+        Objects.hash(courseClass.id, include, conditionGroup, conditionName)
     }
 }

@@ -27,5 +27,6 @@ class TermSwapDate {
         table    schema: 'ea'
         fromDate comment: '源日期'
         toDate   comment: '目标日期'
+        term     comment: '学期'
     }
 }

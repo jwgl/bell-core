@@ -42,7 +42,6 @@ class Teacher {
      */
     String academicTitle
 
-
     /**
      * 教师级别
      */
@@ -74,7 +73,7 @@ class Teacher {
     LocalDate dateGraduated
 
     /**
-     * 简介
+     * 简历
      */
     String resume
 
@@ -84,7 +83,7 @@ class Teacher {
     Boolean hasQualification
 
     /**
-     * 在职类别
+     * 岗位类别
      */
     String postType
 
@@ -102,6 +101,11 @@ class Teacher {
      * 是否在岗
      */
     Boolean atSchool
+
+    /**
+     * 身份证号
+     */
+    String identityNumber
 
     /**
      * 是否具有指导学生毕业设计资格
@@ -133,6 +137,7 @@ class Teacher {
         dateGraduated         comment: '毕业时间'
         resume                length: 2000, comment: '简历'
         postType              length: 10, comment: '岗位类别'
+        identityNumber        type: "text", comment: '身份证号'
         hasQualification      defaultValue: "false", comment: '是否具有教师资格'
         isLabTechnician       defaultValue: "false", comment: '是否为实验员'
         isExternal            defaultValue: "false", comment: '是否为外聘教师'
@@ -155,13 +160,14 @@ class Teacher {
         dateGraduated         nullable: true
         resume                nullable: true, maxSize: 2000
         postType              nullable: true, maxSize: 10
+        identityNumber        nullable: true
     }
 
     /**
      * 是否为班主任
      */
     boolean isHeadTeacher() {
-        return AdminClass.countByHeadTeacher(this)    > 0
+        return AdminClass.countByHeadTeacher(this) > 0
     }
 
     /**

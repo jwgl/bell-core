@@ -76,7 +76,7 @@ class TaskSchedule {
         dayOfWeek    comment: '星期几-1:星期一;...;7:星期日'
         startSection comment: '开始节'
         totalSection comment: '上课长度'
-        place        comment: '教室'
+        place        comment: '教学场地'
         teacher      index: 'task_schedule_teacher_idx', comment: '教师'
         task         comment: '所属教学任务'
         root         comment: '调课引用的原始排课安排'
