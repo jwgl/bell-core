@@ -48,6 +48,11 @@ class Course {
     Property property
 
     /**
+     * 课程归属
+     */
+    String category
+
+    /**
      * 层次-1:本科;2:硕士;3:博士;9:其他
      */
     Integer educationLevel
@@ -100,6 +105,7 @@ class Course {
         isCompulsory     defaultValue: "true", comment: '是否必修课'
         isPractical      defaultValue: "false", comment: '是否实践课'
         property         comment: '课程性质'
+        category         type: 'text', comment: '课程归属'
         educationLevel   defaultValue: "1", comment: '层次-1:本科;2:硕士;3:博士;9:其他'
         assessType       defaultValue: "1", comment: '考核方式-1:考试;2:考查;3:论文;9:其他'
         scheduleType     defaultValue: "1", comment: '排课类别-0:不排课;1:按班级排课;2-按专业排课'
@@ -111,6 +117,7 @@ class Course {
 
     static constraints = {
         englishName      nullable: true
+        category         nullable: true
         introduction     nullable: true
     }
 }

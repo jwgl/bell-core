@@ -113,6 +113,16 @@ class Teacher {
     Boolean canGuidanceGraduate
 
     /**
+     * 人事职工号
+     */
+    String humanResourceNumber
+
+    /**
+     * 相对系统教务职工号
+     */
+    String oppositeNumber
+
+    /**
      * 所属部门
      */
     Department department
@@ -143,6 +153,8 @@ class Teacher {
         isExternal            defaultValue: "false", comment: '是否为外聘教师'
         atSchool              defaultValue: "false", comment: '是否在校'
         canGuidanceGraduate   defaultValue: "false", comment: '是否可以指导毕业设计'
+        humanResourceNumber   type: "text", comment: '人事职工号'
+        oppositeNumber        type: "text", comment: '相对系统教务职工号'
         department            comment: '所在部门'
     }
 
@@ -161,6 +173,8 @@ class Teacher {
         resume                nullable: true, maxSize: 2000
         postType              nullable: true, maxSize: 10
         identityNumber        nullable: true
+        humanResourceNumber   nullable: true
+        oppositeNumber        nullable: true
     }
 
     /**
