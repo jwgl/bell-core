@@ -94,7 +94,9 @@ class CourseClass {
 
     static hasMany = [
         tasks: Task, // 包含任务
-        programs: CourseClassProgram // 所属教学计划
+        programs: CourseClassProgram, // 所属教学计划
+        courseClassAssessments: CourseClassAssessment, // 教学班考核方案
+        courseAssessments: CourseAssessment, // 课程考核
     ]
 
     static mapping = {
